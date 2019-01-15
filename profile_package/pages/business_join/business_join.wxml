@@ -1,0 +1,55 @@
+<!--profile_package/pages/business_join/business_join.wxml-->
+<view class='list-box'>
+  <view class='list'>
+    <view class='left'>姓名</view>
+    <view class='input'>
+      <input type='text' placeholder='请填写您的姓名' placeholder-class='holder'></input>
+    </view>
+  </view>
+  <view class='list'>
+    <view class='left'>店铺名</view>
+    <view class='input'>
+      <input type='text' placeholder='请填写店铺名' placeholder-class='holder'></input>
+    </view>
+  </view>
+  <view class='list'>
+    <view class='left'>联系电话</view>
+    <view class='input'>
+      <input type='text' placeholder='请填写您的联系电话' placeholder-class='holder'></input>
+    </view>
+  </view>
+</view>
+
+<!-- 上传相关证件 -->
+<view class='upload-box'>
+  <view class='upload-title'>上传相关证件</view>
+  <view class='upload-img'>
+    <view class='id0'>
+      <image wx:if='{{ false }}' class='id0-img' src=''></image>
+      <image wx:if='{{ false }}' class='del-btn' src='../../images/del.png'></image>
+      <image wx:if='{{ true }}' class='id0-img' src='../../images/id0.png' id='0' bindtap='upload'></image>
+    </view>
+    <view class='id0'>
+      <image wx:if='{{ false }}' class='id0-img' src=''></image>
+      <image wx:if='{{ false }}' class='del-btn' src='../../images/del.png'></image>
+      <image class='id0-img' src='../../images/id1.png' id='0' bindtap='upload'></image>
+    </view>
+    <view class='id0'>
+      <image wx:if='{{ false }}' class='id0-img' src=''></image>
+      <image wx:if='{{ false }}' class='del-btn' src='../../images/del.png'></image>
+      <image class='id0-img' src='../../images/id2.png' id='0' bindtap='upload'></image>
+    </view>
+  </view>
+</view>
+
+<!-- 我的审核 -->
+<view class='check-box'>
+  <view class='my-check' bindtap='toMyCheck'>
+    <view>我的</view>
+    <view>审核</view>
+    <view class='red-point'></view>
+  </view>
+</view>
+
+<!-- 提交审核 -->
+<view class='push-check'>提交审核</view>

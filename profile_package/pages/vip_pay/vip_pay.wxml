@@ -1,0 +1,13 @@
+<!--profile_package/pages/vip_pay/vip_pay.wxml-->
+<view class='money-box'>
+  <view class='vip-money'>需支付金额(元)</view>
+  <view class='money'><text>￥</text>30.00</view>
+</view>
+
+<view class='business'>
+  <view class='title'>收款方</view>
+  <view class='name'>北京盈客通网络科技有限公司</view>
+</view>
+
+<!-- 支付按钮 -->
+<view class='pay'>立即支付</view>

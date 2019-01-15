@@ -1,0 +1,116 @@
+/* index_package/pages/goods_detail/goods_detail.wxss */
+/* 轮播图 */
+page{
+  background-color: #f2f3f5;
+}
+.slider,
+.slider swiper,
+.slider image{
+  width:100%;
+  height:400rpx;
+  background-color: #eeeeee;
+}
+
+/* 产品信息 */
+.info-box{
+  background-color: #fff;
+  padding:30rpx;
+}
+.title{
+  font-size: 28rpx;
+  font-weight: 600;
+  margin-bottom: 20rpx;
+}
+.collect-box{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.time-box{
+  display: flex;
+  align-items: center;
+  font-size: 22rpx;
+  color: #4d4d4d;
+}
+.time-box image{
+  width: 20rpx;
+  height: 20rpx;
+  border-radius: 50%;
+  margin-right: 20rpx;
+}
+.collect-btn{
+  padding: 6rpx 20rpx;
+  border: 2rpx solid #FF6675;
+  border-radius: 6rpx;
+  font-size: 24rpx;
+  color: #FF6675;
+}
+.collect-btn1{
+  padding: 6rpx 20rpx;
+  border: 2rpx solid #888888;
+  border-radius: 10rpx;
+  font-size: 24rpx;
+  color: #888888;
+}
+.goods-num{
+  font-size: 24rpx;
+  color: #333333;
+  padding: 20rpx 0rpx;
+  border-bottom: 2rpx solid #e9e9e9;
+}
+.call{
+  text-align: center;
+  height: 88rpx;
+  line-height: 88rpx;
+  font-size: 28rpx;
+  color: #fff;
+  background-color: #2179FC;
+  /* border: 2rpx solid #2179FC; */
+  border-radius: 20rpx;
+  margin-top: 30rpx;
+}
+
+/* 基本信息 */
+.base-box,.detail-info{
+  margin: 20rpx 0rpx;
+  padding: 30rpx;
+  background-color: #fff;
+}
+/* 信息标签 */
+.hot-title{
+  background-color: #fff;
+  font-size: 24rpx;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+}
+.stick{
+  display: inline-block;
+  width: 6rpx;
+  height: 30rpx;
+  background-color: #2179FC;
+  margin-right: 20rpx;
+}
+.base-item{
+  font-size: 24rpx;
+  color: #333333;
+  padding: 30rpx 0rpx;
+  border-bottom: 2rpx solid #e9e9e9;
+}
+.base-item:last-child{
+  border: none;
+  padding: 30rpx 0rpx 0rpx 0rpx;
+}
+
+/* 详细信息 */
+.info-txt{
+  font-size: 26rpx;
+  color: #333;
+  margin-top: 20rpx;
+  line-height: 46rpx;
+  /* text-indent: 2em; */
+}
+.info-img image{
+  width: 600rpx;
+  height: 300rpx;
+}

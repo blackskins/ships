@@ -1,0 +1,43 @@
+/* indexPages/category/category.wxss */
+page{
+  background-color: #F2F3F7;
+}
+
+.category-list{
+  margin-top: 20rpx;
+  padding: 0rpx 30rpx;
+  background-color: #fff;
+  height: 160rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.list-left{
+  display: flex;
+}
+
+.img image,.img{
+  width: 104rpx;
+  height: 104rpx;
+  border-radius: 50%;
+}
+.title-box{
+  margin-left: 14rpx;
+  height: 104rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 46rpx;
+}
+.chinese-name{
+  font-size: 32rpx;
+  font-weight: 600;
+}
+.english-name{
+  color: #808080;
+  font-size: 26rpx;
+}
+.list-right image{
+  width: 14rpx;
+  height: 27rpx;
+}

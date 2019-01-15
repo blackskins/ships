@@ -1,0 +1,39 @@
+<!--profile_package/pages/beVip/beVip.wxml-->
+<view class='card-box'>
+  <view class='card'>
+    <image src='../../images/vip_card.png'></image>
+    <view class='lock-status'>未解锁</view>
+  </view>
+</view>
+
+<!-- 会员特权 -->
+<view class='vip-power'>
+  <view class='hot-title'>
+    <text class='stick'></text>会员特权</view>
+  <view class='vip-detail'>会员的作用会员的作用会员的作用会员的作用会员的作用会员的作用会员的作用会员的作用会员的作用会员的作用会员的作用会员的作用会员的作用会员的作用会员的作用会员的作用会员的作用会员的作用会员的作用会员的作用</view>
+</view>
+
+<!-- 会员的价格、期限 -->
+<view class='vip-list'>
+  <view class='price-title'>会员价格</view>
+  <view class='vip-price'>30元</view>
+</view>
+<view class='vip-list'>
+  <view class='price-title'>会员期限</view>
+  <view class='vip-price'>永久</view>
+</view>
+
+<!-- 成为会员 -->
+<view class='be-vip' bindtap='beVip'>成为会员</view>
+
+
+<!-- 成为会员弹窗 -->
+<view class='del-mask' catchtouchmove='stopMove' wx:if='{{ showMask }}'>
+  <view class='del-pop'>
+    <view class='del-tips'>您确定要成为会员吗?</view>
+    <view class='btn-box'>
+      <view class='yes' bindtap='confirm'>确认</view>
+      <view class='no' bindtap='cancelDel'>取消</view>
+    </view>
+  </view>
+</view>

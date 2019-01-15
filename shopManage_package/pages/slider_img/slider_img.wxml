@@ -1,0 +1,28 @@
+<!--shopManage_package/pages/slider_img/slider_img.wxml-->
+<!-- 上传轮播图 -->
+<view class='slider-box'>
+  <view class='slider-title'>
+    <view class='left'>上传轮播图：</view>
+    <view class='right'>最多上传四张图片</view>
+  </view>
+  <view class='img-box'>
+    <view class='img' wx:for='111' wx:key=''>
+      <image class='del' src='../../images/del.png' bindtap='del'></image>
+    </view>
+    <view class='add-img'></view>
+  </view>
+</view>
+
+<!-- 发布 -->
+<view class='push-btn {{ false ? "active":"" }}'>保存</view>
+
+<!-- 删除图片弹窗 -->
+<view class='del-mask' catchtouchmove='stopMove' wx:if='{{ showMask }}'>
+  <view class='del-pop'>
+    <view class='del-tips'>是否删除图片</view>
+    <view class='btn-box'>
+      <view class='yes' bindtap='confirm'>确认删除</view>
+      <view class='no' bindtap='cancelDel'>返回</view>
+    </view>
+  </view>
+</view>

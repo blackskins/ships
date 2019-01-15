@@ -1,0 +1,86 @@
+/* shop_package/pages/more_list/more_list.wxss */
+page{
+  background-color: #f2f3f5;
+}
+/* 顶部搜索 */
+.top-box{
+  display: flex;
+  height: 88rpx;
+  align-items: center;
+  padding: 0rpx 4%;
+  background-color: #2179FC;
+  color: #fff;
+  position: relative;
+  width: 92%;
+}
+.top-left{
+  display: flex;
+  font-size: 26rpx;
+  align-items: center;
+  /* justify-content: center; */
+  flex: 2;
+}
+.top-left image{
+  width: 40rpx;
+  height: 40rpx;
+}
+.address{
+  margin-right: 10rpx;
+}
+.top-right{
+  flex:8;
+  display: flex;
+  font-size: 28rpx;
+  color: #aeaeae;
+  align-items: center;
+  height: 60rpx;
+  background-color: #fff;
+  border-radius: 30rpx;
+  width: auto;
+  position: relative;
+}
+.top-right image{
+  width: 30rpx;
+  height: 30rpx;
+  margin:0rpx 10rpx 0rpx 20rpx;
+}
+.top-right input{
+  width: 420rpx;
+  color: #333;
+}
+.top-right text{
+  margin-left: 10rpx;
+}
+.clear-input{
+  position: absolute;
+  width: 60rpx;
+  height: 60rpx;
+  right: 10rpx;
+  top: 0;
+}
+.clear-input image{
+  width: 40rpx;
+  height: 40rpx;
+  margin: 0;
+}
+.holder{
+  font-size: 26rpx;
+  color: #999999;
+}
+
+/* 分类列表 */
+.list{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0rpx 30rpx;
+  height: 88rpx;
+  background-color: #fff;
+  margin-top:20rpx; 
+  font-size: 28rpx;
+  color: #333333;
+}
+.img image{
+  width: 14rpx;
+  height: 28rpx;
+}

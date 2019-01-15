@@ -1,0 +1,24 @@
+/* join_package/pages/check_reason/check_reason.wxss */
+.reason-box{
+  padding: 30rpx;
+}
+.reason-title{
+  font-size: 28rpx;
+  font-weight: 600;
+  position: relative;
+  padding-left: 20rpx;
+}
+.reason-title::before{
+  position: absolute;
+  content: '';
+  left: 0;
+  top: 0;
+  width: 6rpx;
+  height: 100%;
+  background-color: #2179FC;
+}
+.reason-txt{
+  font-size: 26rpx;
+  color: #999;
+  margin-top: 20rpx;
+}

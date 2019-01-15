@@ -1,0 +1,188 @@
+{
+	"description": "项目配置文件",
+	"packOptions": {
+		"ignore": []
+	},
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"autoAudits": false
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.4.4",
+	"appid": "wxbbd703be845fe579",
+	"projectname": "homeOfShip",
+	"debugOptions": {
+		"hidedInDevtools": []
+	},
+	"isGameTourist": false,
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 23,
+			"list": [
+				{
+					"id": -1,
+					"name": "分类",
+					"pathName": "indexPages/category/category",
+					"query": ""
+				},
+				{
+					"id": 1,
+					"name": "个人中心",
+					"pathName": "mainPackage/profile/profile",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "船舶服务",
+					"pathName": "index_package/pages/ship_service/ship_service",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "个人店铺",
+					"pathName": "index_package/pages/shop_index/shop_index",
+					"query": ""
+				},
+				{
+					"id": 4,
+					"name": "服务列表",
+					"pathName": "shop_package/pages/service_list/service_list",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "更多列表",
+					"pathName": "shop_package/pages/more_list/more_list",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "分类详情",
+					"pathName": "category_package/pages/category_detail/category_detail",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "分类列表",
+					"pathName": "category_package/pages/category_list/category_list",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "发布信息",
+					"pathName": "category_package/pages/push_info/push_info",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "成为会员",
+					"pathName": "profile_package/pages/beVip/beVip",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "会员支付",
+					"pathName": "profile_package/pages/vip_pay/vip_pay",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "我的收藏",
+					"pathName": "profile_package/pages/my_collection/my_collection",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "店铺管理",
+					"pathName": "profile_package/pages/shop_manage/shop_manage",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "店铺分类",
+					"pathName": "shopManage_package/pages/shop_category/shop_category",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "我的商品",
+					"pathName": "shopManage_package/pages/my_goods/my_goods",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "我的联系",
+					"pathName": "profile_package/pages/my_chat/my_chat",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "店铺轮播图",
+					"pathName": "shopManage_package/pages/slider_img/slider_img",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "编辑或发布信息",
+					"pathName": "shopManage_package/pages/edit_goods/edit_goods",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "入驻商家",
+					"pathName": "profile_package/pages/business_join/business_join",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "我的审核",
+					"pathName": "join_package/pages/my_check/my_check",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "审核原因",
+					"pathName": "join_package/pages/check_reason/check_reason",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "我的发布",
+					"pathName": "profile_package/pages/my_push/my_push",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "店铺管理--列表详情",
+					"pathName": "shopManage_package/pages/category_detail/category_detail",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "商品详情",
+					"pathName": "index_package/pages/goods_detail/goods_detail"
+				}
+			]
+		}
+	}
+}

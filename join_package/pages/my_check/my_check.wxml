@@ -1,0 +1,33 @@
+<!--join_package/pages/my_check/my_check.wxml-->
+<view class='check-box'>
+  <view class='time-line'></view>
+  <view class='check-item' wx:for='22222' wx:key=''>
+    <view class='check-time'>
+      <view class='left-icon center'>
+        <view></view>
+      </view>
+      <view class='create-time'>01月11日</view>
+      <view class='check-status'>审核中</view>
+    </view>
+    <view class='check-txt'>
+      <view class='left-point center'><view></view></view>
+      <view class='main'>
+        <view class='main-top'>
+          <view class='img'>
+            <image src='' mode='aspectFill'></image>
+          </view>
+          <view class='info'>
+            <view class='info-title hd-text'>北京盈客通天下科技有限公司</view>
+            <view class='user-name'>姓名：陈先生</view>
+            <view class='phone'>联系方式：15623548653</view>
+          </view>
+        </view>
+        <view class='phone-call' bindtap='phoneCall' wx:if='{{ false }}'>拨打电话</view>
+        <view class='bot-box' wx:else>
+          <view class='phone-call' bindtap='phoneCall'>拨打电话</view>
+          <view class='check-reason' bindtap='checkReason'>查看原因</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

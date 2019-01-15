@@ -1,0 +1,131 @@
+/* shopManage_package/pages/slider_img/slider_img.wxss */
+page{
+  background-color: #f2f3f5;
+}
+/* 上传轮播图 */
+.slider-box{
+  padding: 30rpx;
+  background-color: #fff;
+  margin-top: 20rpx;
+}
+.slider-title{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.left{
+  font-size: 28rpx;
+}
+.right{
+  font-size: 26rpx;
+  color: #999999;
+}
+
+.img-box{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.img{
+  width: 330rpx;
+  height: 176rpx;
+  background-color: #ccc;
+  margin-top: 20rpx;
+  position: relative;
+}
+.del{
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 40rpx;
+  height: 40rpx;
+}
+.add-img{
+  width: 326rpx;
+  height: 172rpx;
+  background-color: #F7F7F7;
+  position: relative;
+  margin-top: 20rpx;
+  border: 2rpx dashed #999999; 
+}
+
+.add-img::after,.add-img::before{
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  width: 4rpx;
+  height: 56rpx;
+  background-color: #999999;
+  border-radius: 2rpx;
+}
+.add-img::after{
+  transform: translate(-50%,-50%) rotate(90deg);
+}
+
+
+
+/* 保存 */
+.push-btn{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 98rpx;
+  font-size: 30rpx;
+  background-color: #999999;
+  color: #fff;
+  text-align: center;
+  line-height: 98rpx;
+  z-index: 5;
+}
+.active{
+  background-color: #FF6675;
+}
+
+/* 删除弹窗 */
+.del-mask{
+  position: fixed;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, .5);
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+.del-pop{
+  width: 580rpx;
+  height: 250rpx;
+  background-color: #fff;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+}
+.del-tips{
+  padding: 46rpx 0rpx;
+  text-align: center;
+  font-size: 32rpx;
+  color: #333;
+}
+.btn-box{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.btn-box view{
+  width: 180rpx;
+  height: 66rpx;
+  font-size: 26rpx;
+  line-height: 66rpx;
+  text-align: center;
+}
+.yes{
+  background-color: #FF6675;
+  color: #fff;
+}
+.no{
+  border: 2rpx solid #666666;
+  color: #666666;
+}

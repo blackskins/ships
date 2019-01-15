@@ -1,0 +1,20 @@
+/* shopManage_package/pages/shop_category/shop_category.wxss */
+page{
+  background-color: #f2f3f5;
+}
+/* 分类列表 */
+.list{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0rpx 30rpx;
+  height: 88rpx;
+  background-color: #fff;
+  margin-top:20rpx; 
+  font-size: 28rpx;
+  color: #333333;
+}
+.goods-num{
+  font-size: 26rpx;
+  color: #999999;
+}

@@ -1,0 +1,244 @@
+/* profile_package/pages/my_push/my_push.wxss */
+page{
+  background-color: #f2f3f5;
+}
+/* 顶部搜索 */
+.top-box{
+  display: flex;
+  height: 88rpx;
+  align-items: center;
+  padding: 0rpx 4%;
+  background-color: #2179FC;
+  color: #fff;
+  position: relative;
+  width: 92%;
+}
+.top-left{
+  display: flex;
+  font-size: 28rpx;
+  align-items: center;
+  flex: 2;
+}
+.top-left image{
+  width: 40rpx;
+  height: 40rpx;
+}
+.top-right{
+  flex:8;
+  display: flex;
+  font-size: 28rpx;
+  color: #aeaeae;
+  align-items: center;
+  height: 60rpx;
+  background-color: #fff;
+  border-radius: 30rpx;
+  width: auto;
+  position: relative;
+}
+.top-right image{
+  width: 30rpx;
+  height: 30rpx;
+  margin:0rpx 10rpx 0rpx 20rpx;
+}
+.top-right input{
+  width: 420rpx;
+  color: #333;
+}
+.top-right text{
+  margin-left: 10rpx;
+}
+.clear-input{
+  position: absolute;
+  width: 60rpx;
+  height: 60rpx;
+  right: 10rpx;
+  top: 0;
+}
+.clear-input image{
+  width: 40rpx;
+  height: 40rpx;
+  margin: 0;
+}
+.holder{
+  font-size: 26rpx;
+  color: #999999;
+}
+/* 筛选类型 */
+.choose-box{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  border-bottom:2rpx solid #e9e9e9; 
+  background-color: #fff;
+}
+.choose-type{
+  color: #E64340;
+}
+.choose-list{
+  width: 33.3333%;
+  height: 88rpx;
+  font-size: 26rpx;
+}
+.choose-list image{
+  width: 16rpx;
+  height: 9rpx;
+  margin-left: 10rpx;
+}
+
+/* 筛选的项 */
+.item-box{
+  background-color: #fff;
+  padding: 30rpx 3% 0rpx 3%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  position: fixed;
+  left: 0;
+  top: 178rpx;
+  width: 94%;
+  max-height: 100000rpx;
+  z-index: 5;
+}
+.choose-item{
+  width: 190rpx;
+  height: 60rpx;
+  border: 2rpx #ccc solid;
+  font-size: 26rpx;
+  color: #353535;
+  margin-bottom: 30rpx;
+}
+.active{
+  border: 2rpx #E64340 solid;
+  color: #E64340;
+}
+
+/* 选项蒙版 */
+.type-mask{
+  background:rgba(0, 0, 0, .2);
+  position: fixed;
+  width: 100%;
+  left: 0;
+  top: 198rpx;
+  z-index: 3;
+}
+
+/* 推荐列表 */
+.hot-list{
+  background-color: #fff;
+}
+.hot-list:first-of-type{
+  margin-top: 20rpx;
+}
+.list-left image{
+  width: 160rpx;
+  height: 160rpx;
+  background-color: #ccc;
+  margin-right: 20rpx;
+}
+.bottom-line{
+  display: flex;
+  margin-left: 30rpx;
+  padding: 20rpx 0rpx;
+  border-bottom: 2rpx solid #e9e9e9;
+}
+.list-right{
+  width: 500rpx;
+}
+.list-title{
+  font-size: 28rpx;
+  font-weight: 600;
+  /* margin-top: 10rpx; */
+  max-width: 500rpx;
+}
+.type{
+  font-size: 24rpx;
+  padding: 10rpx 0rpx;
+  color: #808080;
+}
+.deal-type{
+  margin-top: 10rpx;
+}
+.list-time{
+  font-size: 26rpx;
+  color: #C8C8C8;
+}
+/* 删除、编辑 按钮 */
+.bot-box{
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.btn{
+  width: 210rpx;
+  display: flex;
+  justify-content: space-between;
+  font-size: 26rpx;
+  color: #FF6675;
+}
+.btn view{
+  width: 90rpx;
+  height: 46rpx;
+  border: 2rpx solid #FF6675;
+  line-height: 46rpx;
+  text-align: center;
+}
+
+/* 发布 */
+.push-btn{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 98rpx;
+  font-size: 30rpx;
+  background-color: #FF6675;
+  color: #fff;
+  text-align: center;
+  line-height: 98rpx;
+  z-index: 5;
+}
+
+/* 删除弹窗 */
+.del-mask{
+  position: fixed;
+  left: 0;
+  top: 88rpx;
+  background: rgba(0, 0, 0, .5);
+  width: 100%;
+  z-index: 12;
+}
+.del-pop{
+  width: 580rpx;
+  height: 250rpx;
+  background-color: #fff;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+}
+.del-tips{
+  padding: 46rpx 0rpx;
+  text-align: center;
+  font-size: 32rpx;
+  color: #333;
+}
+.btn-box{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.btn-box view{
+  width: 180rpx;
+  height: 66rpx;
+  font-size: 26rpx;
+  line-height: 66rpx;
+  text-align: center;
+}
+.yes{
+  background-color: #FF6675;
+  color: #fff;
+}
+.no{
+  border: 2rpx solid #666666;
+  color: #666666;
+}

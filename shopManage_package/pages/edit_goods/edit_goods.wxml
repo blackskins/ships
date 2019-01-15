@@ -1,0 +1,126 @@
+<!--shopManage_package/pages/edit_goods/edit_goods.wxml-->
+
+<view class='title'>
+  <view class='title-txt'>分类：</view>
+  <view class='input category'>
+    <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">{{shopType == true ?array[index]:'请选择分类'}}</picker>
+  </view>
+</view>
+<view class='title'>
+  <view class='title-txt'>推荐：</view>
+  <view class='input recommend'>
+    <view class='tui-tips'>请选择是否加为推荐</view>
+    <switch color='#2179FC'></switch>
+  </view>
+</view>
+<view class='title'>
+  <view class='title-txt'>标题：</view>
+  <view class='input'>
+    <input type='text' maxlength='14' placeholder-class='holder' placeholder='请填写发布信息名称'></input>
+  </view>
+</view>
+
+<!-- 上传轮播图 -->
+<view class='slider-box'>
+  <view class='slider-title'>
+    <view class='left'>上传轮播图：</view>
+    <view class='right'>最多上传四张图片</view>
+  </view>
+  <view class='img-box'>
+    <view class='img' wx:for='{{imgUrl}}' wx:key=''>
+      <image class='showImg' src='{{ item }}'  data-index="{{index}}" bindtap="previewImg"></image>
+      <image class='del' src='../../images/del.png' bindtap='del'></image>
+    </view>
+    <view class='add-img' wx:if='{{ imgUrl.length < 4 }}' bindtap='upload'></view>
+  </view>
+</view>
+
+<!-- 基本信息 -->
+<!-- <view class='base-info'>
+  <view class='hot-title'>
+    <text class='stick'></text>基本信息</view>
+  <view class='link-item'>
+    <view class='link-title'>起订：</view>
+    <view class='link-input'>
+      <input type='num' placeholder='请填写起订数量' placeholder-class='holder'></input>
+    </view>
+  </view>
+  <view class='link-item'>
+    <view class='link-title'>供应：</view>
+    <view class='link-input'>
+      <input type='num' placeholder='请填写供应数量' placeholder-class='holder'></input>
+    </view>
+  </view>
+</view> -->
+
+<!-- 联系方式 -->
+<view class='link'>
+  <view class='hot-title'>
+    <text class='stick'></text>联系方式</view>
+  <view class='link-item'>
+    <view class='link-title'>公司：</view>
+    <view class='link-input'>
+      <input type='text' placeholder='请填写公司名称' maxlength='24' placeholder-class='holder'></input>
+    </view>
+  </view>
+  <view class='link-item'>
+    <view class='link-title'>姓名：</view>
+    <view class='link-input'>
+      <input type='text' placeholder='请填写姓名' maxlength='14' placeholder-class='holder'></input>
+    </view>
+  </view>
+  <view class='link-item'>
+    <view class='link-title'>手机：</view>
+    <view class='link-input'>
+      <input type='number' placeholder='请填写手机号码' maxlength='11' placeholder-class='holder'></input>
+    </view>
+  </view>
+  <view class='link-item r-arrow'>
+    <!-- <view class='mask' bindtap='chooseArea'></view> -->
+    <view class='link-title'>地区：</view>
+    <view class='link-input'>
+      <!-- <picker mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
+    <view class="area-picker {{ region.length > 0 ? 'active' : '' }} ">{{ region.length == 0 ? '请选择地区' : region[0]}} {{region[1]}} {{region[2]}}</view>
+  </picker> -->
+  <picker class='{{ areaType == true ? "active" :"common" }}' bindchange="bindAreaChange" value="{{areaIndex}}" range="{{areaName}}">{{areaType == true ?areaName[areaIndex]:'请选择地区'}}</picker>
+    </view>
+  </view>
+  <view class='link-item r-arrow'>
+    <!-- <view class='mask' bindtap='chooseDealType'></view> -->
+    <view class='link-title'>交易类型：</view>
+    <view class='link-input'>
+      <picker class='{{ dealType == true ? "active" :"common" }}' bindchange="bindDealChange" value="{{dealIndex}}" range="{{dealArray}}">{{dealType == true ?dealArray[dealIndex]:'请选择交易类型'}}</picker>
+    </view>
+  </view>
+  <view class='link-item r-arrow'>
+    <!-- <view class='mask' bindtap='chooseType'></view> -->
+    <view class='link-title'>类型：</view>
+    <view class='link-input'>
+      <picker class='{{ type == true ? "active" :"common" }}' bindchange="bindTypeChange" value="{{typeIndex}}" range="{{typeArray}}">{{type == true ?typeArray[typeIndex]:'请选择类型'}}</picker>
+    </view>
+  </view>
+</view>
+
+<!-- 详细信息 -->
+<view class='detail-info'>
+  <view class='hot-title'>
+    <text class='stick'></text>详细信息</view>
+  <view class='desc'>
+    <textarea placeholder='请描述商品详情...' placeholder-class='holder'></textarea>
+  </view>
+</view>
+
+<!-- 发布 -->
+<view class='push-btn' wx:if='{{ editStatus == 0 }}'>发布</view>
+<view class='push-btn' wx:else>确认修改</view>
+
+<!-- 删除图片弹窗 -->
+<view class='del-mask' catchtouchmove='stopMove' wx:if='{{ showMask }}'>
+  <view class='del-pop'>
+    <view class='del-tips'>是否删除图片</view>
+    <view class='btn-box'>
+      <view class='yes' bindtap='confirm'>确认删除</view>
+      <view class='no' bindtap='cancelDel'>返回</view>
+    </view>
+  </view>
+</view>

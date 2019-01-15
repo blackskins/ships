@@ -1,0 +1,26 @@
+<!--shop_package/pages/more_list/more_list.wxml-->
+<!-- 头部搜索 -->
+<view class='top-box'>
+  <view class='top-left' bindtap='toShopIndex'>
+    店铺主页
+  </view>
+  <view class='top-right'>
+    <view class='center'>
+      <image src='/images/search_icon.png'></image>
+    </view>
+    <view><input type='text' placeholder='请输入关键词搜索'  bindinput='inputKeyWord' value='{{ keyWord }}' confirm-type='search' maxlength='20' placeholder-class='holder' bindconfirm='searchKeyWord' /></view>
+    <view class='clear-input center' bindtap='clearInput' wx:if='{{ clearIcon }}'>
+      <image src='/images/cancel_icon1.png'></image>
+    </view>
+  </view>
+</view>
+
+<!-- 分类列表 -->
+<scroll-view scroll-y style='height:{{ scrollHeight }}px'>
+  <view class='list' wx:for='{{ list }}' wx:key='' id='{{ item.id }}' data-port='list' data-title='{{ item.title }}' bindtap='toListDetail'>
+    <view class='left'>{{ item.title }}</view>
+    <view class='img'>
+      <image src='../../images/arrow.png'></image>
+    </view>
+  </view>
+</scroll-view>

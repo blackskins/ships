@@ -1,0 +1,6 @@
+<!--join_package/pages/check_reason/check_reason.wxml-->
+<!-- 查看原因 -->
+<view class='reason-box'>
+  <view class='reason-title'>审核原因</view>
+  <view class='reason-txt'>审核原因审核原因审核原因审核原因审核原因审核原因审核原因审核原因审核原因审核原因审核原因审核原因审核原因审核原因审核原因审核原因审核原因审核原因审核原因审核原因审核原因审核原因审核原因审核原因审核原因审核原因审核原因审核原因审核原因</view>
+</view>

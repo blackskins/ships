@@ -1,0 +1,140 @@
+{
+  "pages": [
+    "mainPackage/index/index",
+    "mainPackage/ad_detail/ad_detail",
+    "mainPackage/category/category",
+    "mainPackage/profile/profile",
+    "mainPackage/recommended_detail/recommended_detail"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "船之家",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#666666",
+    "selectedColor": "#2179FC",
+    "backgroundColor": "#fff",
+    "borderStyle": "black",
+    "position": "bottom",
+    "list": [
+      {
+        "pagePath": "mainPackage/index/index",
+        "text": "首页",
+        "iconPath": "/images/index.png",
+        "selectedIconPath": "images/index1.png"
+      },
+      {
+        "pagePath": "mainPackage/category/category",
+        "text": "分类",
+        "iconPath": "/images/category.png",
+        "selectedIconPath": "/images/category1.png"
+      },
+      {
+        "pagePath": "mainPackage/profile/profile",
+        "text": "个人中心",
+        "iconPath": "images/profile.png",
+        "selectedIconPath": "/images/profile1.png"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用户小程序位置接口的效果展示~"
+    }
+  },
+  "subPackages": [
+    {
+      "root": "index_package/",
+      "pages": [
+        "pages/ship_service/ship_service",
+        "pages/shop_index/shop_index",
+        "pages/goods_detail/goods_detail"
+      ]
+    },
+    {
+      "root": "shop_package/",
+      "pages": [
+        "pages/service_list/service_list",
+        "pages/more_list/more_list"
+      ]
+    },
+    {
+      "root": "category_package/",
+      "pages": [
+        "pages/category_list/category_list",
+        "pages/category_detail/category_detail",
+        "pages/push_info/push_info"
+      ]
+    },
+    {
+      "root": "profile_package/",
+      "pages": [
+        "pages/my_collection/my_collection",
+        "pages/my_chat/my_chat",
+        "pages/beVip/beVip",
+        "pages/vip_pay/vip_pay",
+        "pages/shop_manage/shop_manage",
+        "pages/business_join/business_join",
+        "pages/my_push/my_push"
+      ]
+    },
+    {
+      "root": "shopManage_package/",
+      "pages": [
+        "pages/shop_category/shop_category",
+        "pages/my_goods/my_goods",
+        "pages/slider_img/slider_img",
+        "pages/my_shop/my_shop",
+        "pages/edit_goods/edit_goods",
+        "pages/category_detail/category_detail"
+      ]
+    },
+    {
+      "root": "join_package/",
+      "pages": [
+        "pages/my_check/my_check",
+        "pages/check_reason/check_reason"
+      ]
+    }
+  ],
+  "preloadRule": {
+    "mainPackage/index/index": {
+      "network": "all",
+      "packages": [
+        "index_package/"
+      ]
+    },
+    "index_package/pages/shop_index/shop_index": {
+      "network": "all",
+      "packages": [
+        "shop_package/"
+      ]
+    },
+    "mainPackage/category/category": {
+      "network": "all",
+      "packages": [
+        "category_package/"
+      ]
+    },
+    "mainPackage/profile/profile": {
+      "network": "all",
+      "packages": [
+        "profile_package/"
+      ]
+    },
+    "profile_package/pages/shop_manage/shop_manage": {
+      "network": "all",
+      "packages": [
+        "shopManage_package/"
+      ]
+    },
+    "profile_package/pages/business_join/business_join": {
+      "network": "all",
+      "packages": [
+        "join_package/"
+      ]
+    }
+  }
+}

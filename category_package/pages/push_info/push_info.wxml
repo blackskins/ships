@@ -1,0 +1,107 @@
+<!--category_package/pages/push_info/push_info.wxml-->
+<view class='title'>
+  <view class='title-txt'>标题：</view>
+  <view class='input'>
+    <input type='text' maxlength='14' placeholder-style='font-size:24rpx;color:#999999;' placeholder='请填写发布信息的名称'></input>
+  </view>
+</view>
+
+<!-- 上传轮播图 -->
+<view class='slider-box'>
+  <view class='slider-title'>
+    <view class='left'>上传轮播图：</view>
+    <view class='right'>最多上传四张图片</view>
+  </view>
+  <view class='img-box'>
+    <view class='img' wx:for='111' wx:key=''>
+      <image class='del' src='../../images/del.png' bindtap='del'></image>
+    </view>
+    <view class='add-img'></view>
+  </view>
+</view>
+
+<!-- 基本信息 -->
+<view class='base-info'>
+  <view class='hot-title'>
+    <text class='stick'></text>基本信息</view>
+  <view class='link-item'>
+    <view class='link-title'>起订：</view>
+    <view class='link-input'>
+      <input type='num' placeholder='请填写起订数量' placeholder-class='holder'></input>
+    </view>
+  </view>
+  <view class='link-item'>
+    <view class='link-title'>供应：</view>
+    <view class='link-input'>
+      <input type='num' placeholder='请填写供应数量' placeholder-class='holder'></input>
+    </view>
+  </view>
+</view>
+
+<!-- 联系方式 -->
+<view class='link'>
+  <view class='hot-title'>
+    <text class='stick'></text>联系方式</view>
+  <view class='link-item'>
+    <view class='link-title'>公司：</view>
+    <view class='link-input'>
+      <input type='text' placeholder='请填写公司名称' placeholder-class='holder'></input>
+    </view>
+  </view>
+  <view class='link-item'>
+    <view class='link-title'>姓名：</view>
+    <view class='link-input'>
+      <input type='text' placeholder='请填写姓名' placeholder-class='holder'></input>
+    </view>
+  </view>
+  <view class='link-item'>
+    <view class='link-title'>手机：</view>
+    <view class='link-input'>
+      <input type='number' placeholder='请填写手机号码' placeholder-class='holder'></input>
+    </view>
+  </view>
+  <view class='link-item r-arrow'>
+    <view class='mask' bindtap='chooseArea'></view>
+    <view class='link-title'>地区：</view>
+    <view class='link-input'>
+      <input type='text' placeholder='请选择所在地区' placeholder-class='holder'></input>
+    </view>
+  </view>
+  <view class='link-item r-arrow'>
+    <view class='mask' bindtap='chooseDealType'></view>
+    <view class='link-title'>交易类型：</view>
+    <view class='link-input'>
+      <input type='text' placeholder='请选择交易类型' placeholder-class='holder'></input>
+    </view>
+  </view>
+  <view class='link-item r-arrow'>
+    <view class='mask' bindtap='chooseType'></view>
+    <view class='link-title'>类型：</view>
+    <view class='link-input'>
+      <input type='text' placeholder='请选择类型' placeholder-class='holder'></input>
+    </view>
+  </view>
+</view>
+
+<!-- 详细信息 -->
+<view class='detail-info'>
+  <view class='hot-title'>
+    <text class='stick'></text>详细信息</view>
+  <view class='desc'>
+    <textarea placeholder='请描述商品详情...' placeholder-class='holder'></textarea>
+  </view>
+</view>
+
+<!-- 发布 -->
+<view class='push-btn'>发布</view>
+
+<!-- 删除图片弹窗 -->
+<view class='del-mask' catchtouchmove='stopMove' wx:if='{{ showMask }}'>
+  <view class='del-pop'>
+    <view class='del-tips'>是否删除图片</view>
+    <view class='btn-box'>
+      <view class='yes' bindtap='confirm'>确认删除</view>
+      <view class='no' bindtap='cancelDel'>返回</view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,50 @@
+<!--profile_package/pages/my_collection/my_collection.wxml-->
+<view class='search-box center'>
+  <view class='bg'>
+    <view class='input-mask' catchtap='bindSearch' wx:if='{{ inputMask }}'></view>
+    <view class='key-box' style='transform:{{ translate }};left:{{ left }}'>
+      <view class='search-icon center'>
+        <image src='../../../images/search_icon.png'></image>
+      </view>
+      <view class='input'>
+        <input style='width:{{ inputWidth }}' bindinput='inputKeyWord' focus='{{ inputFocus }}' type='text' value='{{ keyWord }}' placeholder='请输入关键词搜索' placeholder-class='holder' confirm-type='search' bindconfirm='searchKeyWord'></input>
+      </view>
+    </view>
+    <view class='clear-input center' bindtap='clearInput' wx:if='{{ clearIcon }}'>
+      <image src='../../images/cancel_icon1.png'></image>
+    </view>
+  </view>
+</view>
+
+<!-- 收藏列表 -->
+<scroll-view scroll-y style='height:{{ scrollHeight }}px'>
+  <view class='hot-list' wx:for='{{ collectList }}' wx:key='' id='{{ item.id }}' catchtap='toGoodsDetail'>
+    <view class='bottom-line'>
+      <view class='list-left'>
+        <image src='{{ item.imgUrl }}' mode='aspectFill'></image>
+      </view>
+      <view class='list-right'>
+        <view class='list-title hd-text'>{{ item.title }}</view>
+        <view class='type'>
+          <view class='ship-type'>船只类型：{{ item.ship_type }}</view>
+          <view class='deal-type'>交易类型：{{ item.deal_type }}</view>
+        </view>
+        <view class='bot-box'>
+          <view class='list-time'>{{ item.create_time }}</view>
+          <view class='cancel-btn' id='{{ index }}' catchtap='cancelCollect'>取消</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</scroll-view>
+
+<!-- 删除收藏列表项弹窗 -->
+<view class='del-mask' catchtouchmove='stopMove' wx:if='{{ showMask}}'>
+  <view class='del-pop'>
+    <view class='del-tips'>是否取消收藏</view>
+    <view class='btn-box'>
+      <view class='yes' bindtap='confirm'>确认取消</view>
+      <view class='no' bindtap='cancelDel'>返回</view>
+    </view>
+  </view>
+</view>

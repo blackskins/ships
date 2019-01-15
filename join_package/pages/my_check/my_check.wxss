@@ -1,0 +1,110 @@
+/* join_package/pages/my_check/my_check.wxss */
+page{
+  background-color: #F2F3F7;
+}
+.check-box{
+  padding: 30rpx 30rpx 0rpx 30rpx;
+  position: relative;
+  height: auto;
+}
+.time-line{
+  position: absolute;
+  left: 46rpx;
+  top: 44rpx;
+  height: 100%;
+  width: 4rpx;
+  background-color: #2179FC;
+  z-index: -1;
+  transform: translateX(-50%);
+}
+.check-time{
+  display: flex;
+  align-items: center;
+  font-size: 26rpx;
+}
+.left-icon{
+  width: 27rpx;
+  height: 27rpx;
+  border: 2rpx solid #2179FC;
+  border-radius: 50%;
+  background-color: #F2F3F7;
+}
+.left-icon view{
+  width: 14rpx;
+  height: 14rpx;
+  border-radius: 50%;
+  background-color: #2179FC;
+}
+.create-time{
+  margin:0rpx 20rpx;
+}
+
+.check-txt{
+  display: flex;
+  align-items: center;
+}
+.left-point{
+  width: 32rpx;
+  height: 32rpx;
+  background-color: #F2F3F7;
+}
+.left-point view{
+  width: 14rpx;
+  height: 14rpx;
+  border-radius: 50%;
+  background-color: #2179FC;
+}
+.main{
+  margin: 20rpx 0rpx 20rpx 20rpx;
+  padding: 20rpx;
+  background-color: #fff;
+  width: 600rpx;
+}
+.main-top{
+  display: flex;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+.img image{
+  width: 160rpx;
+  height: 160rpx;
+  background-color: pink;
+}
+.info{
+  line-height: 45rpx;
+  margin-left: 20rpx;
+}
+.info-title{
+  font-size: 26rpx;
+  font-weight: 600;
+  width: 420rpx;
+  /* background-color: #ccc; */
+}
+.user-name,.phone{
+  font-size: 24rpx;
+}
+.bot-box{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 28rpx;
+}
+.bot-box view{
+  height: 66rpx;
+  width: 292rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.phone-call{
+  background-color: #E3EDFC;
+  color: #2179FC;
+  font-size: 28rpx;
+  height: 66rpx;
+  line-height: 66rpx;
+  text-align: center;
+}
+.check-reason{
+  color: #FC2121;
+  background-color: #FEEEEE;
+}

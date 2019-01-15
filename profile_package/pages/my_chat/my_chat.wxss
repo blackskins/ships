@@ -1,0 +1,117 @@
+/* profile_package/pages/my_chat/my_chat.wxss */
+page{
+  background-color: #F2F3F7;
+}
+.holder{
+  font-size: 26rpx;
+  color: #B2B2B2;
+}
+.search-box{
+  height: 88rpx;
+  padding: 0rpx 30rpx;
+  background-color: #2179FC;
+}
+.bg{
+  background-color: #fff;
+  height: 60rpx;
+  border-radius: 30rpx;
+  width: 100%;
+  display: flex;
+  position: relative;
+}
+.input-mask{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  right: 0;
+  border-radius: 30rpx;
+  z-index: 10;
+}
+.search-icon image{
+  width: 26rpx;
+  height: 26rpx;
+  margin-right: 10rpx;
+}
+.key-box{
+  display: flex;
+  margin-left: 20rpx;
+  position: absolute;
+  top: 50%;
+  transition: all .3s ease-in-out;
+}
+.input input{
+  font-size: 28rpx;
+  color: #333333;
+}
+.clear-input{
+  position: absolute;
+  width: 60rpx;
+  height: 60rpx;
+  right: 10rpx;
+  top: 0;
+}
+.clear-input image{
+  width: 40rpx;
+  height: 40rpx;
+}
+
+/* 收藏列表 */
+.hot-list{
+  background-color: #fff;
+}
+.hot-list:first-child{
+  margin-top: 20rpx; 
+}
+.hot-list:last-child{
+  margin-bottom: 20rpx; 
+}
+.list-left image{
+  width: 160rpx;
+  height: 160rpx;
+  background-color: #ccc;
+  margin-right: 20rpx;
+}
+.bottom-line{
+  display: flex;
+  margin-left: 30rpx;
+  padding: 20rpx 0rpx;
+  border-bottom: 2rpx solid #e9e9e9;
+}
+.list-right{
+  width: 500rpx;
+}
+.list-title{
+  font-size: 28rpx;
+  font-weight: 600;
+  margin-top: 20rpx;
+  max-width: 500rpx;
+}
+.type{
+  font-size: 24rpx;
+  padding: 10rpx 0rpx;
+  color: #808080;
+  display: flex;
+  margin-top: 10rpx;
+}
+.deal-type{
+  margin-left: 20rpx;
+}
+.bot-box{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.list-time{
+  font-size: 26rpx;
+  color: #C8C8C8;
+}
+/* .cancel-btn{
+  font-size: 26rpx;
+  color: #FF6675;
+  border: 2rpx solid #FF6675;
+  width: 86rpx;
+  height: 46rpx;
+  line-height: 46rpx;
+  text-align: center;
+} */

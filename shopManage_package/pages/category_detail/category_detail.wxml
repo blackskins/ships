@@ -1,0 +1,57 @@
+<!--shopManage_package/pages/category_detail/category_detail.wxml-->
+<view class='top-box'>
+  <view class='top-left' bindtap='toShopIndex'>
+    我的店铺
+  </view>
+  <view class='top-right'>
+    <view class='center'>
+      <image src='/images/search_icon.png'></image>
+    </view>
+    <view><input type='text' placeholder='请输入关键词搜索'  bindinput='inputKeyWord' value='{{ keyWord }}' confirm-type='search' maxlength='20' placeholder-class='holder' bindconfirm='searchKeyWord' /></view>
+    <view class='clear-input center' bindtap='clearInput' wx:if='{{ clearIcon }}'>
+      <image src='/images/cancel_icon1.png'></image>
+    </view>
+  </view>
+</view>
+
+<!-- 筛选栏 -->
+
+<view class='choose-box'>
+  <view class='choose-list center' wx:for='{{ chooseList }}' wx:key='' bindtap='chooseType' id='{{ index }}'>
+    <view class='{{ index == id ? "choose-type" :"" }}'>{{ item.title }}</view>
+    <view class='type-icon center'>
+      <image src='../../images/dao1.png' wx:if='{{ index == id }}'></image>
+      <image src='../../images/dao.png' wx:else></image>
+    </view>
+  </view>
+</view>
+
+
+
+<!-- 筛选类型的项 -->
+<view class='item-box' wx:for='{{ itemList }}' wx:key='' wx:if='{{ id == index }}'>
+  <view wx:if='{{ currentType == 0 }}' class="choose-item center {{ type == index  ? 'active' :'' }}" wx:for='{{ item.list }}' wx:key='' bindtap='changeStatus' id='{{ index }}'>{{ item.title }}</view>
+  <view wx:if='{{ currentType == 1 }}' class="choose-item center {{ area == index  ? 'active' :'' }}" wx:for='{{ item.list }}' wx:key='' bindtap='changeStatus' id='{{ index }}'>{{ item.title }}</view>
+  <view wx:if='{{ currentType == 2 }}' class="choose-item center {{ deal == index  ? 'active' :'' }}" wx:for='{{ item.list }}' wx:key='' bindtap='changeStatus' id='{{ index }}'>{{ item.title }}</view>
+</view>
+<!-- 背景蒙层 -->
+<view class='type-mask' wx:if='{{ id != null  }}' style='height:{{ scrollHeight }}px' bindtap='hideChoose' catchtouchmove='stopMove'></view>
+
+<!-- 服务列表 -->
+<scroll-view scroll-y style='height:{{ scrollHeight }}px'>
+<view class='hot-list' wx:for='{{ hotList }}' wx:key='' id='{{ item.id }}' bindtap='toGoodsDetail'>
+  <view class='bottom-line'>
+    <view class='list-left'>
+      <image src='{{ item.imgUrl }}' mode='aspectFill'></image>
+    </view>
+    <view class='list-right'>
+      <view class='list-title hd-text'>{{ item.title }}</view>
+      <view class='type'>
+        <view class='ship-type'>类型：{{ item.ship_type }}</view>
+        <view class='deal-type'>交易类型：{{ item.deal_type }}</view>
+      </view>
+      <view class='list-time'>{{ item.create_time }}</view>
+    </view>
+  </view>
+</view>
+</scroll-view>
