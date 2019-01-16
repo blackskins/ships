@@ -25,19 +25,19 @@
   <view class='upload-title'>上传相关证件</view>
   <view class='upload-img'>
     <view class='id0'>
-      <image wx:if='{{ false }}' class='id0-img' src=''></image>
-      <image wx:if='{{ false }}' class='del-btn' src='../../images/del.png'></image>
-      <image wx:if='{{ true }}' class='id0-img' src='../../images/id0.png' id='0' bindtap='upload'></image>
+      <image wx:if='{{ img1 != "" }}' class='id0-img' src='{{ img1 }}'></image>
+      <image wx:if='{{ img1 != "" }}' bindtap='delImg' class='del-btn' id='0' src='../../images/del.png'></image>
+      <image wx:else class='id0-img' src='../../images/id0.png' id='0' bindtap='chooseImg'></image>
     </view>
     <view class='id0'>
-      <image wx:if='{{ false }}' class='id0-img' src=''></image>
-      <image wx:if='{{ false }}' class='del-btn' src='../../images/del.png'></image>
-      <image class='id0-img' src='../../images/id1.png' id='0' bindtap='upload'></image>
+      <image wx:if='{{ img2 != "" }}' class='id0-img' src='{{ img2 }}'></image>
+      <image wx:if='{{ img2 != "" }}' bindtap='delImg' class='del-btn' id='1' src='../../images/del.png'></image>
+      <image wx:else class='id0-img' src='../../images/id1.png' id='1' bindtap='chooseImg'></image>
     </view>
     <view class='id0'>
-      <image wx:if='{{ false }}' class='id0-img' src=''></image>
-      <image wx:if='{{ false }}' class='del-btn' src='../../images/del.png'></image>
-      <image class='id0-img' src='../../images/id2.png' id='0' bindtap='upload'></image>
+      <image wx:if='{{ img3 != "" }}' class='id0-img' src='{{ img3 }}'></image>
+      <image wx:if='{{ img3 != "" }}' bindtap='delImg' class='del-btn' id='2' src='../../images/del.png'></image>
+      <image wx:else class='id0-img' src='../../images/id2.png' id='2' bindtap='chooseImg'></image>
     </view>
   </view>
 </view>
@@ -53,3 +53,14 @@
 
 <!-- 提交审核 -->
 <view class='push-check'>提交审核</view>
+
+<!-- 删除图片弹窗 -->
+<view class='del-mask' catchtouchmove='stopMove' wx:if='{{ showMask }}'>
+  <view class='del-pop'>
+    <view class='del-tips'>是否删除证件</view>
+    <view class='btn-box'>
+      <view class='yes' bindtap='confirm'>确认删除</view>
+      <view class='no' bindtap='cancelDel'>返回</view>
+    </view>
+  </view>
+</view>

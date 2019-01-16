@@ -111,3 +111,49 @@ page{
   color: #fff;
   background-color: #FF4747;
 }
+
+/* 删除弹窗 */
+.del-mask{
+  position: fixed;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, .5);
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+.del-pop{
+  width: 580rpx;
+  height: 250rpx;
+  background-color: #fff;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+}
+.del-tips{
+  padding: 46rpx 0rpx;
+  text-align: center;
+  font-size: 32rpx;
+  color: #333;
+}
+.btn-box{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.btn-box view{
+  width: 180rpx;
+  height: 66rpx;
+  font-size: 26rpx;
+  line-height: 66rpx;
+  text-align: center;
+}
+.yes{
+  background-color: #FF6675;
+  color: #fff;
+}
+.no{
+  border: 2rpx solid #666666;
+  color: #666666;
+}
