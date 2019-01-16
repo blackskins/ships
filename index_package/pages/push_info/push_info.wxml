@@ -14,7 +14,7 @@
   </view>
   <view class='img-box'>
     <view class='img' wx:for='111' wx:key=''>
-      <image class='del' src='../../images/del.png' bindtap='del'></image>
+      <image class='del' src='/images/del.png' bindtap='del'></image>
     </view>
     <view class='add-img'></view>
   </view>

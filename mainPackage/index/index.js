@@ -2,6 +2,8 @@
 // 引入SDK核心类
 var QQMapWX = require('../../utils/qqmap-wx-jssdk.min.js');
 var qqmapsdk;
+import { Index_model } from './index_model.js'
+var index_model = new Index_model()
 const app = getApp()
 Page({
 
@@ -105,6 +107,8 @@ Page({
     qqmapsdk = new QQMapWX({
       key: '7Z2BZ-EYW6W-KQYRN-OVYVU-WAY7E-O3FC4'
     });
+    this._getIndexSlide() //获取首页轮播图
+    this._getIndexInfoSlide() //获取首页公告轮播
   },
   onShow() {
     // 地理位置信息授权
@@ -220,6 +224,18 @@ Page({
     }
     this.getUserLocation();
   },
+  // 获取首页轮播图
+  _getIndexSlide(){
+    index_model.getIndexSlide((res)=>{
+      console.log(res)
+    })
+  },
+  // 获取首页公告轮播
+  _getIndexInfoSlide() {
+    index_model.getIndexInfoSlide((res) => {
+      console.log(res)
+    })
+  },
   // 禁止滑动
   stopMove() {
     return false
@@ -235,7 +251,7 @@ Page({
       })
     }else {
       wx.navigateTo({
-        url: '../../index_package/pages/ship_service/ship_service?id=' + id + '&title=' + title,
+        url: '../../index_package/pages/category_list/category_list?id=' + id + '&title=' + title,
       })
     }
 

@@ -8,12 +8,11 @@ class Base {
     this.BaseRequestUrl = Config.restUrl;
   }
 
-  // 当noRefech为true时，不做未授权重试机制
   request(params, noRefetch = false) {
     var token = wx.getStorageSync('token');
     if (!token) {
       setTimeout(() => {
-        this.request(params, noRefetch);
+        this.request(params);
       }, 100)
       return false;
     }
@@ -55,9 +54,9 @@ class Base {
   }
   // 重新请求token
   _refetch(params) {
-    var scene = wx.getStorageSync('scene')
-    token.getTokenFromService(scene, (token) => {
-      this.request(params, true);
+    var wxAppId = 'wx330a98e1122b684b'
+    token.getTokenFromService(wxAppId, (token) => {
+      this.request(params);
     });
   }
 

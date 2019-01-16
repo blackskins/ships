@@ -5,10 +5,10 @@
     <view class='avatar-box'>
       <image class='avatar' src='/images/avatar.png'></image>
       <image class='id' src='/images/id.png' wx:if='{{ false }}'></image>
-      <image class='id' src='/images/id_active.png' wx:else></image>
+      <!-- <image class='id' src='/images/id_active.png' wx:else></image> -->
     </view>
-    <view class='user-name'>昵称：扎西德勒</view>
-    <view class='vip-type' bindtap='toUrl' data-url='../../../shopManage_package/pages/slider_img/slider_img'>修改轮播图</view>
+    <view class='user-name'>店铺名：太平洋船务</view>
+    <view class='vip-type' bindtap='toUrl' data-url='../../../shopManage_package/pages/slider_img/slider_img'>修改店铺图</view>
   </view>
 </view>
 

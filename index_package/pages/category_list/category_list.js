@@ -8,8 +8,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    keyWord:'',
-    clearIcon:false,
+    categoryId: '',
+    keyWord: '',
+    clearIcon: false,
     scrollHeight: '',
     id: null,
     currentItem: '',
@@ -27,142 +28,145 @@ Page({
         title: '交易类型'
       }
     ],
-    itemList: [
-      {
+    itemList: [{
         id: 0,
         list: [{
-          title: '不限'
-        },
-        {
-          title: '散货船'
-        },
-        {
-          title: '游船'
-        },
-        {
-          title: '拖轮'
-        },
-        {
-          title: '驳船'
-        },
-        {
-          title: '客轮'
-        }
+            title: '不限'
+          },
+          {
+            title: '散货船'
+          },
+          {
+            title: '游船'
+          },
+          {
+            title: '拖轮'
+          },
+          {
+            title: '驳船'
+          },
+          {
+            title: '客轮'
+          }
         ]
       },
       {
         id: 1,
         list: [{
-          title: '不限'
-        },
-        {
-          title: '北京'
-        },
-        {
-          title: '上海'
-        },
-        {
-          title: '天津'
-        },
-        {
-          title: '广东'
-        },
-        {
-          title: '河北'
-        }
+            title: '不限'
+          },
+          {
+            title: '北京'
+          },
+          {
+            title: '上海'
+          },
+          {
+            title: '天津'
+          },
+          {
+            title: '广东'
+          },
+          {
+            title: '河北'
+          }
         ]
       },
       {
         id: 2,
         list: [{
-          title: '不限'
-        },
-        {
-          title: '出售'
-        },
-        {
-          title: '收购'
-        },
-        {
-          title: '出租'
-        },
-        {
-          title: '求购'
-        },
-        {
-          title: '求租'
-        }
+            title: '不限'
+          },
+          {
+            title: '出售'
+          },
+          {
+            title: '收购'
+          },
+          {
+            title: '出租'
+          },
+          {
+            title: '求购'
+          },
+          {
+            title: '求租'
+          }
         ]
       }
     ],
     hotList: [{
-      imgUrl: '/images/goods_img1.png',
-      title: '北京盈客通天下科技有限公司',
-      ship_type: '轮船',
-      deal_type: '出租',
-      create_time: '2019.01.11 16:43'
-    },
-    {
-      imgUrl: '/images/goods_img2.png',
-      title: '北京盈客通天下科技有限公司',
-      ship_type: '轮船',
-      deal_type: '出租',
-      create_time: '2019.01.11 16:43'
-    },
-    {
-      imgUrl: '/images/goods_img3.png',
-      title: '北京盈客通天下科技有限公司',
-      ship_type: '轮船',
-      deal_type: '出租',
-      create_time: '2019.01.11 16:43'
-    },
-    {
-      imgUrl: '/images/goods_img4.png',
-      title: '北京盈客通天下科技有限公司',
-      ship_type: '轮船',
-      deal_type: '出租',
-      create_time: '2019.01.11 16:43'
-    },
-    {
-      imgUrl: '/images/goods_img1.png',
-      title: '北京盈客通天下科技有限公司',
-      ship_type: '轮船',
-      deal_type: '出租',
-      create_time: '2019.01.11 16:43'
-    },
-    {
-      imgUrl: '/images/goods_img2.png',
-      title: '北京盈客通天下科技有限公司',
-      ship_type: '轮船',
-      deal_type: '出租',
-      create_time: '2019.01.11 16:43'
-    },
-    {
-      imgUrl: '/images/goods_img3.png',
-      title: '北京盈客通天下科技有限公司',
-      ship_type: '轮船',
-      deal_type: '出租',
-      create_time: '2019.01.11 16:43'
-    },
-    {
-      imgUrl: '/images/goods_img4.png',
-      title: '北京盈客通天下科技有限公司',
-      ship_type: '轮船',
-      deal_type: '出租',
-      create_time: '2019.01.11 16:43'
-    }
+        imgUrl: '/images/goods_img1.png',
+        title: '北京盈客通天下科技有限公司',
+        ship_type: '轮船',
+        deal_type: '出租',
+        create_time: '2019.01.11 16:43'
+      },
+      {
+        imgUrl: '/images/goods_img2.png',
+        title: '北京盈客通天下科技有限公司',
+        ship_type: '轮船',
+        deal_type: '出租',
+        create_time: '2019.01.11 16:43'
+      },
+      {
+        imgUrl: '/images/goods_img3.png',
+        title: '北京盈客通天下科技有限公司',
+        ship_type: '轮船',
+        deal_type: '出租',
+        create_time: '2019.01.11 16:43'
+      },
+      {
+        imgUrl: '/images/goods_img4.png',
+        title: '北京盈客通天下科技有限公司',
+        ship_type: '轮船',
+        deal_type: '出租',
+        create_time: '2019.01.11 16:43'
+      },
+      {
+        imgUrl: '/images/goods_img1.png',
+        title: '北京盈客通天下科技有限公司',
+        ship_type: '轮船',
+        deal_type: '出租',
+        create_time: '2019.01.11 16:43'
+      },
+      {
+        imgUrl: '/images/goods_img2.png',
+        title: '北京盈客通天下科技有限公司',
+        ship_type: '轮船',
+        deal_type: '出租',
+        create_time: '2019.01.11 16:43'
+      },
+      {
+        imgUrl: '/images/goods_img3.png',
+        title: '北京盈客通天下科技有限公司',
+        ship_type: '轮船',
+        deal_type: '出租',
+        create_time: '2019.01.11 16:43'
+      },
+      {
+        imgUrl: '/images/goods_img4.png',
+        title: '北京盈客通天下科技有限公司',
+        ship_type: '轮船',
+        deal_type: '出租',
+        create_time: '2019.01.11 16:43'
+      }
     ]
   },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     const info = wx.getSystemInfoSync()
-    var height1 = info.windowHeight - (274* info.windowWidth / 750)
+    var height1 = info.windowHeight - (274 * info.windowWidth / 750)
     var height2 = info.windowHeight - (176 * info.windowWidth / 750)
+    var height3 = info.windowHeight - (88 * info.windowWidth / 750)
+    // console.log(options.id)
     this.setData({
       scrollHeight: height1,
-      scrollHeight1: height2
+      scrollHeight1: height2,
+      scrollHeight3: height3,
+      categoryId: options.id
     })
     wx.setNavigationBarTitle({
       title: options.title,
@@ -181,7 +185,7 @@ Page({
       this.getLocation()
     }
   },
-  getUserLocation: function () {
+  getUserLocation: function() {
     let vm = this;
     wx.getSetting({
       success: (res) => {
@@ -193,7 +197,7 @@ Page({
           wx.showModal({
             title: '请求授权当前位置',
             content: '需要获取您的地理位置，请确认授权',
-            success: function (res) {
+            success: function(res) {
               if (res.cancel) {
                 wx.showToast({
                   title: '拒绝授权',
@@ -202,7 +206,7 @@ Page({
                 })
               } else if (res.confirm) {
                 wx.openSetting({
-                  success: function (dataAu) {
+                  success: function(dataAu) {
                     if (dataAu.authSetting["scope.userLocation"] == true) {
                       wx.showToast({
                         title: '授权成功',
@@ -226,8 +230,7 @@ Page({
         } else if (res.authSetting['scope.userLocation'] == undefined) {
           //调用wx.getLocation的API
           vm.getLocation();
-        }
-        else {
+        } else {
           //调用wx.getLocation的API
           vm.getLocation();
         }
@@ -235,11 +238,11 @@ Page({
     })
   },
   // 微信获得经纬度
-  getLocation: function () {
+  getLocation: function() {
     let vm = this;
     wx.getLocation({
       type: 'wgs84',
-      success: function (res) {
+      success: function(res) {
         console.log(JSON.stringify(res))
         var latitude = res.latitude
         var longitude = res.longitude
@@ -247,20 +250,20 @@ Page({
         var accuracy = res.accuracy;
         vm.getLocal(latitude, longitude)
       },
-      fail: function (res) {
+      fail: function(res) {
         console.log('fail' + JSON.stringify(res))
       }
     })
   },
   // 获取当前地理位置
-  getLocal: function (latitude, longitude) {
+  getLocal: function(latitude, longitude) {
     let vm = this;
     qqmapsdk.reverseGeocoder({
       location: {
         latitude: latitude,
         longitude: longitude
       },
-      success: function (res) {
+      success: function(res) {
         // console.log(JSON.stringify(res));
         // let province = res.result.ad_info.province
         let city = res.result.ad_info.city
@@ -271,11 +274,11 @@ Page({
         })
         wx.setStorageSync("isHand", "alt");
       },
-      fail: function (res) {
+      fail: function(res) {
         console.log(res);
         wx.setStorageSync("isHand", "no");
       },
-      complete: function (res) {
+      complete: function(res) {
         // console.log(res);
       }
     });
@@ -365,14 +368,20 @@ Page({
     }
   },
   // 跳转列表详情
-  toCategoryDetail(e){
+  toCategoryDetail(e) {
     var id = e.currentTarget.id
-    wx.navigateTo({
-      url: '../category_detail/category_detail?id='+id,
-    })
+    if (this.data.categoryId == 4) {
+      wx.navigateTo({
+        url: '/index_package/pages/shop_index/shop_index?id=' + id,
+      })
+    } else {
+      wx.navigateTo({
+        url: '../goods_detail/goods_detail?id=' + id,
+      })
+    }
   },
   // 发布消息
-  toPush(){
+  toPush() {
     wx.navigateTo({
       url: '../push_info/push_info',
     })
@@ -380,14 +389,14 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })

@@ -4,7 +4,8 @@
     "mainPackage/ad_detail/ad_detail",
     "mainPackage/category/category",
     "mainPackage/profile/profile",
-    "mainPackage/recommended_detail/recommended_detail"
+    "mainPackage/recommended_detail/recommended_detail",
+    "mainPackage/login/login"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -48,8 +49,9 @@
     {
       "root": "index_package/",
       "pages": [
-        "pages/ship_service/ship_service",
+        "pages/push_info/push_info",
         "pages/shop_index/shop_index",
+        "pages/category_list/category_list",
         "pages/goods_detail/goods_detail"
       ]
     },
@@ -58,14 +60,6 @@
       "pages": [
         "pages/service_list/service_list",
         "pages/more_list/more_list"
-      ]
-    },
-    {
-      "root": "category_package/",
-      "pages": [
-        "pages/category_list/category_list",
-        "pages/category_detail/category_detail",
-        "pages/push_info/push_info"
       ]
     },
     {
@@ -110,12 +104,6 @@
       "network": "all",
       "packages": [
         "shop_package/"
-      ]
-    },
-    "mainPackage/category/category": {
-      "network": "all",
-      "packages": [
-        "category_package/"
       ]
     },
     "mainPackage/profile/profile": {

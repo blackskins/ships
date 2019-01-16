@@ -3,11 +3,11 @@ import { Config } from 'config.js';
 class Token {
   constructor() {
     //this.verifyUrl = Config.restUrl + '/user/Token/verifyToken';//验证token
-    this.tokenUrl = Config.restUrl + '/user/Token/getToken';//获取token
+    this.tokenUrl = Config.restUrl + '/wx/minProgram/register';//获取token
   }
 
   //获取token
-  getTokenFromService(scene, callback) {
+  getTokenFromService(wxAppId, callback) {
     var that = this;
     // 登录
     wx.login({
@@ -19,7 +19,7 @@ class Token {
           url: that.tokenUrl,
           data: {
             'code': code,
-            'scene': scene,
+            'wxAppId': wxAppId,
           },
           method: 'POST',
           success: function (res) {

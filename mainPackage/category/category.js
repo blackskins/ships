@@ -10,31 +10,31 @@ Page({
         imgUrl:'/images/icon1.png',
         title:'货源',
         title1:'Supply of goods',
-        id:0
+        id:1
       },
       {
         imgUrl: '/images/icon2.png',
         title: '船源',
         title1: 'Shipping source',
-        id: 1
+        id: 2
       },
       {
         imgUrl: '/images/icon3.png',
         title: '船舶交易',
         title1: 'Shipping trading',
-        id: 2
+        id: 3
       },
       {
         imgUrl: '/images/icon4.png',
         title: '船舶服务',
         title1: 'Shipping services',
-        id: 3
+        id: 4
       },
       {
         imgUrl: '/images/icon5.png',
         title: '船员服务',
         title1: 'Crew service',
-        id: 4
+        id: 5
       },
     ]
   },
@@ -50,7 +50,7 @@ Page({
     var id = e.currentTarget.dataset.id
     var title = e.currentTarget.dataset.title
     wx.navigateTo({
-      url: '../../category_package/pages/category_list/category_list?id='+id +'&title='+title,
+      url: '/index_package/pages/category_list/category_list?id='+id +'&title='+title,
     })
   }
 })

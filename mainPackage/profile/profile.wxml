@@ -3,12 +3,13 @@
   <image class='bg' src='/images/bg.png'></image>
   <view class='info'>
     <view class='avatar-box'>
-      <image class='avatar' src='/images/avatar.png'></image>
-      <image class='id' src='/images/id.png' wx:if='{{ false }}'></image>
+      <image class='avatar' src='{{ userData.headImg }}'></image>
+      <image class='id' src='/images/id.png' wx:if='{{ !userData.isVip }}'></image>
       <image class='id' src='/images/id_active.png' wx:else></image>
     </view>
-    <view class='user-name'>昵称：扎西德勒</view>
-    <view class='vip-type'>普通会员</view>
+    <view class='user-name'>昵称：{{ userData.nick }}</view>
+    <view class='vip-type' wx:if='{{ userData.userType == 10 }}'>普通会员</view>
+    <view class='vip-type' wx:if='{{ userData.userType == 20 }}'>商家</view>
   </view>
 </view>
 
@@ -57,7 +58,11 @@
   <view class='my-right'><image src='/images/arrow_icon.png'></image></view>
 </view>
 
-
+<!-- 底部版权信息 -->
+<view class='copyright'>
+  <view class='company'>©济宁微航船务信息咨询有限公司</view>
+  <view class='power'>版权所有</view>
+</view>
 <!-- 成为vip弹窗提示 -->
 <view class='vip-mask' wx:if='{{ vipMask }}'>
   <view class='tips-box'>

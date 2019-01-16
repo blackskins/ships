@@ -1,0 +1,38 @@
+/* pages/login/login.wxss */
+page{
+  overflow: hidden;
+}
+.login-img{
+  width: 100%;
+}
+.button{
+  padding-left:0;
+  padding-right:0;
+  height:100vh;
+}
+button{
+  border-radius: 0;
+}
+.login-pro{
+  line-height: 190rpx;
+  color: #626465;
+  font-size: 34rpx;
+  
+}
+.wx-btn{
+  width: 580rpx;
+  height: 88rpx;
+  border-radius: 10rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #09bb07;
+  color: #fff;
+  font-size: 36rpx;
+  margin: 0 auto;
+}
+.wx-icon{
+  width: 49rpx;
+  height: 40rpx;
+  margin-right: 10rpx;
+}
