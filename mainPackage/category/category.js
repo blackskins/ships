@@ -1,6 +1,7 @@
 // indexPages/category/category.js
 import { Index_model } from '../index/index_model.js'
 var index_model = new Index_model()
+var $ = require('../../utils/common.js')
 Page({
 
   /**
@@ -14,6 +15,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    $.openLoad()
     this._getIndexCategory()
   },
   //获取首页分类导航
@@ -22,6 +24,8 @@ Page({
       console.log(res)
       this.setData({
         cateList: res.data
+      },()=>{
+        $.closeLoad()
       })
     })
   },

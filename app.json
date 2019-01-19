@@ -42,7 +42,7 @@
   },
   "permission": {
     "scope.userLocation": {
-      "desc": "你的位置信息将用户小程序位置接口的效果展示~"
+      "desc": "位置信息可以为你提供定位服务，发现周边客户"
     }
   },
   "subPackages": [

@@ -156,6 +156,8 @@ page{
 }
 .link-input input,.input input{
   width: 500rpx;
+  font-size: 26rpx;
+  color: #333;
   /* background-color: cyan; */
 }
 .link-input picker{

@@ -17,7 +17,7 @@
     <view class='img-box'>
       <view class='img' wx:for='{{imgs}}' wx:key=''>
         <image class='showImg' src='{{ item }}' data-index="{{index}}" id='0' bindtap="previewImg"></image>
-        <image class='del' src='/images/del.png' data-type='slider' bindtap='del'></image>
+        <image class='del' src='/images/del.png' data-type='slider' id='{{ index }}' bindtap='del'></image>
       </view>
       <view class='add-img' wx:if='{{ imgs.length < 4 }}' data-type='slider' bindtap='upload'></view>
     </view>
@@ -27,16 +27,10 @@
   <view class='base-info'>
     <view class='hot-title'>
       <text class='stick'></text>基本信息</view>
-    <view class='link-item'>
-      <view class='link-title'>起订：</view>
+    <view class='link-item' wx:for='{{ baseInfoList }}' wx:key='' id='baseInfoStr{{index}}'>
+      <view class='link-title'>{{ item.field }}：</view>
       <view class='link-input'>
-        <input type='num' name='' placeholder='请填写起订数量' placeholder-class='holder'></input>
-      </view>
-    </view>
-    <view class='link-item'>
-      <view class='link-title'>供应：</view>
-      <view class='link-input'>
-        <input type='num' placeholder='请填写供应数量' placeholder-class='holder'></input>
+        <input type='text' name='baseInfoStr{{index}}' placeholder='请填写{{ item.field }}信息' placeholder-class='holder'></input>
       </view>
     </view>
   </view>
@@ -107,7 +101,7 @@
     <view class='img-box'>
       <view class='img' wx:for='{{infoImgs}}' wx:key=''>
         <image class='showImg' src='{{ item }}' data-index="{{index}}" id='1' bindtap="previewImg"></image>
-        <image class='del' src='/images/del.png' data-type='info' bindtap='del'></image>
+        <image class='del' src='/images/del.png' data-type='info' id='{{ index }}' bindtap='del'></image>
       </view>
       <view class='add-img' wx:if='{{ infoImgs.length < 4 }}' data-type='info' bindtap='upload'></view>
     </view>
