@@ -46,9 +46,9 @@ Page({
     })
   },
   // 跳转到我的发布
-  toMyPush(){
+  toMyPush(e){
     wx.navigateTo({
-      url: '../../profile_package/pages/my_push/my_push',
+      url: '../../profile_package/pages/my_push/my_push?port=0',
     })
   },
   // 关闭弹窗

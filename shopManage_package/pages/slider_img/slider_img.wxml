@@ -1,20 +1,35 @@
 <!--shopManage_package/pages/slider_img/slider_img.wxml-->
+<!-- 上传店铺图 -->
+<view class='slider-box' wx:if='{{ imgType == 0 }}'>
+  <view class='slider-title'>
+    <view class='left'>上传店铺图：</view>
+    <view class='right'>只能上传一张图片</view>
+  </view>
+  <view class='img-box'>
+    <view class='img' wx:for='{{shopAvatar}}' wx:key=''>
+      <image class='showImg' src='{{ item }}' data-index="{{index}}" id='1' bindtap="previewImg"></image>
+      <image class='del' src='/images/del.png' data-type='info' bindtap='del'></image>
+    </view>
+    <view class='add-img' wx:if='{{ shopAvatar == "" }}' data-type='info' bindtap='upload'></view>
+  </view>
+</view>
 <!-- 上传轮播图 -->
-<view class='slider-box'>
+<view class='slider-box' wx:else>
   <view class='slider-title'>
     <view class='left'>上传轮播图：</view>
     <view class='right'>最多上传四张图片</view>
   </view>
   <view class='img-box'>
-    <view class='img' wx:for='111' wx:key=''>
-      <image class='del' src='../../images/del.png' bindtap='del'></image>
+    <view class='img' wx:for='{{imgs}}' wx:key=''>
+      <image class='showImg' src='{{ item }}' data-index="{{index}}" id='0' bindtap="previewImg"></image>
+      <image class='del' src='/images/del.png' data-type='slider' bindtap='del'></image>
     </view>
-    <view class='add-img'></view>
+    <view class='add-img' wx:if='{{ imgs.length < 4 }}' data-type='slider' bindtap='upload'></view>
   </view>
 </view>
 
 <!-- 发布 -->
-<view class='push-btn {{ false ? "active":"" }}'>保存</view>
+<view class='push-btn {{ imgs.length > 0 || shopAvatar != "" ? "active":"" }}'>保存</view>
 
 <!-- 删除图片弹窗 -->
 <view class='del-mask' catchtouchmove='stopMove' wx:if='{{ showMask }}'>

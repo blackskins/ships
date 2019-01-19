@@ -207,10 +207,28 @@ page{
   color: #C8C8C8;
 }
 
-/* 查看更多 */
+/* 查看更多 */ 
 .read-more{
   font-size: 26rpx;
   color: #2179FC;
   background-color: #fff;
   padding: 20rpx 0rpx;
+}
+
+/* 联系我们浮窗 */
+.link-us{
+  position: fixed;
+  right: 0;
+  bottom: 120rpx;
+  width: 160rpx;
+  height: 60rpx;
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #2179FC;
+  border-top-left-radius: 30rpx;
+  border-bottom-left-radius: 30rpx;
+  background-color: #f1f1f1;
+  text-align: center;
+  line-height: 60rpx;
+  box-shadow: 5rpx 5rpx 15rpx 2rpx rgba(0, 0, 0, .2)
 }

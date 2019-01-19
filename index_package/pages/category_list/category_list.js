@@ -12,6 +12,7 @@ Page({
     keyWord: '',
     clearIcon: false,
     scrollHeight: '',
+    classifyCode:'',
     id: null,
     currentItem: '',
     type: 0,
@@ -166,7 +167,8 @@ Page({
       scrollHeight: height1,
       scrollHeight1: height2,
       scrollHeight3: height3,
-      categoryId: options.id
+      categoryId: options.id,
+      classifyCode: options.classify
     })
     wx.setNavigationBarTitle({
       title: options.title,
@@ -185,6 +187,7 @@ Page({
       this.getLocation()
     }
   },
+  // 获取用户所在位置信息
   getUserLocation: function() {
     let vm = this;
     wx.getSetting({
@@ -326,6 +329,12 @@ Page({
       delta: 1
     })
   },
+  // 联系我们
+  phoneCall(){
+    wx.makePhoneCall({
+      phoneNumber: '13318569456',
+    })
+  },
   // 选择类型
   chooseType(e) {
     var id = e.currentTarget.id
@@ -376,14 +385,15 @@ Page({
       })
     } else {
       wx.navigateTo({
-        url: '../goods_detail/goods_detail?id=' + id,
+        url: '../goods_detail/goods_detail?id=' + id+'&type=0',
       })
     }
   },
   // 发布消息
   toPush() {
+    var classify = this.data.classifyCode
     wx.navigateTo({
-      url: '../push_info/push_info',
+      url: '../push_info/push_info?classify=' + classify,
     })
   },
   /**

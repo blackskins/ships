@@ -8,6 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    port:'',
     keyWord:'',
     clearIcon:false,
     scrollHeight: '',
@@ -177,7 +178,8 @@ Page({
     var height1 = info.windowHeight - (88 * info.windowWidth / 750)
     this.setData({
       scrollHeight: height,
-      scrollHeight1: height1
+      scrollHeight1: height1,
+      port:options.port
     })
   },
   onShow() {
@@ -407,8 +409,9 @@ Page({
   // 发布或编辑商品
   toEdit(e){
     var id = e.currentTarget.id
+    var port = this.data.port
     wx.navigateTo({
-      url: '../edit_goods/edit_goods?id='+id,
+      url: '../edit_goods/edit_goods?id='+id+'&port='+port,
     })
   },
   // 将商品设置为推荐商品
@@ -433,7 +436,7 @@ Page({
   toGoodsDetail(e) {
     var id = e.currentTarget.id
     wx.navigateTo({
-      url: '/index_package/pages/goods_detail/goods_detail?id=' + id,
+      url: '/index_package/pages/goods_detail/goods_detail?id=' + id+'&type=1',
     })
   },
 })

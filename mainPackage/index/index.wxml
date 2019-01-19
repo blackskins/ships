@@ -45,11 +45,15 @@
 <!-- 导航栏 -->
 <view class='navList'>
   <block wx:for="{{ cateList }}" wx:key=''>
-    <view hover-class='none' bindtap='toCategory' id='{{ item.id }}' data-title='{{ item.title }}'>
-      <image class="navList-img" src="{{item.iconUrl}}"></image>
-      <text class='navList-txt'>{{ item.title }}</text>
+    <view hover-class='none' wx:if='{{ item.defult }}' bindtap='toCategory' id='{{ item.sort }}' data-classify='{{ item.classifyCode }}' data-title='{{ item.classifyName }}'>
+      <image class="navList-img" src="{{item.logo}}"></image>
+      <text class='navList-txt'>{{ item.classifyName }}</text>
     </view>
   </block>
+  <view hover-class='none' wx:if='{{ cateList.length != 0 }}' bindtap='toCategory' id='6' data-title='更多分类'>
+    <image class="navList-img" src="/images/item6.png"></image>
+    <text class='navList-txt'>更多分类</text>
+  </view>
 </view>
 
 <!-- 广告banner -->
@@ -85,3 +89,6 @@
 </view>
 
 <view class='read-more center'>查看更多</view>
+
+<!-- ；联系我们 -->
+<view wx:if='{{ categoryId != 4 }}' bindtap='phoneCall' class='link-us'>联系我们</view>

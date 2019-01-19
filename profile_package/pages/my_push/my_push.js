@@ -8,6 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    port:'',
     keyWord:'',
     clearIcon:false,
     scrollHeight: '',
@@ -168,7 +169,8 @@ Page({
     var height1 = info.windowHeight - (88 * info.windowWidth / 750)
     this.setData({
       scrollHeight: height,
-      scrollHeight1: height1
+      scrollHeight1: height1,
+      port:options.port
     })
   },
   onShow() {
@@ -398,8 +400,9 @@ Page({
   // 发布或编辑商品
   toEdit(e) {
     var id = e.currentTarget.id
+    var port = this.data.port
     wx.navigateTo({
-      url: '../../../shopManage_package/pages/edit_goods/edit_goods?id=' + id,
+      url: '../../../shopManage_package/pages/edit_goods/edit_goods?id=' + id+'&port='+port,
     })
   },
   // 跳转商品详情

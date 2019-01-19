@@ -14,12 +14,22 @@ button{
   border-radius: 0;
 }
 .login-pro{
-  line-height: 190rpx;
+  position: fixed;
+  left: 50%;
+  bottom: 20%;
+  transform: translateX(-50%);
+  width: 500rpx;
+  height: 80rpx;
+  line-height: 80rpx;
   color: #626465;
-  font-size: 34rpx;
+  font-size: 28rpx;
   
 }
 .wx-btn{
+  position: fixed;
+  left: 50%;
+  bottom: 10%;
+  transform: translateX(-50%);
   width: 580rpx;
   height: 88rpx;
   border-radius: 10rpx;
@@ -28,7 +38,7 @@ button{
   align-items: center;
   background: #09bb07;
   color: #fff;
-  font-size: 36rpx;
+  font-size: 32rpx;
   margin: 0 auto;
 }
 .wx-icon{

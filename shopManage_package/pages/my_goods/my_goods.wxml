@@ -44,7 +44,7 @@
 <view class='type-mask' wx:if='{{ id != null  }}' style='height:{{ scrollHeight }}px' bindtap='hideChoose' catchtouchmove='stopMove'></view>
 
 <!-- 服务列表 -->
-<scroll-view scroll-y style='height:{{ scrollHeight }}px'>
+<scroll-view class='scroll-fn' scroll-y style='height:{{ scrollHeight }}px;'>
   <view class='hot-list' wx:for='{{ hotList }}' wx:key='' id='{{ item.id }}' bindtap='toGoodsDetail'>
     <view class='bottom-line'>
       <view class='list-left'>

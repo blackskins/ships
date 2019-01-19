@@ -1,16 +1,23 @@
 <!--shopManage_package/pages/edit_goods/edit_goods.wxml-->
-
-<view class='title'>
-  <view class='title-txt'>分类：</view>
-  <view class='input category'>
-    <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">{{shopType == true ?array[index]:'请选择分类'}}</picker>
+<view>
+  <view class='title' wx:if='{{ editStatus == 0 }}'>
+    <view class='title-txt'>分类：</view>
+    <view class='input category'>
+      <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">{{shopType == true ?array[index]:'请选择分类'}}</picker>
+    </view>
+  </view>
+  <view class='title' wx:else>
+    <view class='title-txt'>分类：</view>
+    <view class='input'>
+      <input type='text' maxlength='14' placeholder-class='holder' placeholder='' disabled='true' value='xxx分类'></input>
+    </view>
   </view>
 </view>
-<view class='title'>
+<view class='title' wx:if='{{ port == 1 }}'>
   <view class='title-txt'>推荐：</view>
   <view class='input recommend'>
     <view class='tui-tips'>请选择是否加为推荐</view>
-    <switch color='#2179FC'></switch>
+    <switch color='#2179FC' checked='{{ isRecommend }}' bindchange='bindChange'></switch>
   </view>
 </view>
 <view class='title'>
@@ -27,11 +34,11 @@
     <view class='right'>最多上传四张图片</view>
   </view>
   <view class='img-box'>
-    <view class='img' wx:for='{{imgUrl}}' wx:key=''>
-      <image class='showImg' src='{{ item }}'  data-index="{{index}}" bindtap="previewImg"></image>
-      <image class='del' src='../../images/del.png' bindtap='del'></image>
+    <view class='img' wx:for='{{imgs}}' wx:key=''>
+      <image class='showImg' src='{{ item }}' data-index="{{index}}" id='0' bindtap="previewImg"></image>
+      <image class='del' src='../../images/del.png' data-type='slider' bindtap='del'></image>
     </view>
-    <view class='add-img' wx:if='{{ imgUrl.length < 4 }}' bindtap='upload'></view>
+    <view class='add-img' wx:if='{{ imgs.length < 4 }}' data-type='slider' bindtap='upload'></view>
   </view>
 </view>
 
@@ -82,7 +89,7 @@
       <!-- <picker mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
     <view class="area-picker {{ region.length > 0 ? 'active' : '' }} ">{{ region.length == 0 ? '请选择地区' : region[0]}} {{region[1]}} {{region[2]}}</view>
   </picker> -->
-  <picker class='{{ areaType == true ? "active" :"common" }}' bindchange="bindAreaChange" value="{{areaIndex}}" range="{{areaName}}">{{areaType == true ?areaName[areaIndex]:'请选择地区'}}</picker>
+      <picker class='{{ areaType == true ? "active" :"common" }}' bindchange="bindAreaChange" value="{{areaIndex}}" range="{{areaName}}">{{areaType == true ?areaName[areaIndex]:'请选择地区'}}</picker>
     </view>
   </view>
   <view class='link-item r-arrow'>
@@ -110,6 +117,20 @@
   </view>
 </view>
 
+<!-- 上传详细信息相关图片-->
+<view class='slider-box'>
+  <view class='slider-title'>
+    <view class='left'>上传详情图：</view>
+    <view class='right'>最多上传四张图片</view>
+  </view>
+  <view class='img-box'>
+    <view class='img' wx:for='{{infoImgs}}' wx:key=''>
+      <image class='showImg' src='{{ item }}' data-index="{{index}}" id='1' bindtap="previewImg"></image>
+      <image class='del' src='../../images/del.png' data-type='info' bindtap='del'></image>
+    </view>
+    <view class='add-img' wx:if='{{ infoImgs.length < 4 }}' data-type='info' bindtap='upload'></view>
+  </view>
+</view>
 <!-- 发布 -->
 <view class='push-btn' wx:if='{{ editStatus == 0 }}'>发布</view>
 <view class='push-btn' wx:else>确认修改</view>

@@ -1,10 +1,9 @@
 <!--indexPages/category/category.wxml-->
-<view class='category-list' wx:for='{{ categoryList }}' wx:key='*this' data-id='{{ item.id }}' data-title='{{ item.title }}' bindtap='toCategoryList'>
+<view class='category-list' wx:for='{{ cateList }}' wx:key='*this' data-id='{{ item.sort}}' data-classify='{{ item.classifyCode }}' data-title='{{ item.classifyName }}' bindtap='toCategoryList'>
   <view class='list-left'>
-    <view class='img'><image src='{{ item.imgUrl }}'></image></view>
+    <view class='img'><image src='{{item.logo}}'></image></view>
     <view class='title-box'>
-      <view class='chinese-name'>{{ item.title }}</view>
-      <view class='english-name'>{{ item.title1 }}</view>
+      <view class='chinese-name'>{{ item.classifyName }}</view>
     </view>
   </view>
   <view class='list-right'><image src='/images/arrow_icon.png'></image></view>

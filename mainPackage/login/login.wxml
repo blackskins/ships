@@ -1,10 +1,10 @@
 <!--pages/login/login.wxml-->
 
 <button  class='button' open-type="getUserInfo" hover-class='none' bindgetuserinfo="bindgetuserinfo" >
-  <image class='login-img' src='/images/banner.png' mode='widthFix'></image>
-  <view class='login-pro'>登录后发现更多用户~</view>
+  <image class='login-img' src='/images/login_banner.jpg' mode='widthFix'></image>
+  <view class='login-pro'>请点击屏幕进行授权登录~</view>
   <view class='wx-btn'>
-    <image class='wx-icon' src='/images/banner.png'></image>
+    <image class='wx-icon' src='/images/login_2.png'></image>
     <text>微信快捷登录</text>
   </view>
 </button>

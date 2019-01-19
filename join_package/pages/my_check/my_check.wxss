@@ -29,7 +29,7 @@ page{
   border-radius: 50%;
   background-color: #F2F3F7;
 }
-.left-icon view{
+.left-icon text{
   width: 14rpx;
   height: 14rpx;
   border-radius: 50%;

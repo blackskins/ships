@@ -37,7 +37,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 23,
+			"current": 24,
 			"list": [
 				{
 					"id": -1,
@@ -82,15 +82,15 @@
 					"query": ""
 				},
 				{
-					"id": -1,
+					"id": 7,
 					"name": "分类列表",
-					"pathName": "category_package/pages/category_list/category_list",
+					"pathName": "index_package/pages/category_list/category_list",
 					"query": ""
 				},
 				{
-					"id": -1,
+					"id": 8,
 					"name": "发布信息",
-					"pathName": "category_package/pages/push_info/push_info",
+					"pathName": "index_package/pages/push_info/push_info",
 					"query": ""
 				},
 				{
@@ -142,7 +142,7 @@
 					"query": ""
 				},
 				{
-					"id": -1,
+					"id": 17,
 					"name": "编辑或发布信息",
 					"pathName": "shopManage_package/pages/edit_goods/edit_goods",
 					"query": ""
@@ -180,7 +180,14 @@
 				{
 					"id": -1,
 					"name": "商品详情",
-					"pathName": "index_package/pages/goods_detail/goods_detail"
+					"pathName": "index_package/pages/goods_detail/goods_detail",
+					"query": ""
+				},
+				{
+					"id": 24,
+					"name": "登录页",
+					"pathName": "mainPackage/login/login",
+					"query": ""
 				}
 			]
 		}

@@ -4,7 +4,7 @@
   <view class='check-item' wx:for='22222' wx:key=''>
     <view class='check-time'>
       <view class='left-icon center'>
-        <view></view>
+        <text></text>
       </view>
       <view class='create-time'>01月11日</view>
       <view class='check-status'>审核中</view>

@@ -20,6 +20,16 @@ class Index_model extends Base{
     }
     this.request(params)
   }
+  // 获取首页分类导航
+  getIndexCategory(callback){
+    let params = {
+      url:'/sys/classify',
+      sCallback:(res)=>{
+        callback && callback(res)
+      }
+    }
+    this.request(params)
+  }
 }
 export{
   Index_model

@@ -71,6 +71,7 @@ page{
 .slider-box{
   padding: 30rpx;
   background-color: #fff;
+  margin-top: 20rpx;
 }
 .slider-title{
   display: flex;

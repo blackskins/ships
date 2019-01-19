@@ -26,8 +26,9 @@ page{
   display: flex;
 }
 .avatar {
-  width: 140rpx;
-  height: 140rpx;
+  width: 132rpx;
+  height: 132rpx;
+  border: 4rpx solid #fff;
   border-radius: 50%;
 }
 .id{
@@ -96,15 +97,17 @@ page{
 }
 /* 底部版权信息 */
 .copyright{
-  font-size: 24rpx;
+  font-size: 22rpx;
   color: #333;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  /* flex-direction: column; */
+  margin-top: 10rpx;
+  padding: 20rpx 0rpx;
 }
 .power{
-  margin: 10rpx 0rpx;
+  margin: 0rpx 0rpx 0rpx 20rpx;
 }
 /* vip提示弹窗 */
 .vip-mask{

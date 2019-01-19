@@ -1,49 +1,29 @@
 // indexPages/category/category.js
+import { Index_model } from '../index/index_model.js'
+var index_model = new Index_model()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    categoryList:[
-      {
-        imgUrl:'/images/icon1.png',
-        title:'货源',
-        title1:'Supply of goods',
-        id:1
-      },
-      {
-        imgUrl: '/images/icon2.png',
-        title: '船源',
-        title1: 'Shipping source',
-        id: 2
-      },
-      {
-        imgUrl: '/images/icon3.png',
-        title: '船舶交易',
-        title1: 'Shipping trading',
-        id: 3
-      },
-      {
-        imgUrl: '/images/icon4.png',
-        title: '船舶服务',
-        title1: 'Shipping services',
-        id: 4
-      },
-      {
-        imgUrl: '/images/icon5.png',
-        title: '船员服务',
-        title1: 'Crew service',
-        id: 5
-      },
-    ]
+    cateList:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this._getIndexCategory()
+  },
+  //获取首页分类导航
+  _getIndexCategory() {
+    index_model.getIndexCategory((res) => {
+      console.log(res)
+      this.setData({
+        cateList: res.data
+      })
+    })
   },
   // 跳转分类列表
   toCategoryList(e){

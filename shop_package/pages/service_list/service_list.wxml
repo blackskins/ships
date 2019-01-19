@@ -8,7 +8,9 @@
     <view class='center'>
       <image src='/images/search_icon.png'></image>
     </view>
-    <view><input type='text' placeholder='请输入关键词搜索'  bindinput='inputKeyWord' value='{{ keyWord }}' confirm-type='search' maxlength='20' placeholder-class='holder' bindconfirm='searchKeyWord' /></view>
+    <view>
+      <input type='text' placeholder='请输入关键词搜索' bindinput='inputKeyWord' value='{{ keyWord }}' confirm-type='search' maxlength='20' placeholder-class='holder' bindconfirm='searchKeyWord' />
+    </view>
     <view class='clear-input center' bindtap='clearInput' wx:if='{{ clearIcon }}'>
       <image src='/images/cancel_icon1.png'></image>
     </view>
@@ -39,20 +41,20 @@
 <view class='type-mask' wx:if='{{ id != null  }}' style='height:{{ scrollHeight }}px' bindtap='hideChoose' catchtouchmove='stopMove'></view>
 
 <!-- 服务列表 -->
-<scroll-view scroll-y style='height:{{ scrollHeight }}px'>
-<view class='hot-list' wx:for='{{ hotList }}' wx:key='' id='{{ item.id }}' bindtap='toGoodsDetail' > 
-  <view class='bottom-line'>
-    <view class='list-left'>
-      <image src='{{ item.imgUrl }}' mode='aspectFill'></image>
-    </view>
-    <view class='list-right'>
-      <view class='list-title hd-text'>{{ item.title }}</view>
-      <view class='type'>
-        <view class='ship-type'>类型：{{ item.ship_type }}</view>
-        <view class='deal-type'>交易类型：{{ item.deal_type }}</view>
+<scroll-view class='scroll-fn' scroll-y style='height:{{ scrollHeight }}px'>
+  <view class='hot-list' wx:for='{{ hotList }}' wx:key='' id='{{ item.id }}' bindtap='toGoodsDetail'>
+    <view class='bottom-line'>
+      <view class='list-left'>
+        <image src='{{ item.imgUrl }}' mode='aspectFill'></image>
       </view>
-      <view class='list-time'>{{ item.create_time }}</view>
+      <view class='list-right'>
+        <view class='list-title hd-text'>{{ item.title }}</view>
+        <view class='type'>
+          <view class='ship-type'>类型：{{ item.ship_type }}</view>
+          <view class='deal-type'>交易类型：{{ item.deal_type }}</view>
+        </view>
+        <view class='list-time'>{{ item.create_time }}</view>
+      </view>
     </view>
   </view>
-</view>
 </scroll-view>

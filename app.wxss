@@ -15,42 +15,47 @@ button {
   background-color: transparent;
   line-height: 0;
   /* background: #fff; */
-  outline:none;
+  outline: none;
   -webkit-tap-highlight-color: transparent;
 }
-.button-hover{
+
+.button-hover {
   background-color: transparent;
 }
 
 /* 上小线 */
-.t-line{
+
+.t-line {
   position: absolute;
   top: 0rpx;
-  left:-116%;
-  width:332%;
-  height:1px;
-  background-color:#d2d2d2;
-  transform:scale(0.3);
-  -webkit-transform:scale(0.3);
-  -moz-transform:scale(0.3);
-  -ms-transform:scale(0.3);
+  left: -116%;
+  width: 332%;
+  height: 1px;
+  background-color: #d2d2d2;
+  transform: scale(0.3);
+  -webkit-transform: scale(0.3);
+  -moz-transform: scale(0.3);
+  -ms-transform: scale(0.3);
 }
 
 /* 下小线 */
-.b-line{
-  position:absolute;
-  bottom:0rpx;  
-  left:-116%;
-  width:332%;
-  height:1px;
-  background-color:#d2d2d2;
-  transform:scale(0.3);
-  -webkit-transform:scale(0.3);
-  -moz-transform:scale(0.3);
-  -ms-transform:scale(0.3);
+
+.b-line {
+  position: absolute;
+  bottom: 0rpx;
+  left: -116%;
+  width: 332%;
+  height: 1px;
+  background-color: #d2d2d2;
+  transform: scale(0.3);
+  -webkit-transform: scale(0.3);
+  -moz-transform: scale(0.3);
+  -ms-transform: scale(0.3);
 }
+
 /* 右小线 */
-.r-line{
+
+.r-line {
   position: absolute;
   top: -50%;
   right: 0;
@@ -90,14 +95,21 @@ button {
   left: 0;
   top: 0;
   background-color: #e9e9e9;
-  z-index: 2;  
+  z-index: 2;
 }
 
 /* 封装11 不出现滚动条 */
+
 ::-webkit-scrollbar {
   width: 0;
   height: 0;
   color: transparent;
+}
+
+/* 惯性滚动 ios端媲美原生app体验*/
+
+.scroll-fn {
+  -webkit-overflow-scrolling: touch;
 }
 
 /*加载中  */
@@ -134,110 +146,25 @@ button {
 }
 
 /* 弹窗 */
-.window{
+
+.window {
   position: fixed;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, .7);
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   align-items: center;
   flex-direction: column;
-  transition:all .3s;
+  transition: all 0.3s;
   z-index: 200;
-}
-.txt{
-  position: relative;
-  top: 200rpx;
-}
-.txt image{
-  width: 590rpx;
-  height: 724rpx;
-}
-.share_btn{
-  left: 0;
-  border-bottom-left-radius: 20rpx;
-  background-color: #067FD4;
-}
-.open_btn{
-  right: 0;
-  border-bottom-right-radius: 20rpx;
-  background-color: #4AACFD;
-}
-.share_btn,.open_btn{
-  position: absolute;
-  bottom: 0;
-  color: #fff;
-  width: 50%;
-  height: 108rpx;
-  text-align: center;
-  line-height: 108rpx;
-}
-.open_btn2{
-  right: 0;
-  border-bottom-right-radius: 20rpx;
-  border-bottom-left-radius: 20rpx;
-  background-color: #4AACFD;
-  position: absolute;
-  bottom: 0;
-  color: #fff;
-  width: 100%;
-  height: 108rpx;
-  text-align: center;
-  line-height: 108rpx;
-}
-.cancle_btn{
-  width: 81rpx;
-  height: 81rpx;
-  margin-top: 270rpx;
 }
 
 /* 让元素居中 */
-.center{
+
+.center {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-/* 点击触发状态 */
-.h-active{
-  background: #f4f4f4;
-}
-
-/* 提示语 */
-
-.clues {
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  position: fixed;
-  top: 276rpx;
-  left: 24rpx;
-  border-radius: 8rpx;
-  padding-left: 12rpx;
-  padding-top: 16rpx;
-  padding-bottom: 16rpx;
-  padding-right: 12rpx;
-  transition: all 0.3s;
-  opacity: 0;
-}
-
-.togole {
-  opacity: 1;
-}
-
-.clues-text {
-  color: white;
-  font-size: 26rpx;
-  max-width: 400rpx;
-}
-
-.clues-img {
-  width: 60rpx;
-  height: 60rpx;
-  border-radius: 50%;
-  margin-right: 12rpx;
-  background: #f4f4f4;
-  margin-top: 2rpx;
 }

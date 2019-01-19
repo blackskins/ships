@@ -247,7 +247,7 @@ Page({
   toGoodsDetail(e) {
     var id = e.currentTarget.id
     wx.navigateTo({
-      url: '/index_package/pages/goods_detail/goods_detail?id=' + id,
+      url: '/index_package/pages/goods_detail/goods_detail?id=' + id+'&type=1',
     })
   },
   /**

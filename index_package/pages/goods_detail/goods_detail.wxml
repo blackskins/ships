@@ -17,8 +17,10 @@
       </view>
       <view class='time'>2019-01-05 20:35</view>
     </view>
-    <view class='collect-btn' wx:if='{{ collectStatus }}' bindtap='collect'>收藏</view>
-    <view class='collect-btn1' wx:else>已收藏</view>
+    <view wx:if='{{ type == 0 }}'>
+      <view class='collect-btn' wx:if='{{ collectStatus }}' bindtap='collect'>收藏</view>
+      <view class='collect-btn1' wx:else>已收藏</view>
+    </view>
   </view>
   <view class='goods-num'>起订： 0</view>
   <view class='goods-num'>供应： 0</view>

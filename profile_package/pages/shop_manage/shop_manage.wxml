@@ -8,7 +8,7 @@
       <!-- <image class='id' src='/images/id_active.png' wx:else></image> -->
     </view>
     <view class='user-name'>店铺名：太平洋船务</view>
-    <view class='vip-type' bindtap='toUrl' data-url='../../../shopManage_package/pages/slider_img/slider_img'>修改店铺图</view>
+    <view class='vip-type' bindtap='toUrl' data-url='../../../shopManage_package/pages/slider_img/slider_img?port=0'>修改店铺图</view>
   </view>
 </view>
 
@@ -21,14 +21,14 @@
   </view>
   <view class='my-right'><image src='/images/arrow_icon.png'></image></view>
 </view>
-<view class='my-item line' bindtap='toUrl' data-url='../../../shopManage_package/pages/my_goods/my_goods'>
+<view class='my-item line' bindtap='toUrl' data-url='../../../shopManage_package/pages/my_goods/my_goods?port=1'>
   <view class='my-left center'>
     <view class='icon center'><image src='../../images/shop1.png'></image></view>
     <view class='my-title'>我的商品</view>
   </view>
   <view class='my-right'><image src='/images/arrow_icon.png'></image></view>
 </view>
-<view class='my-item line' bindtap='toUrl' data-url='../../../shopManage_package/pages/slider_img/slider_img'>
+<view class='my-item line' bindtap='toUrl' data-url='../../../shopManage_package/pages/slider_img/slider_img?port=1'>
   <view class='my-left center'>
     <view class='icon center'><image src='../../images/shop2.png'></image></view>
     <view class='my-title'>轮播图</view>

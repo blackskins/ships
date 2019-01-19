@@ -1,8 +1,8 @@
-/* category_package/pages/push_info/push_info.wxss */
+/* index_package/pages/push_info/push_info.wxss */
 page{
   background-color: #f2f3f5;
   color: #333333;
-  padding-bottom: 98rpx;
+  /* padding-bottom: 98rpx; */
 }
 /* 标题 */
 .title{
@@ -21,6 +21,7 @@ page{
 .slider-box{
   padding: 30rpx;
   background-color: #fff;
+  margin-top: 20rpx;
 }
 .slider-title{
   display: flex;
@@ -47,6 +48,10 @@ page{
   margin-top: 20rpx;
   position: relative;
 }
+.showImg{
+  width: 330rpx;
+  height: 176rpx;
+}
 .del{
   position: absolute;
   right: 0;
@@ -55,11 +60,12 @@ page{
   height: 40rpx;
 }
 .add-img{
-  width: 330rpx;
-  height: 176rpx;
+  width: 326rpx;
+  height: 172rpx;
   background-color: #F7F7F7;
   position: relative;
   margin-top: 20rpx; 
+  border: 2rpx dashed #999999;
 }
 
 .add-img::after,.add-img::before{
@@ -79,7 +85,7 @@ page{
 
 /* 基本信息 */
 .base-info,.link,.detail-info{
-  padding: 30rpx;
+  padding: 30rpx 30rpx 10rpx 30rpx;
   background-color: #fff;
   margin-top: 20rpx; 
 }
@@ -141,19 +147,27 @@ page{
 }
 .link-item:last-child{
   border: none;
-  padding: 20rpx 0rpx 0rpx 0rpx;
+  /* padding: 20rpx 0rpx 0rpx 0rpx; */
 }
 .link-title{
   font-size: 26rpx;
   width: 160rpx;
   /* background-color: #ccc; */
 }
-.link-input input{
+.link-input input,.input input{
+  width: 500rpx;
+  /* background-color: cyan; */
+}
+.link-input picker{
   width: 500rpx;
   /* background-color: #ccc; */
-  font-size: 28rpx;
+  font-size: 26rpx;
+}
+.active{
   color: #333333;
-
+}
+.common{
+  color: #999999;
 }
 .holder{
   font-size: 26rpx;
@@ -183,7 +197,15 @@ page{
   color: #fff;
   text-align: center;
   line-height: 98rpx;
-  z-index: 5;
+  z-index: 15;
+}
+.sub-btn{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  /* background-color: cyan; */
 }
 
 /* 删除弹窗 */

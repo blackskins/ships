@@ -23,14 +23,18 @@ Page({
     },
     ],
     phoneNumber: '13684519757',
-    collectStatus: true
+    collectStatus: true,
+    type:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    console.log(options.type)
+    this.setData({
+      type:options.type
+    })
   },
   // 收藏详情
   collect() {

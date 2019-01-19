@@ -27,38 +27,7 @@ Page({
         imgUrl: '/images/banner.png'
       },
     ],
-    cateList: [{
-        iconUrl: '/images/item1.png',
-        id: 1,
-        title: '货源'
-      },
-      {
-        iconUrl: '/images/item2.png',
-        id: 2,
-        title: '船源'
-      },
-      {
-        iconUrl: '/images/item3.png',
-        id: 3,
-        title: '船舶交易'
-      },
-      {
-        iconUrl: '/images/item4.png',
-        id: 4,
-        title: '船舶服务',
-        url: '../../index_package/pages/ship_service/ship_service'
-
-      }, {
-        iconUrl: '/images/item5.png',
-        id: 5,
-        title: '船员服务'
-      },
-      {
-        iconUrl: '/images/item6.png',
-        id: 6,
-        title: '更多分类'
-      }
-    ],
+    cateList: [],
     adList: [{
         imgUrl: '/images/ad1.png',
       },
@@ -109,6 +78,7 @@ Page({
     });
     this._getIndexSlide() //获取首页轮播图
     this._getIndexInfoSlide() //获取首页公告轮播
+    this._getIndexCategory() //获取首页分类导航
   },
   onShow() {
     // 地理位置信息授权
@@ -236,6 +206,15 @@ Page({
       console.log(res)
     })
   },
+  //获取首页分类导航
+  _getIndexCategory() {
+    index_model.getIndexCategory((res) => {
+      console.log(res)
+      this.setData({
+        cateList: res.data
+      })
+    })
+  },
   // 禁止滑动
   stopMove() {
     return false
@@ -244,6 +223,7 @@ Page({
   toCategory(e) {
     var id = e.currentTarget.id
     var title = e.currentTarget.dataset.title
+    var classify = e.currentTarget.dataset.classify
     // console.log(id, title)
     if (id == 6) {
       wx.switchTab({
@@ -251,7 +231,7 @@ Page({
       })
     }else {
       wx.navigateTo({
-        url: '../../index_package/pages/category_list/category_list?id=' + id + '&title=' + title,
+        url: '../../index_package/pages/category_list/category_list?id=' + id + '&title=' + title+'&classify='+classify,
       })
     }
 
@@ -260,10 +240,15 @@ Page({
   toGoodsDetail(e){
     var id = e.currentTarget.id
     wx.navigateTo({
-      url: '/index_package/pages/goods_detail/goods_detail?id='+id,
+      url: '/index_package/pages/goods_detail/goods_detail?id='+id+'&type=0',
     })
   },
-  // 获取用户地理位置授权
+  // 联系我们
+  phoneCall() {
+    wx.makePhoneCall({
+      phoneNumber: '13318569456',
+    })
+  },
   /**
    * 页面上拉触底事件的处理函数
    */

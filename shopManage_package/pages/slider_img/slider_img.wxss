@@ -33,6 +33,10 @@ page{
   margin-top: 20rpx;
   position: relative;
 }
+.showImg{
+  width: 330rpx;
+  height: 176rpx;
+}
 .del{
   position: absolute;
   right: 0;
@@ -45,8 +49,8 @@ page{
   height: 172rpx;
   background-color: #F7F7F7;
   position: relative;
-  margin-top: 20rpx;
-  border: 2rpx dashed #999999; 
+  margin-top: 20rpx; 
+  border: 2rpx dashed #999999;
 }
 
 .add-img::after,.add-img::before{

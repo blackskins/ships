@@ -24,7 +24,7 @@
         "pagePath": "mainPackage/index/index",
         "text": "首页",
         "iconPath": "/images/index.png",
-        "selectedIconPath": "images/index1.png"
+        "selectedIconPath": "/images/index1.png"
       },
       {
         "pagePath": "mainPackage/category/category",
@@ -35,7 +35,7 @@
       {
         "pagePath": "mainPackage/profile/profile",
         "text": "个人中心",
-        "iconPath": "images/profile.png",
+        "iconPath": "/images/profile.png",
         "selectedIconPath": "/images/profile1.png"
       }
     ]
