@@ -1,0 +1,19 @@
+import { Base } from '../../../utils/base.js'
+class Goods_detail_model extends Base{
+  //获取平台发布信息详情
+  getInfoDetail(_id,callback){
+    let params = {
+      url:'/sys/message-detail',
+      data:{
+        _id:_id,
+      },
+      sCallback:(res)=>{
+        callback && callback(res)
+      }
+    }
+    this.request(params)
+  }
+}
+export{
+  Goods_detail_model
+}

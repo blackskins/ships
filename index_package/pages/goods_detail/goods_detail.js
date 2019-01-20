@@ -1,4 +1,6 @@
 // index_package/pages/goods_detail/goods_detail.js
+import { Goods_detail_model } from './goods_detail_model.js'
+var goods_detail_model = new Goods_detail_model()
 var $ = require('../../../utils/common.js')
 Page({
 
@@ -24,7 +26,8 @@ Page({
     ],
     phoneNumber: '13684519757',
     collectStatus: true,
-    type:''
+    type:'',
+    id:''
   },
 
   /**
@@ -33,7 +36,16 @@ Page({
   onLoad: function (options) {
     console.log(options.type)
     this.setData({
-      type:options.type
+      type:options.type,
+      // id:options.id
+    })
+    this._getInfoDetail()//获取信息详情
+  },
+  //获取信息详情
+  _getInfoDetail(){
+    var _id = this.data.id
+    goods_detail_model.getInfoDetail(_id,(res)=>{
+      console.log(res)
     })
   },
   // 收藏详情

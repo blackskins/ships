@@ -13,7 +13,7 @@
       <image src='/images/search_icon.png'></image>
     </view>
     <view>
-      <input type='text' placeholder='请输入关键词搜索' bindinput='inputKeyWord' value='{{ keyWord }}' confirm-type='search' maxlength='20' placeholder-class='holder' bindconfirm='searchKeyWord' />
+      <input type='text' placeholder='请输入关键词搜索' focus='{{ categoryId == 0 }}' bindinput='inputKeyWord' value='{{ keyWord }}' confirm-type='search' maxlength='20' placeholder-class='holder' bindconfirm='searchKeyWord' />
     </view>
     <view class='clear-input center' bindtap='clearInput' wx:if='{{ clearIcon }}'>
       <image src='/images/cancel_icon1.png'></image>
@@ -45,7 +45,7 @@
   <view class='type-mask' wx:if='{{ id != null  }}' style='height:{{ scrollHeight1  }}px' bindtap='hideChoose' catchtouchmove='stopMove'></view>
 </view>
 <!-- 服务列表 -->
-<scroll-view scroll-y class='scroll-fn' style='height:{{ categoryId == 4 ? scrollHeight3 : scrollHeight }}px'>
+<scroll-view bindscrolltolower='reachBottom' scroll-y class='scroll-fn' style='height:{{ categoryId == 4 ? scrollHeight3 : scrollHeight }}px'>
   <view class='hot-list' wx:for='{{ hotList }}' wx:key='' bindtap='toCategoryDetail' id='{{ item.id }}'>
     <view class='bottom-line'>
       <view class='list-left'>
@@ -60,6 +60,16 @@
         <view class='list-time {{ categoryId == 4 ? "ship-store":"" }}'>{{ item.create_time }}</view>
       </view>
     </view>
+  </view>
+
+  <!--加载 -->
+  <view class='bottom_jiazai' wx:if="{{loading && page>1}}">
+    <image src='../../../../assets/images/loadmore.gif'></image>
+    <text>玩命加载中...</text>
+  </view>
+  <view class='bottom_jiazai' wx:if="{{nodata && hotList.length>0}}">
+    <view></view>
+    <text class='no'>已加载全部内容</text>
   </view>
 </scroll-view>
 

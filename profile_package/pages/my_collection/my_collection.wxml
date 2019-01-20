@@ -17,7 +17,7 @@
 </view>
 
 <!-- 收藏列表 -->
-<scroll-view scroll-y style='height:{{ scrollHeight }}px'>
+<scroll-view scroll-y style='height:{{ scrollHeight }}px' bindscrolltolower='reachBottom'>
   <view class='hot-list' wx:for='{{ collectList }}' wx:key='' id='{{ item.id }}' catchtap='toGoodsDetail'>
     <view class='bottom-line'>
       <view class='list-left'>
@@ -26,7 +26,7 @@
       <view class='list-right'>
         <view class='list-title hd-text'>{{ item.title }}</view>
         <view class='type'>
-          <view class='ship-type'>船只类型：{{ item.ship_type }}</view>
+          <view class='ship-type'>类型：{{ item.ship_type }}</view>
           <view class='deal-type'>交易类型：{{ item.deal_type }}</view>
         </view>
         <view class='bot-box'>

@@ -30,6 +30,20 @@ class Index_model extends Base{
     }
     this.request(params)
   }
+  //获取平台推荐信息列表
+  getRecommendList(page,pageSize,callback){
+    let params = {
+      url:'sys/recommendList',
+      data:{
+        page:page,
+        pageSize:pageSize
+      },
+      sCallback:(res)=>{
+        callback && callback(res)
+      }
+    }
+    this.request(params)
+  }
 }
 export{
   Index_model

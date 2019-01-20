@@ -43,7 +43,7 @@
 
 <!-- 分类 -->
 <!-- 导航栏 -->
-<view class='navList'>
+<view class='navList' style='height:{{ navHeight }}rpx'>
   <block wx:for="{{ cateList }}" wx:key=''>
     <view hover-class='none' wx:if='{{ item.defult }}' bindtap='toCategory' id='{{ item.sort }}' data-classify='{{ item.classifyCode }}' data-title='{{ item.classifyName }}'>
       <image class="navList-img" src="{{item.logo}}"></image>
@@ -88,7 +88,16 @@
   </view>
 </view>
 
-<view class='read-more center'>查看更多</view>
+<!--加载 -->
+<view class='bottom_jiazai' wx:if="{{loading && page>1}}">
+  <image src='../../../../assets/images/loadmore.gif'></image>
+  <text>玩命加载中...</text>
+</view>
+<view class='bottom_jiazai' wx:if="{{nodata && hotList.length>0}}">
+  <view></view>
+  <text class='no'>已加载全部内容</text>
+</view>
+<view class='read-more center' bindtap='loadMore' wx:else>查看更多</view>
 
 <!-- ；联系我们 -->
 <view wx:if='{{ categoryId != 4 }}' bindtap='phoneCall' class='link-us'>联系我们</view>

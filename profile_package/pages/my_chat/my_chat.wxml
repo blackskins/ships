@@ -17,7 +17,7 @@
 </view>
 
 <!-- 收藏列表 -->
-<scroll-view scroll-y style='height:{{ scrollHeight }}px'>
+<scroll-view scroll-y style='height:{{ scrollHeight }}px' bindscrolltolower='reachBottom'>
   <view class='hot-list' wx:for='{{ collectList }}' wx:key='' id='{{ item.id }}' catchtap='toGoodsDetail'>
     <view class='bottom-line'>
       <view class='list-left'>
@@ -35,5 +35,14 @@
         </view>
       </view>
     </view>
+  </view>
+  <!--加载 -->
+  <view class='bottom_jiazai' wx:if="{{loading && page>1}}">
+    <image src='../../../../assets/images/loadmore.gif'></image>
+    <text>玩命加载中...</text>
+  </view>
+  <view class='bottom_jiazai' wx:if="{{nodata && goldDetailsList.length>0}}">
+    <view></view>
+    <text class='no'>已加载全部内容</text>
   </view>
 </scroll-view>

@@ -4,6 +4,7 @@ var QQMapWX = require('../../utils/qqmap-wx-jssdk.min.js');
 var qqmapsdk;
 import { Index_model } from './index_model.js'
 var index_model = new Index_model()
+var $ = require('../../utils/common.js')
 const app = getApp()
 Page({
 
@@ -28,6 +29,7 @@ Page({
       },
     ],
     cateList: [],
+    navHeight:0,//导航栏高度
     adList: [{
         imgUrl: '/images/ad1.png',
       },
@@ -64,6 +66,12 @@ Page({
         create_time: '2019.01.11 16:43'
       }
     ],
+    page: 1,
+    pageSize:10,
+    loading_state: false,
+    loading: false,
+    nodata: false,
+    isMore: true,
     city: '',
     latitude: '',
     longitude: ''
@@ -208,11 +216,60 @@ Page({
   },
   //获取首页分类导航
   _getIndexCategory() {
+    $.openLoad()
     index_model.getIndexCategory((res) => {
       console.log(res)
       this.setData({
         cateList: res.data
+      },()=>{
+        $.closeLoad()
+        this.setData({
+          navHeight:'360'
+        })
       })
+    })
+  },
+  //获取平台首页推荐列表
+  _getRecommendList(){
+    var that = this
+    var page = this.data.page
+    var list = this.data.hotList
+    var loading = true
+    var isMore = true
+    var time = 0
+    var nodata = false
+    if (page == 1) {
+      $.openLoad();
+    }
+    index_model.getRecommendList(page,pageSize,(res)=>{
+      console.log(res)
+      if (res.data.length < 10) {
+        isMore = false
+        nodata = true,
+          loading = false
+      }
+      if (page == 1) {
+        list = res.data
+      } else {
+        list = res.data ? list.concat(res.data) : list
+        time = 1000
+      }
+      setTimeout(() => {
+        this.setData({
+          hotList: list,
+          page: parseInt(page) + 1,
+          isMore: isMore,
+          loading: loading,
+          loading_state: false,
+          nodata: nodata
+        }, () => {
+          if (page == 1) {
+            $.closeLoad()
+          }
+        })
+      },
+        time
+      )
     })
   },
   // 禁止滑动
@@ -255,7 +312,10 @@ Page({
   onReachBottom: function() {
 
   },
-
+  //底部查看更多
+  loadMore(){
+    console.log('玩命加载中')
+  },
   /**
    * 用户点击右上角分享
    */

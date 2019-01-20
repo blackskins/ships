@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    submitStatus:true,//防止重复提交表单
     scrollHeight: '',
     showMask: false,
     shopType: false,
@@ -310,24 +311,6 @@ Page({
         location: 'slider_img'
       })
       return false
-    } else if (baseInfoList.length != 0) {
-      for (let i = 0; i < baseInfoList.length; i++) {
-        if (e.detail.value['baseInfoStr' + i] == '') {
-          $.prompt('请填写' + baseInfoList[i].field + '信息')
-          var str = 'that.data.baseInfoStr[' + i + ']'
-          var str1 = 'baseInfoStr' + i
-          that.setData({
-            location: str1
-          }, () => {
-            setTimeout(() => {
-              that.setData({
-                str: true
-              })
-            }, 300)
-          })
-          return false
-        }
-      }
     } else if (data.company == "") {
       $.prompt('请填写您的公司名称')
       that.setData({
@@ -397,6 +380,28 @@ Page({
         }, 300)
       })
       return false
+    } else if (baseInfoList.length != 0) {
+      for (let i = 0; i < baseInfoList.length; i++) {
+        if (e.detail.value['baseInfoStr' + i] == '') {
+          $.prompt('请填写' + baseInfoList[i].field + '信息')
+          var str = 'that.data.baseInfoStr[' + i + ']'
+          var str1 = 'baseInfoStr' + i
+          that.setData({
+            location: str1
+          }, () => {
+            setTimeout(() => {
+              that.setData({
+                str: true
+              })
+            }, 300)
+          })
+          return false
+        }
+      }
+    } 
+    if(!this.data.submitStatus){
+      $.prompt('表单正在提交，请勿重复提交！',2500)
+      return false
     }
     $.openLoad('正在发布...')
     push_info_model.pushInfo(data, (res) => {
@@ -406,6 +411,9 @@ Page({
       }
       $.closeLoad()
       $.prompt('发布成功',2500,'success')
+      this.setData({
+        submitStatus:true
+      })
     })
   }
 })

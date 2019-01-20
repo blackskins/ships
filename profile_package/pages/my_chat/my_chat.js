@@ -1,6 +1,7 @@
 // profile_package/pages/my_chat/my_chat.js
+import { My_chat_model } from './my_chat_model.js'
+var my_chat_model = new My_chat_model()
 var $ = require('../../../utils/common.js')
-const app = getApp()
 Page({
 
   /**
@@ -71,6 +72,12 @@ Page({
       create_time: '2019.01.11 16:43'
     }
     ],
+    page:1,
+    pageSize:10,
+    loading_state: false,
+    loading: false,
+    nodata: false,
+    isMore: true,
     scrollHeight: '',
     showMask: false,
     currentId: ''
@@ -86,6 +93,54 @@ Page({
     console.log(height1)
     this.setData({
       scrollHeight: height1,
+    })
+    this._getMyChatList()
+  },
+  //获取我的联系列表
+  _getMyChatList(){
+    var page = this.data.page
+    var pageSize = this.data.pageSize
+    var list = this.data.chatList
+    var loading = true
+    var isMore = true
+    var time = 0
+    var nodata = false
+    if (page == 1) {
+      $.openLoad();
+    }
+    my_chat_model.getMyChatList(page,pageSize,(res)=>{
+      console.log(res)
+      if(res.code != 0){
+        $.prompt(res.msg,2500)
+        return false
+      }
+      if (res.data.length < 10) {
+        isMore = false
+        nodata = true,
+          loading = false
+      }
+      if (page == 1) {
+        list = res.data
+      } else {
+        list = res.data ? list.concat(res.data) : list
+        time = 1000
+      }
+      setTimeout(() => {
+        this.setData({
+          goldDetailsList: list,
+          page: parseInt(page) + 1,
+          isMore: isMore,
+          loading: loading,
+          loading_state: false,
+          nodata: nodata
+        }, () => {
+          if (page == 1) {
+            $.closeLoad()
+          }
+        })
+      },
+        time
+      )
     })
   },
   // 输入关键词搜索 
@@ -152,4 +207,8 @@ Page({
       url: '/index_package/pages/goods_detail/goods_detail?id=' + id,
     })
   },
+  // 页面触底加载更多
+  reachBottom(){
+    console.log('不要再拉了，我也是有底线的')
+  }
 })

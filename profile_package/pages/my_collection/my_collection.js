@@ -1,4 +1,6 @@
 // profile_package/pages/my_collection/my_collection.js
+import { My_collection_model } from './my_collection_model.js'
+var my_collection_model = new My_collection_model()
 var $ = require('../../../utils/common.js')
 Page({
 
@@ -70,6 +72,8 @@ Page({
         create_time: '2019.01.11 16:43'
       }
     ],
+    page:1,
+    pageSize:10,
     scrollHeight: '',
     showMask: false,
     currentId: ''
@@ -83,6 +87,19 @@ Page({
     var height1 = info.windowHeight - (88 * info.windowWidth / 750)
     this.setData({
       scrollHeight: height1,
+    })
+    this._getCollectionList()
+  },
+  //获取收藏列表
+  _getCollectionList(){
+    var page = this.data.page
+    var pageSize = this.data.pageSize
+    my_collection_model.getCollectionList(page,pageSize,(res)=>{
+      console.log(res)
+      if(res.code != 0){
+        $.prompt(res.msg,2500)
+        return false
+      }
     })
   },
   // 输入关键词搜索 
@@ -147,7 +164,18 @@ Page({
   searchKeyWord() {
     console.log('正在搜索...')
   },
-  // 取消收藏
+  //取消收藏接口
+  _cancelCollection(_id){
+    my_collection_model.cancelCollection(_id,(res)=>{
+      console.log(res)
+      if(res.code != 0){
+        $.prompt(res.msg)
+        return false
+      }
+      console.log('取消收藏成功')
+    })
+  },
+  // 取消收藏事件
   cancelCollect(e) {
     var id = e.currentTarget.id
     console.log(id)
@@ -165,6 +193,7 @@ Page({
     var list = this.data.collectList
     var id = this.data.currentId
     list.splice(id, 1)
+    // this._cancelCollection(id) //取消收藏
     this.setData({
       showMask: false,
       collectList: list
@@ -185,4 +214,8 @@ Page({
       url: '/index_package/pages/goods_detail/goods_detail?id=' + id,
     })
   },
+  // 页面触底加载更多
+  reachBottom() {
+    console.log('不要再拉了，我也是有底线的')
+  }
 })

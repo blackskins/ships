@@ -1,4 +1,7 @@
 // category_package/pages/category_list/category_list.js
+import { Category_list_model } from './category_list_model.js'
+var category_list_model = new Category_list_model()
+var $ = require('../../../utils/common.js')
 // 引入SDK核心类
 var QQMapWX = require('../../../utils/qqmap-wx-jssdk.min.js');
 var qqmapsdk;
@@ -12,12 +15,22 @@ Page({
     keyWord: '',
     clearIcon: false,
     scrollHeight: '',
+    page:1,
+    pageSize:10,
+    loading_state: false,
+    loading: false,
+    nodata: false,
+    isMore: true,
     classifyCode:'',
-    id: null,
+    title:'',
+    id: null,//筛选种类的下标
     currentItem: '',
-    type: 0,
-    area: 0,
-    deal: 0,
+    type: 0,//选中类型 当前项的下标
+    area: 0,//选中地区 当前项的下标
+    deal: 0,//选中交易类型 当前项的下标
+    typeCode:'',
+    locationCode:'',
+    tradeTypeCode:'',
     chooseList: [ //筛选种类
       {
         title: '类型'
@@ -32,66 +45,84 @@ Page({
     itemList: [{
         id: 0,
         list: [{
-            title: '不限'
+            title: '不限',
+            typeCode:'huoyuan1'
           },
           {
-            title: '散货船'
+            title: '散货船',
+            typeCode:'huoyuan2'
           },
           {
-            title: '游船'
+            title: '游船',
+            typeCode:'huoyuan3'
           },
           {
-            title: '拖轮'
+            title: '拖轮',
+            typeCode:'huoyuan4'
           },
           {
-            title: '驳船'
+            title: '驳船',
+            typeCode:'huoyuan5'
           },
           {
-            title: '客轮'
+            title: '客轮',
+            typeCode:'huoyuan6'
           }
         ]
       },
       {
         id: 1,
         list: [{
-            title: '不限'
+            title: '不限',
+            locationCode:'10001'
           },
           {
-            title: '北京'
+            title: '北京',
+            locationCode:'10002'
           },
           {
-            title: '上海'
+            title: '上海',
+            locationCode:'10003'
           },
           {
-            title: '天津'
+            title: '天津',
+            locationCode:'10004'
           },
           {
-            title: '广东'
+            title: '广东',
+            locationCode:'10005'
           },
           {
-            title: '河北'
+            title: '河北',
+            locationCode:'10006'
           }
         ]
       },
       {
         id: 2,
         list: [{
-            title: '不限'
+            title: '不限',
+            tradeTypeCode:'chuzhu1'
           },
           {
-            title: '出售'
+            title: '出售',
+            tradeTypeCode:'chuzhu2'
           },
           {
-            title: '收购'
+            title: '收购',
+            tradeTypeCode:'chuzhu3'
           },
           {
-            title: '出租'
+            title: '出租',
+            tradeTypeCode:'chuzhu4'
           },
           {
-            title: '求购'
+            title: '求购',
+            tradeTypeCode:'chuzhu5'
           },
           {
-            title: '求租'
+            title: '求租',
+            tradeTypeCode:'chuzhu6'
           }
         ]
       }
@@ -176,6 +207,7 @@ Page({
     qqmapsdk = new QQMapWX({
       key: '7Z2BZ-EYW6W-KQYRN-OVYVU-WAY7E-O3FC4'
     });
+    // this._getCategoryList()//获取平台发布信息
   },
   onShow() {
     // 地理位置信息授权
@@ -293,6 +325,57 @@ Page({
     }
     this.getUserLocation();
   },
+  //获取平台发布信息查询列表
+  _getCategoryList(){
+    var data = {
+      page:this.data.page,
+      pageSize:this.data.pageSize,
+      classifyCode:this.data.classifyCode,
+      title:this.data.title,
+      locationCode:this.data.locationCode,
+      tradeTypeCode: this.data.tradeTypeCode,
+      typeCode:this.data.typeCode,
+      userId:this.data.userId
+    }
+    var list = this.data.hotList
+    var loading = true
+    var isMore = true
+    var time = 0
+    var nodata = false
+    if (data.page == 1) {
+      $.openLoad();
+    }
+    category_list_model.getCategoryList(data, (res) => {
+      console.log(res)
+      if (res.data.length < 10) {
+        isMore = false
+        nodata = true,
+          loading = false
+      }
+      if (data.page == 1) {
+        list = res.data
+      } else {
+        list = res.data ? list.concat(res.data) : list
+        time = 1000
+      }
+      setTimeout(() => {
+        this.setData({
+          hotList: list,
+          page: parseInt(data.page) + 1,
+          isMore: isMore,
+          loading: loading,
+          loading_state: false,
+          nodata: nodata
+        }, () => {
+          if (data.page == 1) {
+            $.closeLoad()
+          }
+        })
+      },
+        time
+      )
+    })
+  },
   // 输入关键词搜索 
   inputKeyWord(e) {
     var keyWord = e.detail.value
@@ -361,18 +444,22 @@ Page({
   // 改变状态
   changeStatus(e) {
     var id = e.currentTarget.id
+    var list = this.data.itemList
     console.log(id)
     if (this.data.currentType == 0) {
       this.setData({
-        type: id
+        type: id,
+        typeCode:list[0].list[id].typeCode
       })
     } else if (this.data.currentType == 1) {
       this.setData({
-        area: id
+        area: id,
+        locationCode:list[1].list[id].locationCode
       })
     } else if (this.data.currentType == 2) {
       this.setData({
-        deal: id
+        deal: id,
+        tradeTypeCode:list[2].list[id].tradeTypeCode
       })
     }
   },
@@ -399,8 +486,9 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
-
+  reachBottom() {
+    console.log('已经到底了，不要再拉了')
+    // this._getCategoryList() //加载数据
   },
 
   /**
