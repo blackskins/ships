@@ -1,137 +1,132 @@
 <!--shopManage_package/pages/edit_goods/edit_goods.wxml-->
-<view>
-  <view class='title' wx:if='{{ editStatus == 0 }}'>
-    <view class='title-txt'>分类：</view>
-    <view class='input category'>
-      <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">{{shopType == true ?array[index]:'请选择分类'}}</picker>
+<form  bindsubmit="formSubmit" report-submit='true'>
+  <view>
+    <view class='title' wx:if='{{ editStatus == 0 }}'>
+      <view class='title-txt'>分类：</view>
+      <view class='input category'>
+        <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">{{shopType == true ?array[index]:'请选择分类'}}</picker>
+      </view>
+    </view>
+    <view class='title' wx:else>
+      <view class='title-txt'>分类：</view>
+      <view class='input'>
+        <input type='text' maxlength='14' placeholder-class='holder' placeholder='' disabled='true' value='{{ detailList.classifyName }}'></input>
+      </view>
     </view>
   </view>
-  <view class='title' wx:else>
-    <view class='title-txt'>分类：</view>
+  <view class='title' wx:if='{{ port == 1 }}'>
+    <view class='title-txt'>推荐：</view>
+    <view class='input recommend'>
+      <view class='tui-tips'>请选择是否加为推荐</view>
+      <switch color='#2179FC' checked='{{ isRecommend }}' bindchange='bindChange'></switch>
+    </view>
+  </view>
+  <view class='title'>
+    <view class='title-txt'>标题：</view>
     <view class='input'>
-      <input type='text' maxlength='14' placeholder-class='holder' placeholder='' disabled='true' value='{{ detailList.classifyName }}'></input>
+      <input type='text' maxlength='14' focus='{{ titleFocus }}' placeholder-class='holder' value='{{ detailList.title }}' placeholder='请填写发布信息名称'></input>
     </view>
   </view>
-</view>
-<view class='title' wx:if='{{ port == 1 }}'>
-  <view class='title-txt'>推荐：</view>
-  <view class='input recommend'>
-    <view class='tui-tips'>请选择是否加为推荐</view>
-    <switch color='#2179FC' checked='{{ isRecommend }}' bindchange='bindChange'></switch>
-  </view>
-</view>
-<view class='title'>
-  <view class='title-txt'>标题：</view>
-  <view class='input'>
-    <input type='text' maxlength='14' placeholder-class='holder' value='{{ detailList.title }}' placeholder='请填写发布信息名称'></input>
-  </view>
-</view>
 
-<!-- 上传轮播图 -->
-<view class='slider-box'>
-  <view class='slider-title'>
-    <view class='left'>上传轮播图：</view>
-    <view class='right'>最多上传四张图片</view>
-  </view>
-  <view class='img-box'>
-    <view class='img' wx:for='{{imgs}}' wx:key=''>
-      <image class='showImg' src='{{ item }}' data-index="{{index}}" id='0' bindtap="previewImg"></image>
-      <image class='del' src='../../images/del.png' data-type='slider' bindtap='del'></image>
+  <!-- 上传轮播图 -->
+  <view class='slider-box' id='slider'>
+    <view class='slider-title'>
+      <view class='left'>上传轮播图：</view>
+      <view class='right'>最多上传四张图片</view>
     </view>
-    <view class='add-img' wx:if='{{ imgs.length < 4 }}' data-type='slider' bindtap='upload'></view>
+    <view class='img-box'>
+      <view class='img' wx:for='{{imgs}}' wx:key=''>
+        <image class='showImg' src='{{ item }}' data-index="{{index}}" id='0' bindtap="previewImg"></image>
+        <image class='del' src='../../images/del.png' data-type='slider' bindtap='del'></image>
+      </view>
+      <view class='add-img' wx:if='{{ imgs.length < 4 }}' data-type='slider' bindtap='upload'></view>
+    </view>
   </view>
-</view>
 
-<!-- 基本信息 -->
-<view class='base-info' wx:if='{{ detailList.basicInfo.length !=0 }}'>
-  <view class='hot-title'>
-    <text class='stick'></text>基本信息</view>
-  <view class='link-item' wx:for='{{ detailList.basicInfo }}' wx:key=''>
-    <view class='link-title'>{{ item.field }}：</view>
-    <view class='link-input'>
-      <input type='num' value='{{ item.value }}' placeholder='请填写{{ item.field }}信息' placeholder-class='holder'></input>
+  <!-- 基本信息 -->
+  <view class='base-info' wx:if='{{ detailList.basicInfo.length !=0 }}'>
+    <view class='hot-title'>
+      <text class='stick'></text>基本信息</view>
+    <view class='link-item' wx:for='{{ detailList.basicInfo }}' id='baseInfo{{index}}' wx:key=''>
+      <view class='link-title'>{{ item.field }}：</view>
+      <view class='link-input'>
+        <input type='num' value='{{ item.value }}' placeholder='请填写{{ item.field }}信息' placeholder-class='holder'></input>
+      </view>
     </view>
   </view>
-  <!-- <view class='link-item'>
-    <view class='link-title'>供应：</view>
-    <view class='link-input'>
-      <input type='num' placeholder='请填写供应数量' placeholder-class='holder'></input>
-    </view>
-  </view> -->
-</view>
 
-<!-- 联系方式 -->
-<view class='link'>
-  <view class='hot-title'>
-    <text class='stick'></text>联系方式</view>
-  <view class='link-item'>
-    <view class='link-title'>公司：</view>
-    <view class='link-input'>
-      <input type='text' placeholder='请填写公司名称' value='{{ detailList.company }}' maxlength='24' placeholder-class='holder'></input>
+  <!-- 联系方式 -->
+  <view class='link'>
+    <view class='hot-title'>
+      <text class='stick'></text>联系方式</view>
+    <view class='link-item' id='company'>
+      <view class='link-title'>公司：</view>
+      <view class='link-input'>
+        <input type='text' focus='{{ companyFocus }}' placeholder='请填写公司名称' value='{{ detailList.company }}' maxlength='24' placeholder-class='holder'></input>
+      </view>
+    </view>
+    <view class='link-item' id='name'>
+      <view class='link-title'>姓名：</view>
+      <view class='link-input'>
+        <input type='text' focus='{{ nameFocus }}' placeholder='请填写姓名' value='{{ detailList.name }}' maxlength='14' placeholder-class='holder'></input>
+      </view>
+    </view>
+    <view class='link-item' id='phone'>
+      <view class='link-title'>手机：</view>
+      <view class='link-input'>
+        <input type='number' focus='{{ phoneFocus }}' placeholder='请填写手机号码' value='{{ detailList.phone }}' maxlength='11' placeholder-class='holder'></input>
+      </view>
+    </view>
+    <view class='link-item r-arrow' id='area'>
+      <!-- <view class='mask' bindtap='chooseArea'></view> -->
+      <view class='link-title'>地区：</view>
+      <view class='link-input'>
+        <picker class='{{ areaType == true ? "active" :"common" }}' bindchange="bindAreaChange" value="{{areaIndex}}" range="{{areaName}}">{{areaType == true ?areaName[areaIndex]:'请选择地区'}}</picker>
+      </view>
+    </view>
+    <view class='link-item r-arrow' id='deal_type'>
+      <!-- <view class='mask' bindtap='chooseDealType'></view> -->
+      <view class='link-title'>交易类型：</view>
+      <view class='link-input'>
+        <picker class='{{ dealType == true ? "active" :"common" }}' bindchange="bindDealChange" value="{{dealIndex}}" range="{{dealArray}}">{{dealType == true ?dealArray[dealIndex]:'请选择交易类型'}}</picker>
+      </view>
+    </view>
+    <view class='link-item r-arrow' id='type'>
+      <!-- <view class='mask' bindtap='chooseType'></view> -->
+      <view class='link-title'>类型：</view>
+      <view class='link-input'>
+        <picker class='{{ type == true ? "active" :"common" }}' bindchange="bindTypeChange" value="{{typeIndex}}" range="{{typeArray}}">{{type == true ?typeArray[typeIndex]:'请选择类型'}}</picker>
+      </view>
     </view>
   </view>
-  <view class='link-item'>
-    <view class='link-title'>姓名：</view>
-    <view class='link-input'>
-      <input type='text' placeholder='请填写姓名' value='{{ detailList.name }}' maxlength='14' placeholder-class='holder'></input>
-    </view>
-  </view>
-  <view class='link-item'>
-    <view class='link-title'>手机：</view>
-    <view class='link-input'>
-      <input type='number' placeholder='请填写手机号码' value='{{ detailList.phone }}' maxlength='11' placeholder-class='holder'></input>
-    </view>
-  </view>
-  <view class='link-item r-arrow' id='area'>
-    <!-- <view class='mask' bindtap='chooseArea'></view> -->
-    <view class='link-title'>地区：</view>
-    <view class='link-input'>
-      <picker class='{{ areaType == true ? "active" :"common" }}' bindchange="bindAreaChange" value="{{areaIndex}}" range="{{areaName}}">{{areaType == true ?areaName[areaIndex]:'请选择地区'}}</picker>
-    </view>
-  </view>
-  <view class='link-item r-arrow' id='deal_type'>
-    <!-- <view class='mask' bindtap='chooseDealType'></view> -->
-    <view class='link-title'>交易类型：</view>
-    <view class='link-input'>
-      <picker class='{{ dealType == true ? "active" :"common" }}' bindchange="bindDealChange" value="{{dealIndex}}" range="{{dealArray}}">{{dealType == true ?dealArray[dealIndex]:'请选择交易类型'}}</picker>
-    </view>
-  </view>
-  <view class='link-item r-arrow' id='type'>
-    <!-- <view class='mask' bindtap='chooseType'></view> -->
-    <view class='link-title'>类型：</view>
-    <view class='link-input'>
-      <picker class='{{ type == true ? "active" :"common" }}' bindchange="bindTypeChange" value="{{typeIndex}}" range="{{typeArray}}">{{type == true ?typeArray[typeIndex]:'请选择类型'}}</picker>
-    </view>
-  </view>
-</view>
 
-<!-- 详细信息 -->
-<view class='detail-info'>
-  <view class='hot-title'>
-    <text class='stick'></text>详细信息</view>
-  <view class='desc'>
-    <textarea placeholder='请描述商品详情...' value='{{ detailList.information }}' placeholder-class='holder'></textarea>
-  </view>
-</view>
-
-<!-- 上传详细信息相关图片-->
-<view class='slider-box'>
-  <view class='slider-title'>
-    <view class='left'>上传详情图：</view>
-    <view class='right'>最多上传四张图片</view>
-  </view>
-  <view class='img-box'>
-    <view class='img' wx:for='{{infoImgs}}' wx:key=''>
-      <image class='showImg' src='{{ item }}' data-index="{{index}}" id='1' bindtap="previewImg"></image>
-      <image class='del' src='../../images/del.png' data-type='info' bindtap='del'></image>
+  <!-- 详细信息 -->
+  <view class='detail-info' id='detailInfo'>
+    <view class='hot-title'>
+      <text class='stick'></text>详细信息</view>
+    <view class='desc'>
+      <textarea placeholder='请描述商品详情...' focus='{{ detailInfoFocus }}' value='{{ detailList.information }}' placeholder-class='holder'></textarea>
     </view>
-    <view class='add-img' wx:if='{{ infoImgs.length < 4 }}' data-type='info' bindtap='upload'></view>
   </view>
-</view>
-<!-- 发布 -->
-<view class='push-btn' wx:if='{{ editStatus == 0 }}'>发布</view>
-<view class='push-btn' wx:else>确认修改</view>
 
+  <!-- 上传详细信息相关图片-->
+  <view class='slider-box'>
+    <view class='slider-title'>
+      <view class='left'>上传详情图：</view>
+      <view class='right'>最多上传四张图片</view>
+    </view>
+    <view class='img-box'>
+      <view class='img' wx:for='{{infoImgs}}' wx:key=''>
+        <image class='showImg' src='{{ item }}' data-index="{{index}}" id='1' bindtap="previewImg"></image>
+        <image class='del' src='../../images/del.png' data-type='info' bindtap='del'></image>
+      </view>
+      <view class='add-img' wx:if='{{ infoImgs.length < 4 }}' data-type='info' bindtap='upload'></view>
+    </view>
+  </view>
+  <!-- 发布 -->
+  <view class='push-btn' wx:if='{{ editStatus == 0 }}'>发布<button class='sub-btn' formType="submit"></button></view>
+  <view class='push-btn' wx:else>确认修改<button class='sub-btn' formType="submit"></button></view>
+</form>
 <!-- 删除图片弹窗 -->
 <view class='del-mask' catchtouchmove='stopMove' wx:if='{{ showMask }}'>
   <view class='del-pop'>

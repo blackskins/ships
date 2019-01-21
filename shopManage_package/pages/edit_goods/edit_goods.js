@@ -2,12 +2,15 @@
 import { Edit_goods_model } from './edit_goods_model.js'
 var edit_goods_model = new Edit_goods_model()
 var $ = require('../../../utils/common.js')
+import { Common } from '../../../utils/common_model.js'
+var common = new Common()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    classifyCode:'',//分类编码
     showMask: false,
     shopType: false,
     areaType: false,
@@ -39,7 +42,14 @@ Page({
     isRecommend:false,
     editStatus: '',
     _id:'',//当前专属信息id
-    detailList:''//获取基本信息列表
+    userId:'',//用户的userId
+    detailList:'',//获取基本信息列表
+    titleFocus: false, //标题输入框聚焦情况
+    companyFocus: false, //公司输入框聚焦情况
+    nameFocus: false, //姓名输入框聚焦情况
+    phoneFocus: false, //电话输入框聚焦情况
+    infomationFocus: false, //详细信息文本域聚焦情况
+    location: '',//scroll-view的锚点
   },
 
   /**
@@ -47,7 +57,6 @@ Page({
    */
   onLoad: function(options) {
     this._getDealType() //获取交易类型信息
-    this._getType() //获取类型信息
     if (options.id) {
       this.setData({
         _id:options._id,
@@ -96,6 +105,14 @@ Page({
       typeIndex: e.detail.value
     })
   },
+  //获取用户userId
+  _getUserInfo(){
+    common.getUserInfo((res)=>{
+      this.setData({
+        userId:res.data.userId
+      })
+    })
+  },
   //获取基本信息
   _getInfoDetail(){
     var _id = this.data._id
@@ -136,7 +153,10 @@ Page({
       }
       this.setData({
         detailList:res.data,
-        imgs:res.data.imgList
+        imgs:res.data.imgList,
+        classifyCode: res.data.classifyCode
+      },()=>{
+        this._getType() //获取类型信息
       })
     })
   },
@@ -172,6 +192,7 @@ Page({
   //获取类型信息
   _getType() {
     var classifyCode = this.data.classifyCode
+    console.log('nishi'+classifyCode)
     edit_goods_model.getType(classifyCode, (res) => {
       console.log(res)
       var typeName = new Array()
@@ -319,6 +340,165 @@ Page({
   cancelDel() {
     this.setData({
       showMask: false
+    })
+  },
+  // 提交表单
+  formSubmit(e) {
+    var that = this
+    console.log('sfsasfsdfsafdsdfsdfsadfsa')
+    var baseInfoList = that.data.baseInfoList
+    console.log(e)
+    var data = {
+      classifyCode: this.data.classifyCode,
+      classifyName: this.data.classifyName,
+      title: e.detail.value.title,
+      company: e.detail.value.company,
+      name: e.detail.value.name,
+      phone: e.detail.value.phone,
+      information: e.detail.value.information,
+      remark: e.detail.value.projectFunction,
+      locationCode: that.data.locationCode,
+      locationName: that.data.locationName,
+      tradeTypeCode: that.data.tradeTypeCode,
+      tradeTypeName: that.data.tradeTypeName,
+      typeName: that.data.typeName,
+      typeCode: that.data.typeCode,
+      imgList: that.data.imgs,
+      imgList1: that.data.infoImgs,
+      basicInfo: []
+    }
+    var reg = /^1(3|4|5|7|8)\d{9}$/;
+    for (let i = 0; i < baseInfoList.length; i++) {
+      var arr = {
+        field: baseInfoList[i].field,
+        value: e.detail.value['baseInfoStr' + i],
+        sort: baseInfoList[i].sort
+      }
+      data.basicInfo.push(arr)
+    }
+    console.log(data.basicInfo)
+    if (data.title == "") {
+      $.prompt('标题不能为空')
+      that.setData({
+        location: 'title'
+      }, () => {
+        setTimeout(() => {
+          that.setData({
+            titleFocus: true,
+          })
+        }, 300)
+      })
+      return false
+    } else if (data.imgList == "") {
+      $.prompt('请上传商品轮播图')
+      that.setData({
+        // companyFocus: true,
+        location: 'slider_img'
+      })
+      return false
+    } else if (data.company == "") {
+      $.prompt('请填写您的公司名称')
+      that.setData({
+        location: 'company'
+      }, () => {
+        setTimeout(() => {
+          that.setData({
+            companyFocus: true
+          })
+        }, 300)
+      })
+      return false
+    } else if (data.name == "") {
+      $.prompt('请填写您的姓名')
+      that.setData({
+        location: 'name'
+      }, () => {
+        setTimeout(() => {
+          that.setData({
+            nameFocus: true
+          })
+        }, 300)
+      })
+      return false
+    } else if (!reg.test(data.phone)) {
+      $.prompt('请填写正确的手机号码')
+      that.setData({
+        location: 'phone'
+      }, () => {
+        setTimeout(() => {
+          that.setData({
+            phoneFocus: true
+          })
+        }, 300)
+      })
+      return false
+    } else if (data.locationName == "") {
+      $.prompt('请选择地区信息')
+      that.setData({
+        // companyFocus: true,
+        location: 'area'
+      })
+      return false
+    } else if (data.tradeTypeName == "") {
+      $.prompt('请选择交易类型')
+      that.setData({
+        // companyFocus: true,
+        location: 'deal_type'
+      })
+      return false
+    } else if (data.typeName == "") {
+      $.prompt('请选择分类类型')
+      that.setData({
+        // companyFocus: true
+        location: 'type'
+      })
+      return false
+    } else if (data.information == "") {
+      $.prompt('请填写商品详情描述信息')
+      that.setData({
+        location: 'detail_info'
+      }, () => {
+        setTimeout(() => {
+          that.setData({
+            infomationFocus: true
+          })
+        }, 300)
+      })
+      return false
+    } else if (baseInfoList.length != 0) {
+      for (let i = 0; i < baseInfoList.length; i++) {
+        if (e.detail.value['baseInfoStr' + i] == '') {
+          $.prompt('请填写' + baseInfoList[i].field + '信息')
+          var str = 'that.data.baseInfoStr[' + i + ']'
+          var str1 = 'baseInfoStr' + i
+          that.setData({
+            location: str1
+          }, () => {
+            setTimeout(() => {
+              that.setData({
+                str: true
+              })
+            }, 300)
+          })
+          return false
+        }
+      }
+    }
+    if (!this.data.submitStatus) {
+      $.prompt('表单正在提交，请勿重复提交！', 2500)
+      return false
+    }
+    $.openLoad('正在发布...')
+    push_info_model.pushInfo(data, (res) => {
+      console.log(res)
+      if (res.code != 0) {
+        $.prompt(res.msg, 2500)
+      }
+      $.closeLoad()
+      $.prompt('发布成功', 2500, 'success')
+      this.setData({
+        submitStatus: true
+      })
     })
   }
 })

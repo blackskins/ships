@@ -253,6 +253,14 @@ page{
   line-height: 98rpx;
   z-index: 5;
 }
+.sub-btn{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  /* background-color: cyan; */
+}
 
 /* 删除弹窗 */
 .del-mask{
