@@ -9,7 +9,7 @@
   <view class='title' wx:else>
     <view class='title-txt'>分类：</view>
     <view class='input'>
-      <input type='text' maxlength='14' placeholder-class='holder' placeholder='' disabled='true' value='xxx分类'></input>
+      <input type='text' maxlength='14' placeholder-class='holder' placeholder='' disabled='true' value='{{ detailList.classifyName }}'></input>
     </view>
   </view>
 </view>
@@ -23,7 +23,7 @@
 <view class='title'>
   <view class='title-txt'>标题：</view>
   <view class='input'>
-    <input type='text' maxlength='14' placeholder-class='holder' placeholder='请填写发布信息名称'></input>
+    <input type='text' maxlength='14' placeholder-class='holder' value='{{ detailList.title }}' placeholder='请填写发布信息名称'></input>
   </view>
 </view>
 
@@ -43,22 +43,22 @@
 </view>
 
 <!-- 基本信息 -->
-<!-- <view class='base-info'>
+<view class='base-info' wx:if='{{ detailList.basicInfo.length !=0 }}'>
   <view class='hot-title'>
     <text class='stick'></text>基本信息</view>
-  <view class='link-item'>
-    <view class='link-title'>起订：</view>
+  <view class='link-item' wx:for='{{ detailList.basicInfo }}' wx:key=''>
+    <view class='link-title'>{{ item.field }}：</view>
     <view class='link-input'>
-      <input type='num' placeholder='请填写起订数量' placeholder-class='holder'></input>
+      <input type='num' value='{{ item.value }}' placeholder='请填写{{ item.field }}信息' placeholder-class='holder'></input>
     </view>
   </view>
-  <view class='link-item'>
+  <!-- <view class='link-item'>
     <view class='link-title'>供应：</view>
     <view class='link-input'>
       <input type='num' placeholder='请填写供应数量' placeholder-class='holder'></input>
     </view>
-  </view>
-</view> -->
+  </view> -->
+</view>
 
 <!-- 联系方式 -->
 <view class='link'>
@@ -67,39 +67,36 @@
   <view class='link-item'>
     <view class='link-title'>公司：</view>
     <view class='link-input'>
-      <input type='text' placeholder='请填写公司名称' maxlength='24' placeholder-class='holder'></input>
+      <input type='text' placeholder='请填写公司名称' value='{{ detailList.company }}' maxlength='24' placeholder-class='holder'></input>
     </view>
   </view>
   <view class='link-item'>
     <view class='link-title'>姓名：</view>
     <view class='link-input'>
-      <input type='text' placeholder='请填写姓名' maxlength='14' placeholder-class='holder'></input>
+      <input type='text' placeholder='请填写姓名' value='{{ detailList.name }}' maxlength='14' placeholder-class='holder'></input>
     </view>
   </view>
   <view class='link-item'>
     <view class='link-title'>手机：</view>
     <view class='link-input'>
-      <input type='number' placeholder='请填写手机号码' maxlength='11' placeholder-class='holder'></input>
+      <input type='number' placeholder='请填写手机号码' value='{{ detailList.phone }}' maxlength='11' placeholder-class='holder'></input>
     </view>
   </view>
-  <view class='link-item r-arrow'>
+  <view class='link-item r-arrow' id='area'>
     <!-- <view class='mask' bindtap='chooseArea'></view> -->
     <view class='link-title'>地区：</view>
     <view class='link-input'>
-      <!-- <picker mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
-    <view class="area-picker {{ region.length > 0 ? 'active' : '' }} ">{{ region.length == 0 ? '请选择地区' : region[0]}} {{region[1]}} {{region[2]}}</view>
-  </picker> -->
       <picker class='{{ areaType == true ? "active" :"common" }}' bindchange="bindAreaChange" value="{{areaIndex}}" range="{{areaName}}">{{areaType == true ?areaName[areaIndex]:'请选择地区'}}</picker>
     </view>
   </view>
-  <view class='link-item r-arrow'>
+  <view class='link-item r-arrow' id='deal_type'>
     <!-- <view class='mask' bindtap='chooseDealType'></view> -->
     <view class='link-title'>交易类型：</view>
     <view class='link-input'>
       <picker class='{{ dealType == true ? "active" :"common" }}' bindchange="bindDealChange" value="{{dealIndex}}" range="{{dealArray}}">{{dealType == true ?dealArray[dealIndex]:'请选择交易类型'}}</picker>
     </view>
   </view>
-  <view class='link-item r-arrow'>
+  <view class='link-item r-arrow' id='type'>
     <!-- <view class='mask' bindtap='chooseType'></view> -->
     <view class='link-title'>类型：</view>
     <view class='link-input'>
@@ -113,7 +110,7 @@
   <view class='hot-title'>
     <text class='stick'></text>详细信息</view>
   <view class='desc'>
-    <textarea placeholder='请描述商品详情...' placeholder-class='holder'></textarea>
+    <textarea placeholder='请描述商品详情...' value='{{ detailList.information }}' placeholder-class='holder'></textarea>
   </view>
 </view>
 

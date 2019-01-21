@@ -15,65 +15,9 @@ Page({
     translate: 'translate(-50%,-50%)',
     inputWidth: 'auto',
     clearIcon: false,
-    collectList: [{//收藏列表
-      imgUrl: '/images/goods_img1.png',
-      title: '北京盈客通天下科技有限公司',
-      ship_type: '轮船',
-      deal_type: '出租',
-      create_time: '2019.01.11 16:43'
-    },
-    {
-      imgUrl: '/images/goods_img2.png',
-      title: '北京盈客通天下科技有限公司',
-      ship_type: '轮船',
-      deal_type: '出租',
-      create_time: '2019.01.11 16:43'
-    },
-    {
-      imgUrl: '/images/goods_img3.png',
-      title: '北京盈客通天下科技有限公司',
-      ship_type: '轮船',
-      deal_type: '出租',
-      create_time: '2019.01.11 16:43'
-    },
-    {
-      imgUrl: '/images/goods_img4.png',
-      title: '北京盈客通天下科技有限公司',
-      ship_type: '轮船',
-      deal_type: '出租',
-      create_time: '2019.01.11 16:43'
-    },
-    {
-      imgUrl: '/images/goods_img3.png',
-      title: '北京盈客通天下科技有限公司',
-      ship_type: '轮船',
-      deal_type: '出租',
-      create_time: '2019.01.11 16:43'
-    },
-    {
-      imgUrl: '/images/goods_img4.png',
-      title: '北京盈客通天下科技有限公司',
-      ship_type: '轮船',
-      deal_type: '出租',
-      create_time: '2019.01.11 16:43'
-    },
-    {
-      imgUrl: '/images/goods_img3.png',
-      title: '北京盈客通天下科技有限公司',
-      ship_type: '轮船',
-      deal_type: '出租',
-      create_time: '2019.01.11 16:43'
-    },
-    {
-      imgUrl: '/images/goods_img4.png',
-      title: '北京盈客通天下科技有限公司',
-      ship_type: '轮船',
-      deal_type: '出租',
-      create_time: '2019.01.11 16:43'
-    }
-    ],
-    page:1,
-    pageSize:10,
+    chatList: [],
+    page: 1,
+    pageSize: 10,
     loading_state: false,
     loading: false,
     nodata: false,
@@ -127,7 +71,7 @@ Page({
       }
       setTimeout(() => {
         this.setData({
-          goldDetailsList: list,
+          chatList: list,
           page: parseInt(page) + 1,
           isMore: isMore,
           loading: loading,
@@ -210,5 +154,6 @@ Page({
   // 页面触底加载更多
   reachBottom(){
     console.log('不要再拉了，我也是有底线的')
+    this._getMyChatList()
   }
 })

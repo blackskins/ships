@@ -18,19 +18,19 @@
 
 <!-- 收藏列表 -->
 <scroll-view scroll-y style='height:{{ scrollHeight }}px' bindscrolltolower='reachBottom'>
-  <view class='hot-list' wx:for='{{ collectList }}' wx:key='' id='{{ item.id }}' catchtap='toGoodsDetail'>
+  <view class='hot-list' wx:for='{{ chatList }}' wx:key='' id='{{ item.postId }}' catchtap='toGoodsDetail'>
     <view class='bottom-line'>
       <view class='list-left'>
-        <image src='{{ item.imgUrl }}' mode='aspectFill'></image>
+        <image src='{{ item.postMessage.img }}' mode='aspectFill'></image>
       </view>
       <view class='list-right'>
-        <view class='list-title hd-text'>{{ item.title }}</view>
+        <view class='list-title hd-text'>{{ item.postMessage.title }}</view>
         <view class='type'>
-          <view class='ship-type'>船只类型：{{ item.ship_type }}</view>
-          <view class='deal-type'>交易类型：{{ item.deal_type }}</view>
+          <view class='ship-type'>船只类型：{{ item.postMessage.typeName }}</view>
+          <view class='deal-type'>交易类型：{{ item.postMessage.tradeTypeName }}</view>
         </view>
         <view class='bot-box'>
-          <view class='list-time'>{{ item.create_time }}</view>
+          <view class='list-time'>{{ item.createTime }}</view>
           <!-- <view class='cancel-btn' id='{{ index }}' bindtap='cancelCollect'>取消</view> -->
         </view>
       </view>
@@ -41,7 +41,7 @@
     <image src='../../../../assets/images/loadmore.gif'></image>
     <text>玩命加载中...</text>
   </view>
-  <view class='bottom_jiazai' wx:if="{{nodata && goldDetailsList.length>0}}">
+  <view class='bottom_jiazai' wx:if="{{nodata && chatList.length>0}}">
     <view></view>
     <text class='no'>已加载全部内容</text>
   </view>

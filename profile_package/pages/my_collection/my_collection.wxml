@@ -18,23 +18,33 @@
 
 <!-- 收藏列表 -->
 <scroll-view scroll-y style='height:{{ scrollHeight }}px' bindscrolltolower='reachBottom'>
-  <view class='hot-list' wx:for='{{ collectList }}' wx:key='' id='{{ item.id }}' catchtap='toGoodsDetail'>
+  <view class='hot-list' wx:for='{{ collectList }}' wx:key='' data-index='{{ index }}' id='{{ item.postId }}' catchtap='toGoodsDetail'>
     <view class='bottom-line'>
       <view class='list-left'>
-        <image src='{{ item.imgUrl }}' mode='aspectFill'></image>
+        <image src='{{ item.postMessage.img }}' mode='aspectFill'></image>
       </view>
       <view class='list-right'>
-        <view class='list-title hd-text'>{{ item.title }}</view>
+        <view class='list-title hd-text'>{{  item.postMessage.title }}</view>
         <view class='type'>
-          <view class='ship-type'>类型：{{ item.ship_type }}</view>
-          <view class='deal-type'>交易类型：{{ item.deal_type }}</view>
+          <view class='ship-type'>类型：{{  item.postMessage.typeName }}</view>
+          <view class='deal-type'>交易类型：{{ item.postMessage.tradeTypeName }}</view>
         </view>
         <view class='bot-box'>
-          <view class='list-time'>{{ item.create_time }}</view>
+          <view class='list-time'>{{ item.createTime }}</view>
           <view class='cancel-btn' id='{{ index }}' catchtap='cancelCollect'>取消</view>
         </view>
       </view>
     </view>
+  </view>
+
+  <!--加载 -->
+  <view class='bottom_jiazai' wx:if="{{loading && page>1}}">
+    <image src='../../../images/loadmore.gif'></image>
+    <text>玩命加载中...</text>
+  </view>
+  <view class='bottom_jiazai' wx:if="{{nodata && collectList.length>0}}">
+    <view></view>
+    <text class='no'>已加载全部内容</text>
   </view>
 </scroll-view>
 
@@ -44,7 +54,7 @@
     <view class='del-tips'>是否取消收藏</view>
     <view class='btn-box'>
       <view class='yes' bindtap='confirm'>确认取消</view>
-      <view class='no' bindtap='cancelDel'>返回</view>
+      <view class='no1' bindtap='cancelDel'>返回</view>
     </view>
   </view>
 </view>

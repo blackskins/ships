@@ -84,16 +84,13 @@ page{
 .list-title{
   font-size: 28rpx;
   font-weight: 600;
-  margin-top: 20rpx;
   max-width: 500rpx;
 }
 .type{
   font-size: 24rpx;
-  padding: 10rpx 0rpx;
+  line-height: 36rpx;
+  margin-top: 6rpx;
   color: #808080;
-}
-.deal-type{
-  margin-top: 10rpx;
 }
 .bot-box{
   display: flex;
@@ -155,7 +152,7 @@ page{
   background-color: #FF6675;
   color: #fff;
 }
-.no{
+.no1{
   border: 2rpx solid #666666;
   color: #666666;
 }

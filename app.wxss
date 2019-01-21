@@ -76,7 +76,7 @@ button {
   text-overflow: ellipsis;
 }
 
-/* 封装05-1 两行或多行文本产出隐藏 */
+/* 封装05-1 两行或多行文本超出隐藏 */
 
 .more_row_hidden {
   overflow: hidden;

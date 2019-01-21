@@ -1,43 +1,43 @@
 <!--index_package/pages/goods_detail/goods_detail.wxml-->
 <!-- banner轮播图 -->
 <view class="slider" bindtap='tt'>
-  <swiper indicator-dots="{{ scrollList.length > 1 ? true :false }}" autoplay="true" interval="4000" duration="400" circular='true' indicator-color="#a7a9b0" indicator-active-color="#000">
-    <swiper-item wx:for="{{ scrollList }}" wx:key=''>
-      <image src="{{item.imgUrl}}" mode='aspectFill' />
+  <swiper indicator-dots="{{ detailList.imgList.length > 1 ? true :false }}" autoplay="true" interval="4000" duration="400" circular='true' indicator-color="#a7a9b0" indicator-active-color="#000">
+    <swiper-item wx:for="{{ detailList.imgList }}" wx:key=''>
+      <image src="{{item}}" mode='aspectFill' />
     </swiper-item>
   </swiper>
 </view>
 
 <view class='info-box'>
-  <view class='title'>出售4200顿日本杂货轮</view>
+  <view class='title'>{{ detailList.title }}</view>
   <view class='collect-box'>
     <view class='time-box'>
       <view>
         <image src='/images/time.png'></image>
       </view>
-      <view class='time'>2019-01-05 20:35</view>
+      <view class='time'>{{ detailList.createTime }}</view>
     </view>
     <view wx:if='{{ type == 0 }}'>
-      <view class='collect-btn' wx:if='{{ collectStatus }}' bindtap='collect'>收藏</view>
+      <view class='collect-btn' wx:if='{{ !detailList.isFavorite }}' bindtap='collect'>收藏</view>
       <view class='collect-btn1' wx:else>已收藏</view>
     </view>
   </view>
-  <view class='goods-num'>起订： 0</view>
-  <view class='goods-num'>供应： 0</view>
-  <view class='goods-num'>发货： 0天内</view>
-  <view class='call' bindtap='phoneCall'>询价</view>
+  <view class='goods-num' wx:for='{{ detailList.basicInfo }}' wx:key=''>{{ item.field }}： {{ item.value }}</view>
+  <!-- <view class='goods-num'>供应： 0</view>
+  <view class='goods-num'>发货： 0天内</view> -->
+  <view class='call' bindtap='phoneCall' data-num='{{ detailList.phone }}'>询价</view>
 </view>
 
 <!-- 基本信息 -->
 <view class='base-box'>
   <view class='hot-title'>
     <text class='stick'></text>联系方式</view>
-  <view class='base-item'>公司：福安xx船务有限公司</view>
-  <view class='base-item'>姓名：郭汉峰</view>
-  <view class='base-item'>手机：13684519757</view>
-  <view class='base-item'>地区：福建宁德市</view>
-  <view class='base-item'>交易类型：出售</view>
-  <view class='base-item'>类型：杂货船</view>
+  <view class='base-item'>公司：{{ detailList.company }}</view>
+  <view class='base-item'>姓名：{{ detailList.name }}</view>
+  <view class='base-item'>手机：{{ detailList.phone }}</view>
+  <view class='base-item'>地区：{{ detailList.locationName }}</view>
+  <view class='base-item'>交易类型：{{ detailList.tradeTypeName }}</view>
+  <view class='base-item'>类型：{{ detailList.typeName }}</view>
 </view>
 
 <!-- 详细信息 -->
@@ -45,7 +45,7 @@
   <view class='hot-title'>
     <text class='stick'></text>详细信息</view>
   <!-- 内容 -->
-  <view class='info-txt'>杂货船 载重4200吨 载货量3700吨 单甲板,2舱2口 散装舱容5730 包装舱容5500 寻东南亚,或者中东一带的货 有兴趣，请尽快联系 郭先生,</view>
+  <view class='info-txt'>{{ detailList.information }}</view>
   <!-- 图片 -->
   <view class='info-img center'>
     <image src='/../../../images/banner.png' mode='aspectFit'></image>

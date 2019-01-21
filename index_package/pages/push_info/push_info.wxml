@@ -61,9 +61,6 @@
       <!-- <view class='mask' bindtap='chooseArea'></view> -->
       <view class='link-title'>地区：</view>
       <view class='link-input'>
-        <!-- <picker mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
-    <view class="area-picker {{ region.length > 0 ? 'active' : '' }} ">{{ region.length == 0 ? '请选择地区' : region[0]}} {{region[1]}} {{region[2]}}</view>
-  </picker> -->
         <picker class='{{ areaType == true ? "active" :"common" }}' bindchange="bindAreaChange" value="{{areaIndex}}" range="{{areaName}}">{{areaType == true ?areaName[areaIndex]:'请选择地区'}}</picker>
       </view>
     </view>

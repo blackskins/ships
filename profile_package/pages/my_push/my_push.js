@@ -1,4 +1,6 @@
 // profile_package/pages/my_push/my_push.js
+import { My_push_model } from './my_push_model.js'
+var my_push_model = new My_push_model()
 var $ = require('../../../utils/common.js')
 var QQMapWX = require('../../../utils/qqmap-wx-jssdk.min.js');
 var qqmapsdk;
@@ -12,7 +14,18 @@ Page({
     keyWord:'',
     clearIcon:false,
     scrollHeight: '',
+    hotList: [],//平台发布信息列表
+    page: 1,
+    pageSize: 10,
+    loading_state: false,
+    loading: false,
+    nodata: false,
+    isMore: true,
+    classifyCode: '',//分类码
+    classifyName: '',//分类名
+    title: '',
     id: null,
+    _id: '',
     currentType: '',
     currentItem: '',
     type: '',
@@ -97,63 +110,6 @@ Page({
         ]
       }
     ],
-    hotList: [{
-      imgUrl: '/images/goods_img1.png',
-      title: '北京盈客通天下科技有限公司',
-      ship_type: '轮船',
-      deal_type: '出租',
-      create_time: '2019.01.11 16:43'
-    },
-    {
-      imgUrl: '/images/goods_img2.png',
-      title: '北京盈客通天下科技有限公司',
-      ship_type: '轮船',
-      deal_type: '出租',
-      create_time: '2019.01.11 16:43'
-    },
-    {
-      imgUrl: '/images/goods_img3.png',
-      title: '北京盈客通天下科技有限公司',
-      ship_type: '轮船',
-      deal_type: '出租',
-      create_time: '2019.01.11 16:43'
-    },
-    {
-      imgUrl: '/images/goods_img4.png',
-      title: '北京盈客通天下科技有限公司',
-      ship_type: '轮船',
-      deal_type: '出租',
-      create_time: '2019.01.11 16:43'
-    },
-    {
-      imgUrl: '/images/goods_img1.png',
-      title: '北京盈客通天下科技有限公司',
-      ship_type: '轮船',
-      deal_type: '出租',
-      create_time: '2019.01.11 16:43'
-    },
-    {
-      imgUrl: '/images/goods_img2.png',
-      title: '北京盈客通天下科技有限公司',
-      ship_type: '轮船',
-      deal_type: '出租',
-      create_time: '2019.01.11 16:43'
-    },
-    {
-      imgUrl: '/images/goods_img3.png',
-      title: '北京盈客通天下科技有限公司',
-      ship_type: '轮船',
-      deal_type: '出租',
-      create_time: '2019.01.11 16:43'
-    },
-    {
-      imgUrl: '/images/goods_img4.png',
-      title: '北京盈客通天下科技有限公司',
-      ship_type: '轮船',
-      deal_type: '出租',
-      create_time: '2019.01.11 16:43'
-    }
-    ],
     showMask: false, //删除的蒙层
     currentId: '', // 商品当前索引id
   },
@@ -172,6 +128,7 @@ Page({
       scrollHeight1: height1,
       port:options.port
     })
+    this._getCategoryList()
   },
   onShow() {
     // 地理位置信息授权
@@ -289,6 +246,65 @@ Page({
     }
     this.getUserLocation();
   },
+  //获取平台发布信息查询列表
+  _getCategoryList() {
+    var data = {
+      page: this.data.page,
+      pageSize: this.data.pageSize,
+      classifyCode: this.data.classifyCode,
+      title: this.data.keyWord,
+      locationCode: this.data.locationCode,
+      tradeTypeCode: this.data.tradeTypeCode,
+      typeCode: this.data.typeCode,
+      userId: this.data.userId
+    }
+    var list = this.data.hotList
+    var loading = true
+    var isMore = true
+    var time = 0
+    var nodata = false
+    if (data.page == 1) {
+      $.openLoad();
+    }
+    my_push_model.getCategoryList(data, (res) => {
+      console.log(res)
+      if (res.code != 0) {
+        $.prompt(res.msg, 2500)
+        return false
+      }
+      if (res.data.length < 10) {
+        isMore = false
+        nodata = true,
+          loading = false
+      }
+      if (data.page == 1) {
+        list = res.data
+      } else {
+        list = res.data ? list.concat(res.data) : list
+        time = 300
+      }
+      setTimeout(() => {
+        this.setData({
+          hotList: list,
+          page: parseInt(data.page) + 1,
+          isMore: isMore,
+          loading: loading,
+          loading_state: false,
+          nodata: nodata
+        }, () => {
+          if (data.page == 1) {
+            $.closeLoad()
+          }
+        })
+      },
+        time
+      )
+    })
+  },
+  //触底加载
+  reachBottom(){
+    this._getCategoryList()
+  },
   // 输入关键词搜索 
   inputKeyWord(e) {
     var keyWord = e.detail.value
@@ -373,22 +389,32 @@ Page({
   // 删除商品
   delGoods(e) {
     var id = e.currentTarget.id
+    var _id = e.currentTarget.dataset._id
     console.log(id)
     this.setData({
       showMask: true,
-      currentId: id
+      currentId: id,
+      _id:_id
     })
   },
   // 确认删除
   confirm() {
     var id = this.data.currentId
+    var _id = this.data._id
     var list = this.data.hotList
     list.splice(id, 1)
-    this.setData({
-      showMask: false,
-      hotList: list
-    }, () => {
-      $.prompt('删除成功')
+    my_push_model.delInfo(_id, (res) => {
+      console.log(res)
+      if (res.code != 0) {
+        $.prompt(res.msg, 2500)
+        return false
+      }
+      this.setData({
+        showMask: false,
+        hotList: list
+      }, () => {
+        $.prompt('删除成功')
+      })
     })
   },
   // 取消删除商品
@@ -400,9 +426,10 @@ Page({
   // 发布或编辑商品
   toEdit(e) {
     var id = e.currentTarget.id
+    var _id = e.currentTarget.dataset._id
     var port = this.data.port
     wx.navigateTo({
-      url: '../../../shopManage_package/pages/edit_goods/edit_goods?id=' + id+'&port='+port,
+      url: '../../../shopManage_package/pages/edit_goods/edit_goods?id=' + id+'&port='+port+'&_id='+_id,
     })
   },
   // 跳转商品详情

@@ -46,25 +46,25 @@
 </view>
 <!-- 服务列表 -->
 <scroll-view bindscrolltolower='reachBottom' scroll-y class='scroll-fn' style='height:{{ categoryId == 4 ? scrollHeight3 : scrollHeight }}px'>
-  <view class='hot-list' wx:for='{{ hotList }}' wx:key='' bindtap='toCategoryDetail' id='{{ item.id }}'>
+  <view class='hot-list' wx:for='{{ hotList }}' wx:key='' bindtap='toCategoryDetail' id='{{ item._id }}'>
     <view class='bottom-line'>
       <view class='list-left'>
-        <image src='{{ item.imgUrl }}' mode='aspectFill'></image>
+        <image src='{{ item.img }}' mode='aspectFill'></image>
       </view>
       <view class='list-right'>
         <view class='list-title hd-text'>{{ item.title }}</view>
         <view class='type' wx:if='{{ categoryId != 4 }}'>
-          <view class='ship-type'>类型：{{ item.ship_type }}</view>
-          <view class='deal-type'>交易类型：{{ item.deal_type }}</view>
+          <view class='ship-type'>类型：{{ item.typeName }}</view>
+          <view class='deal-type'>交易类型：{{ item.tradeTypeName}}</view>
         </view>
-        <view class='list-time {{ categoryId == 4 ? "ship-store":"" }}'>{{ item.create_time }}</view>
+        <view class='list-time {{ categoryId == 4 ? "ship-store":"" }}'>{{ item.createTime }}</view>
       </view>
     </view>
   </view>
 
   <!--加载 -->
   <view class='bottom_jiazai' wx:if="{{loading && page>1}}">
-    <image src='../../../../assets/images/loadmore.gif'></image>
+    <image src='../../../images/loadmore.gif'></image>
     <text>玩命加载中...</text>
   </view>
   <view class='bottom_jiazai' wx:if="{{nodata && hotList.length>0}}">

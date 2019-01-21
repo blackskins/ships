@@ -13,6 +13,32 @@ class Goods_detail_model extends Base{
     }
     this.request(params)
   }
+  //添加收藏
+  addCollection(postId,callback){
+    let params = {
+      url:'/user/favorite-create',
+      data:{
+        postId:postId
+      },
+      sCallback:(res)=>{
+        callback && callback(res)
+      }
+    }
+    this.request(params)
+  }
+  //添加联系
+  addChat(postId, callback) {
+    let params = {
+      url: '/user/contact-create',
+      data: {
+        postId: postId
+      },
+      sCallback: (res) => {
+        callback && callback(res)
+      }
+    }
+    this.request(params)
+  }
 }
 export{
   Goods_detail_model

@@ -12,7 +12,7 @@ Page({
    */
   data: {
     categoryId: '',
-    keyWord: '',
+    keyWord: '',//输入框的关键字
     clearIcon: false,
     scrollHeight: '',
     page:1,
@@ -21,7 +21,8 @@ Page({
     loading: false,
     nodata: false,
     isMore: true,
-    classifyCode:'',
+    classifyCode: '',//分类码
+    classifyName:'',//分类名
     title:'',
     id: null,//筛选种类的下标
     currentItem: '',
@@ -127,63 +128,7 @@ Page({
         ]
       }
     ],
-    hotList: [{
-        imgUrl: '/images/goods_img1.png',
-        title: '北京盈客通天下科技有限公司',
-        ship_type: '轮船',
-        deal_type: '出租',
-        create_time: '2019.01.11 16:43'
-      },
-      {
-        imgUrl: '/images/goods_img2.png',
-        title: '北京盈客通天下科技有限公司',
-        ship_type: '轮船',
-        deal_type: '出租',
-        create_time: '2019.01.11 16:43'
-      },
-      {
-        imgUrl: '/images/goods_img3.png',
-        title: '北京盈客通天下科技有限公司',
-        ship_type: '轮船',
-        deal_type: '出租',
-        create_time: '2019.01.11 16:43'
-      },
-      {
-        imgUrl: '/images/goods_img4.png',
-        title: '北京盈客通天下科技有限公司',
-        ship_type: '轮船',
-        deal_type: '出租',
-        create_time: '2019.01.11 16:43'
-      },
-      {
-        imgUrl: '/images/goods_img1.png',
-        title: '北京盈客通天下科技有限公司',
-        ship_type: '轮船',
-        deal_type: '出租',
-        create_time: '2019.01.11 16:43'
-      },
-      {
-        imgUrl: '/images/goods_img2.png',
-        title: '北京盈客通天下科技有限公司',
-        ship_type: '轮船',
-        deal_type: '出租',
-        create_time: '2019.01.11 16:43'
-      },
-      {
-        imgUrl: '/images/goods_img3.png',
-        title: '北京盈客通天下科技有限公司',
-        ship_type: '轮船',
-        deal_type: '出租',
-        create_time: '2019.01.11 16:43'
-      },
-      {
-        imgUrl: '/images/goods_img4.png',
-        title: '北京盈客通天下科技有限公司',
-        ship_type: '轮船',
-        deal_type: '出租',
-        create_time: '2019.01.11 16:43'
-      }
-    ]
+    hotList: []
   },
   /**
    * 生命周期函数--监听页面加载
@@ -199,7 +144,8 @@ Page({
       scrollHeight1: height2,
       scrollHeight3: height3,
       categoryId: options.id,
-      classifyCode: options.classify
+      classifyCode: options.classify,
+      classifyName: options.title
     })
     wx.setNavigationBarTitle({
       title: options.title,
@@ -207,7 +153,6 @@ Page({
     qqmapsdk = new QQMapWX({
       key: '7Z2BZ-EYW6W-KQYRN-OVYVU-WAY7E-O3FC4'
     });
-    // this._getCategoryList()//获取平台发布信息
   },
   onShow() {
     // 地理位置信息授权
@@ -218,6 +163,7 @@ Page({
       console.log('adffa')
       this.getLocation()
     }
+    this._getCategoryList()//获取平台发布信息
   },
   // 获取用户所在位置信息
   getUserLocation: function() {
@@ -331,7 +277,7 @@ Page({
       page:this.data.page,
       pageSize:this.data.pageSize,
       classifyCode:this.data.classifyCode,
-      title:this.data.title,
+      title:this.data.keyWord,
       locationCode:this.data.locationCode,
       tradeTypeCode: this.data.tradeTypeCode,
       typeCode:this.data.typeCode,
@@ -347,6 +293,10 @@ Page({
     }
     category_list_model.getCategoryList(data, (res) => {
       console.log(res)
+      if(res.code != 0 ){
+        $.prompt(res.msg,2500)
+        return false
+      }
       if (res.data.length < 10) {
         isMore = false
         nodata = true,
@@ -405,6 +355,19 @@ Page({
   // 点击键盘右下角的搜索按钮
   searchKeyWord() {
     console.log('正在搜索...')
+    this.setData({
+      page: 1,
+      pageSize: 10,
+      loading_state: false,
+      loading: false,
+      nodata: false,
+      isMore: true,
+      locationCode: '',
+      tradeTypeCode: '',
+      typeCode: '',
+    },(res)=>{
+      this._getCategoryList() //搜索
+    })
   },
   // 返回主页
   toShopIndex() {
@@ -479,16 +442,17 @@ Page({
   // 发布消息
   toPush() {
     var classify = this.data.classifyCode
+    var classifyName = this.data.classifyName
     wx.navigateTo({
-      url: '../push_info/push_info?classify=' + classify,
+      url: '../push_info/push_info?classify=' + classify+'&classifyName='+classifyName,
     })
   },
   /**
    * 页面上拉触底事件的处理函数
    */
   reachBottom() {
-    console.log('已经到底了，不要再拉了')
-    // this._getCategoryList() //加载数据
+    // console.log('已经到底了，不要再拉了')
+    this._getCategoryList() //加载数据
   },
 
   /**

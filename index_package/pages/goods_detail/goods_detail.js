@@ -1,5 +1,7 @@
 // index_package/pages/goods_detail/goods_detail.js
-import { Goods_detail_model } from './goods_detail_model.js'
+import {
+  Goods_detail_model
+} from './goods_detail_model.js'
 var goods_detail_model = new Goods_detail_model()
 var $ = require('../../../utils/common.js')
 Page({
@@ -8,63 +10,70 @@ Page({
    * 页面的初始数据
    */
   data: {
-    scrollList: [{
-      imgUrl: '/images/banner.png'
-    },
-    {
-      imgUrl: '/images/banner.png'
-    },
-    {
-      imgUrl: '/images/banner.png'
-    },
-    {
-      imgUrl: '/images/banner.png'
-    },
-    {
-      imgUrl: '/images/banner.png'
-    },
-    ],
-    phoneNumber: '13684519757',
-    collectStatus: true,
-    type:'',
-    id:''
+    detailList: '',
+    type: '',
+    id: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
+    $.openLoad()
     console.log(options.type)
     this.setData({
-      type:options.type,
-      // id:options.id
+      type: options.type,
+      id: options.id
     })
-    this._getInfoDetail()//获取信息详情
+    this._getInfoDetail() //获取信息详情
   },
   //获取信息详情
-  _getInfoDetail(){
+  _getInfoDetail() {
     var _id = this.data.id
-    goods_detail_model.getInfoDetail(_id,(res)=>{
+    goods_detail_model.getInfoDetail(_id, (res) => {
       console.log(res)
+      if (res.code != 0) {
+        $.prompt(res.msg, 2500)
+        return false
+      }
+      this.setData({
+        detailList: res.data
+      }, () => {
+        $.closeLoad()
+      })
     })
   },
   // 收藏详情
   collect() {
-    if (this.data.collectStatus == true) {
+    var postId = this.data.id
+    goods_detail_model.addCollection(postId, (res) => {
+      if (res.code != 0) {
+        $.prompt(res.msg, 2500)
+        return false
+      }
       this.setData({
-        collectStatus: false
+        "detailList.isFavorite": true
       }, () => {
         $.prompt('收藏成功')
       })
-    }
+    })
   },
   //打电话 询价
-  phoneCall() {
-    var that = this
+  phoneCall(e) {
+    var postId = this.data.id
+    var phoneNumber = e.currentTarget.dataset.num
     wx.makePhoneCall({
-      phoneNumber: that.data.phoneNumber,
+      phoneNumber: phoneNumber,
       success: () => {
         console.log('成功了')
+        goods_detail_model.addChat(postId,(res)=>{
+          console.log(res)
+          if(res.code != 0){
+            $.prompt(res.msg,2500)
+            return false
+          }
+          console.log('成功添加到联系列表')
+        })
       },
       fail: () => {
         console.log('失败了')

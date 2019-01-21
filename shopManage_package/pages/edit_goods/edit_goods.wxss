@@ -138,7 +138,7 @@ page{
 
 /* 基本信息 */
 .base-info,.link,.detail-info{
-  padding: 30rpx;
+  padding: 30rpx 30rpx 0rpx 30rpx;
   background-color: #fff;
   margin-top: 20rpx; 
 }
@@ -157,7 +157,12 @@ page{
   background-color: #2179FC;
   margin-right: 20rpx;
 }
-
+.link-input input,.input input{
+  width: 500rpx;
+  font-size: 26rpx;
+  color: #333;
+  /* background-color: cyan; */
+}
 .info-item{
   font-size: 26rpx;
   margin-top: 20rpx;
@@ -200,7 +205,7 @@ page{
 }
 .link-item:last-child{
   border: none;
-  padding: 20rpx 0rpx 0rpx 0rpx;
+  padding: 20rpx 0rpx;
 }
 .link-title{
   font-size: 26rpx;

@@ -238,7 +238,7 @@ page{
   background-color: #FF6675;
   color: #fff;
 }
-.no{
+.no1{
   border: 2rpx solid #666666;
   color: #666666;
 }

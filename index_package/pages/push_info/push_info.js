@@ -11,6 +11,8 @@ Page({
    */
   data: {
     submitStatus:true,//防止重复提交表单
+    classifyCode: '',//分类码
+    classifyName: '',//分类名
     scrollHeight: '',
     showMask: false,
     shopType: false,
@@ -56,7 +58,8 @@ Page({
     var height = info.windowHeight - (98 * info.windowWidth / 750)
     this.setData({
       scrollHeight: height,
-      classifyCode: options.classify
+      classifyCode: options.classify,
+      classifyName: options.classifyName
     })
     this._getBaseInfo() //获取平台发布信息 基本信息配置字段
     this._getDealType() //获取交易类型信息
@@ -217,7 +220,7 @@ Page({
       })
     }
   },
-  // 取消删除图片
+  // 取消删除图片 北京盈客通天下科技有限公司广州分公司
   cancelDel() {
     this.setData({
       showMask: false
@@ -266,6 +269,8 @@ Page({
     var baseInfoList = that.data.baseInfoList
     console.log(e)
     var data = {
+      classifyCode:this.data.classifyCode,
+      classifyName:this.data.classifyName,
       title: e.detail.value.title,
       company: e.detail.value.company,
       name: e.detail.value.name,
@@ -285,7 +290,7 @@ Page({
     var reg = /^1(3|4|5|7|8)\d{9}$/;
     for (let i = 0; i < baseInfoList.length; i++) {
       var arr = {
-        filed: baseInfoList[i].field,
+        field: baseInfoList[i].field,
         value: e.detail.value['baseInfoStr' + i],
         sort: baseInfoList[i].sort
       }

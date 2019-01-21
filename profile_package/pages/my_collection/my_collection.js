@@ -15,74 +15,24 @@ Page({
     translate: 'translate(-50%,-50%)',
     inputWidth: 'auto',
     clearIcon: false,
-    collectList: [{ //收藏列表
-        imgUrl: '/images/goods_img1.png',
-        title: '北京盈客通天下科技有限公司',
-        ship_type: '轮船',
-        deal_type: '出租',
-        create_time: '2019.01.11 16:43'
-      },
-      {
-        imgUrl: '/images/goods_img2.png',
-        title: '北京盈客通天下科技有限公司',
-        ship_type: '轮船',
-        deal_type: '出租',
-        create_time: '2019.01.11 16:43'
-      },
-      {
-        imgUrl: '/images/goods_img3.png',
-        title: '北京盈客通天下科技有限公司',
-        ship_type: '轮船',
-        deal_type: '出租',
-        create_time: '2019.01.11 16:43'
-      },
-      {
-        imgUrl: '/images/goods_img4.png',
-        title: '北京盈客通天下科技有限公司',
-        ship_type: '轮船',
-        deal_type: '出租',
-        create_time: '2019.01.11 16:43'
-      },
-      {
-        imgUrl: '/images/goods_img3.png',
-        title: '北京盈客通天下科技有限公司',
-        ship_type: '轮船',
-        deal_type: '出租',
-        create_time: '2019.01.11 16:43'
-      },
-      {
-        imgUrl: '/images/goods_img4.png',
-        title: '北京盈客通天下科技有限公司',
-        ship_type: '轮船',
-        deal_type: '出租',
-        create_time: '2019.01.11 16:43'
-      },
-      {
-        imgUrl: '/images/goods_img3.png',
-        title: '北京盈客通天下科技有限公司',
-        ship_type: '轮船',
-        deal_type: '出租',
-        create_time: '2019.01.11 16:43'
-      },
-      {
-        imgUrl: '/images/goods_img4.png',
-        title: '北京盈客通天下科技有限公司',
-        ship_type: '轮船',
-        deal_type: '出租',
-        create_time: '2019.01.11 16:43'
-      }
-    ],
-    page:1,
-    pageSize:10,
+    collectList: [],//收藏列表
+    page: 1,
+    pageSize: 10,
+    loading_state: false,
+    loading: false,
+    nodata: false,
+    isMore: true,
     scrollHeight: '',
     showMask: false,
-    currentId: ''
+    currentId: '',
+    postId:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    $.openLoad()
     const info = wx.getSystemInfoSync()
     var height1 = info.windowHeight - (88 * info.windowWidth / 750)
     this.setData({
@@ -91,15 +41,50 @@ Page({
     this._getCollectionList()
   },
   //获取收藏列表
-  _getCollectionList(){
+  _getCollectionList() {
     var page = this.data.page
     var pageSize = this.data.pageSize
+    var list = this.data.collectList
+    var loading = true
+    var isMore = true
+    var time = 0
+    var nodata = false
+    if (page == 1) {
+      $.openLoad();
+    }
     my_collection_model.getCollectionList(page,pageSize,(res)=>{
       console.log(res)
       if(res.code != 0){
         $.prompt(res.msg,2500)
         return false
       }
+      if (res.data.length < 10) {
+        isMore = false
+        nodata = true,
+          loading = false
+      }
+      if (page == 1) {
+        list = res.data
+      } else {
+        list = res.data ? list.concat(res.data) : list
+        time = 1000
+      }
+      setTimeout(() => {
+        this.setData({
+          collectList: list,
+          page: parseInt(page) + 1,
+          isMore: isMore,
+          loading: loading,
+          loading_state: false,
+          nodata: nodata
+        }, () => {
+          if (page == 1) {
+            $.closeLoad()
+          }
+        })
+      },
+        time
+      )
     })
   },
   // 输入关键词搜索 
@@ -163,6 +148,19 @@ Page({
   // 点击键盘右下角的搜索按钮
   searchKeyWord() {
     console.log('正在搜索...')
+    this.setData({
+      page: 1,
+      pageSize: 10,
+      loading_state: false,
+      loading: false,
+      nodata: false,
+      isMore: true,
+      locationCode: '',
+      tradeTypeCode: '',
+      typeCode: '',
+    }, (res) => {
+      this._getCollectionList() //搜索
+    })
   },
   //取消收藏接口
   _cancelCollection(_id){
@@ -177,11 +175,13 @@ Page({
   },
   // 取消收藏事件
   cancelCollect(e) {
-    var id = e.currentTarget.id
-    console.log(id)
+    var index = e.currentTarget.dataset.index
+    var postId= e.currentTarget.id
+    console.log(postId)
     this.setData({
       showMask: true,
-      currentId: id
+      currentId:index,
+      postId: postId
     })
   },
   // 禁止弹窗蒙层下可滑动
@@ -191,14 +191,22 @@ Page({
   // 确认取消收藏
   confirm() {
     var list = this.data.collectList
-    var id = this.data.currentId
-    list.splice(id, 1)
+    var index = this.data.currentId
+    var _id = this.data.postId
+    list.splice(index, 1)
     // this._cancelCollection(id) //取消收藏
     this.setData({
       showMask: false,
       collectList: list
     }, () => {
-      $.prompt('取消成功')
+      my_collection_model.cancelCollection(_id,(res)=>{
+        console.log(res)
+        if(res.code != 0){
+          $.prompt(res.msg,2500)
+          return false
+        }
+        $.prompt('取消成功')
+      })
     })
   },
   // 取消
@@ -217,5 +225,6 @@ Page({
   // 页面触底加载更多
   reachBottom() {
     console.log('不要再拉了，我也是有底线的')
+    this._getCollectionList()
   }
 })
