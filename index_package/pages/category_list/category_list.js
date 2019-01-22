@@ -11,6 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    itemHeight:0,//列表项高度
     categoryId: '',
     keyWord: '',//输入框的关键字
     clearIcon: false,
@@ -320,6 +321,9 @@ Page({
           if (data.page == 1) {
             $.closeLoad()
           }
+          this.setData({
+            itemHeight:220
+          })
         })
       },
         time

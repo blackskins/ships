@@ -6,19 +6,23 @@ Page({
    * 页面的初始数据
    */
   data: {
-    showMask:false
+    showMask: false ,
+    opacity: 0,
+    animate: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+   
   },
   // 成为会员
   beVip(){
     this.setData({
-      showMask:true
+      showMask: true,
+      opacity: 1,
+      animate: 'animate .3s'
     })
   },
 
@@ -29,18 +33,31 @@ Page({
   // 确认成为会员
   confirm() {
     this.setData({
-      showMask: false
+      animate:'back .5s',
+      opacity:0
     }, () => {
-      // $.prompt('跳转页面')
-      wx.navigateTo({
-        url: '../vip_pay/vip_pay',
-      })
+      setTimeout(()=>{
+        this.setData({
+          showMask: false,
+        })
+        // $.prompt('跳转页面')
+        wx.navigateTo({
+          url: '../vip_pay/vip_pay',
+        })
+      },300)
     })
   },
   // 取消
   cancelDel() {
     this.setData({
-      showMask: false
+      animate:'back .5s',
+      opacity:0
+    },()=>{
+      setTimeout(()=>{
+        this.setData({
+          showMask: false
+        })
+      },300)
     })
   },
 })

@@ -14,6 +14,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    opacity: 0, //背景蒙层的透明度
+    animate: '', //删除图片 动画弹窗
     submitStatus: true, //防止表单重复提交
     classifyCode: '', //分类编码
     classifyName: '', //分类名
@@ -369,7 +371,9 @@ Page({
     this.setData({
       showMask: true,
       delId: id,
-      type: type
+      type: type,
+      opacity: 1,
+      animate: 'animate .3s'
     })
   },
   // 确认删除
@@ -384,24 +388,46 @@ Page({
     list.splice(id, 1)
     if (type == 'slider') {
       this.setData({
-        showMask: false,
-        imgs: list
+        opacity: 0,
+        animate: 'back .5s'
       }, () => {
-        $.prompt('移除成功')
+        setTimeout(() => {
+          this.setData({
+            showMask: false,
+            imgs: list
+          }, () => {
+            $.prompt('移除成功')
+          })
+        }, 500)
       })
     } else if (type == 'info') {
       this.setData({
-        showMask: false,
-        infoImgs: list
+        opacity: 0,
+        animate: 'back .5s'
       }, () => {
-        $.prompt('移除成功')
+        setTimeout(() => {
+          this.setData({
+            showMask: false,
+            infoImgs: list
+          }, () => {
+            $.prompt('移除成功')
+          })
+        }, 500)
       })
+
     }
   },
   // 取消删除图片
   cancelDel() {
     this.setData({
-      showMask: false
+      opacity:0,
+      animate:'back .5s'
+    },()=>{
+      setTimeout(()=>{
+        this.setData({
+          showMask:false
+        })
+      },500)
     })
   },
   // 提交表单
@@ -592,7 +618,7 @@ Page({
     // }
 
     //这是编辑基本信息字段信息的判断
-    else if (list.length != 0 ) {
+    else if (list.length != 0) {
       for (let i = 0; i < list.length; i++) {
         if (e.detail.value['baseInfoStr' + i] == '') {
           $.prompt('请填写' + list[i].field + '信息')
@@ -623,7 +649,7 @@ Page({
     this.setData({
       submitStatus: false
     })
-    if(this.data.editStatus == 0){
+    if (this.data.editStatus == 0) {
       edit_goods_model.pushInfo(data, (res) => {
         console.log(res)
         this.setData({
@@ -637,7 +663,7 @@ Page({
         $.prompt('发布成功', 2500, 'success')
         // $.prompt('修改成功', 2500, 'success')
       })
-    }else{
+    } else {
       edit_goods_model.editInfo(data, (res) => {
         console.log(res)
         this.setData({

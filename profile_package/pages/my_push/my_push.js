@@ -10,6 +10,12 @@ Page({
    * 页面的初始数据
    */
   data: {
+    opacity: 0,//背景蒙层的透明度
+    animate: '',//删除图片 动画弹窗
+    currentIndex:'fly',//删除 当前项的索引下标
+    itemHeight: 220,//商品项高度
+    defaultHeight:0,//商品项默认高度
+    translateX:'none',//商品项向左飞出
     port:'',
     keyWord:'',
     clearIcon:false,
@@ -295,6 +301,9 @@ Page({
           if (data.page == 1) {
             $.closeLoad()
           }
+          this.setData({
+            defaultHeight: 220,
+          })
         })
       },
         time
@@ -393,6 +402,8 @@ Page({
     console.log(id)
     this.setData({
       showMask: true,
+      opacity:1,
+      animate:'animate .3s',
       currentId: id,
       _id:_id
     })
@@ -400,6 +411,9 @@ Page({
   // 确认删除
   confirm() {
     var id = this.data.currentId
+    this.setData({
+      currentIndex:id
+    })
     var _id = this.data._id
     var list = this.data.hotList
     list.splice(id, 1)
@@ -410,17 +424,40 @@ Page({
         return false
       }
       this.setData({
-        showMask: false,
-        hotList: list
-      }, () => {
-        $.prompt('删除成功')
+        opacity:0,
+        animate:'back .5s'
+      },()=>{
+        setTimeout(()=>{
+          this.setData({
+            showMask: false,
+            translateX:'translateX(-120%)',
+            itemHeight:0,
+          }, () => {
+            setTimeout(()=>{
+              this.setData({
+                hotList: list,
+                currentIndex:'fly',
+                translateX:'none'
+              },()=>{
+                $.prompt('删除成功')
+              })
+            },500)
+          })
+        },500)
       })
     })
   },
   // 取消删除商品
   cancelDel() {
     this.setData({
-      showMask: false
+      opacity:0,
+      animate:'back .5s'
+    },()=>{
+      setTimeout(()=>{
+        this.setData({
+          showMask: false
+        })
+      },500)
     })
   },
   // 发布或编辑商品

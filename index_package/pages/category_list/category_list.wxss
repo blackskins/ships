@@ -130,6 +130,8 @@ page{
 /* 推荐列表 */
 .hot-list{
   background-color: #fff;
+  overflow: hidden;
+  transition: all .5s;
 }
 .hot-list:first-of-type{
   margin-top: 20rpx;

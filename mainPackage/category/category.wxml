@@ -1,5 +1,5 @@
 <!--indexPages/category/category.wxml-->
-<view class='category-list' wx:for='{{ cateList }}' wx:key='*this' data-id='{{ item.sort}}' data-classify='{{ item.classifyCode }}' data-title='{{ item.classifyName }}' bindtap='toCategoryList'>
+<view class='category-list' style='height:{{ cateHeight }}rpx' wx:for='{{ cateList }}' wx:key='*this' data-id='{{ item.sort}}' data-classify='{{ item.classifyCode }}' data-title='{{ item.classifyName }}' bindtap='toCategoryList'>
   <view class='list-left'>
     <view class='img'><image src='{{item.logo}}'></image></view>
     <view class='title-box'>

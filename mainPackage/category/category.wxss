@@ -7,7 +7,9 @@ page{
   margin-top: 20rpx;
   padding: 0rpx 30rpx;
   background-color: #fff;
-  height: 160rpx;
+  overflow: hidden;
+  /* height: 160rpx; */
+  transition: all .5s;
   display: flex;
   justify-content: space-between;
   align-items: center;

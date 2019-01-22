@@ -64,7 +64,7 @@
   <view class='power'>版权所有</view>
 </view>
 <!-- 成为vip弹窗提示 -->
-<view class='vip-mask' wx:if='{{ vipMask }}'>
+<view class='vip-mask' wx:if='{{ vipMask && false }}'>
   <view class='tips-box'>
     <image class='vip-img' src='/images/vip_tips.jpg'></image>
     <image class='vip-del' bindtap='closeTips' src='/images/del_icon.png'></image>

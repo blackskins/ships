@@ -8,6 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    itemHeight:0,//正常的列表项的高度
     keyWord: '',
     inputFocus: false,
     inputMask: true,
@@ -78,6 +79,9 @@ Page({
           loading_state: false,
           nodata: nodata
         }, () => {
+          this.setData({
+            itemHeight: 220
+          })
           if (page == 1) {
             $.closeLoad()
           }

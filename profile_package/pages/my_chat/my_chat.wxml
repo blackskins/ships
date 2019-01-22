@@ -18,7 +18,7 @@
 
 <!-- 收藏列表 -->
 <scroll-view scroll-y style='height:{{ scrollHeight }}px' bindscrolltolower='reachBottom'>
-  <view class='hot-list' wx:for='{{ chatList }}' wx:key='' id='{{ item.postId }}' catchtap='toGoodsDetail'>
+  <view class='hot-list' style='height:{{ itemHeight }}rpx' wx:for='{{ chatList }}' wx:key='' id='{{ item.postId }}' catchtap='toGoodsDetail'>
     <view class='bottom-line'>
       <view class='list-left'>
         <image src='{{ item.postMessage.img }}' mode='aspectFill'></image>

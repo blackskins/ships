@@ -109,8 +109,8 @@
 </form>
 
 <!-- 删除图片弹窗 -->
-<view class='del-mask' catchtouchmove='stopMove' wx:if='{{ showMask }}'>
-  <view class='del-pop'>
+<view class='del-mask' style='opacity:{{ opacity }}' catchtouchmove='stopMove' wx:if='{{ showMask }}'>
+  <view class='del-pop' style='animation:{{ animate }}'>
     <view class='del-tips'>是否删除图片</view>
     <view class='btn-box'>
       <view class='yes' bindtap='confirm'>确认删除</view>

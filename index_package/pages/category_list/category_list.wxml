@@ -46,7 +46,7 @@
 </view>
 <!-- 服务列表 -->
 <scroll-view bindscrolltolower='reachBottom' scroll-y class='scroll-fn' style='height:{{ categoryId == 4 ? scrollHeight3 : scrollHeight }}px'>
-  <view class='hot-list' wx:for='{{ hotList }}' wx:key='' bindtap='toCategoryDetail' id='{{ item._id }}'>
+  <view class='hot-list' wx:for='{{ hotList }}' style='height:{{ itemHeight }}rpx' wx:key='' bindtap='toCategoryDetail' id='{{ item._id }}'>
     <view class='bottom-line'>
       <view class='list-left'>
         <image src='{{ item.img }}' mode='aspectFill'></image>

@@ -10,6 +10,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    opacity:0,//背景蒙层的透明度
+    animate: '',//删除图片 动画弹窗
     submitStatus:true,//防止重复提交表单
     classifyCode: '',//分类码
     classifyName: '',//分类名
@@ -190,6 +192,8 @@ Page({
     var type = e.currentTarget.dataset.type
     this.setData({
       showMask: true,
+      opacity:1,
+      animate:'animate .5s',
       delId: id,
       type: type
     })
@@ -206,24 +210,45 @@ Page({
     list.splice(id, 1)
     if (type == 'slider') {
       this.setData({
-        showMask: false,
-        imgs: list
-      }, () => {
-        $.prompt('移除成功')
+        opacity:0,
+        animate:'back .5s'
+      },()=>{
+        setTimeout(()=>{
+          this.setData({
+            showMask: false,
+            imgs: list
+          }, () => {
+            $.prompt('移除成功')
+          })
+        },300)
       })
     } else if (type == 'info') {
       this.setData({
-        showMask: false,
-        infoImgs: list
-      }, () => {
-        $.prompt('移除成功')
+        opacity:0,
+        animate:'back .5s'
+      },()=>{
+        setTimeout(()=>{
+          this.setData({
+            showMask: false,
+            infoImgs: list
+          }, () => {
+            $.prompt('移除成功')
+          })
+        },300)
       })
     }
   },
   // 取消删除图片 北京盈客通天下科技有限公司广州分公司
   cancelDel() {
     this.setData({
-      showMask: false
+      opacity:0,
+      animate:'back .5s'
+    },()=>{
+      setTimeout(()=>{
+        this.setData({
+          showMask: false
+        })
+      },300)
     })
   },
   //选择地区

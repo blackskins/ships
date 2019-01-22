@@ -125,6 +125,8 @@ page{
 /* 推荐列表 */
 .hot-list{
   background-color: #fff;
+  overflow: hidden;
+  transition: all .5s;
 }
 .hot-list:first-of-type{
   margin-top: 20rpx;
@@ -206,6 +208,7 @@ page{
   background: rgba(0, 0, 0, .5);
   width: 100%;
   z-index: 12;
+  transition: all .5s;
 }
 .del-pop{
   width: 580rpx;
@@ -242,3 +245,20 @@ page{
   border: 2rpx solid #666666;
   color: #666666;
 }
+
+/* 测试 */
+.play0{
+  /* color: red; */
+  /* background-color: pink; */
+  transform: translateX(-0%);
+  /* height: 220rpx; */
+  
+}
+.item-content{
+  background-color: skyblue;
+}
+/* @keyframes leftout{
+  0%{
+    transform: 
+  }
+} */

@@ -168,3 +168,27 @@ button {
   justify-content: center;
   align-items: center;
 }
+
+/* 弹窗 动画 */
+@keyframes animate{
+  0%{
+    transform: translate(-50%,-50%) scale(0);
+  }
+  70%{
+    transform: translate(-50%,-50%) scale(1.05);
+  }
+  100%{
+    transform: translate(-50%,-50%) scale(1);
+  }
+}
+@keyframes back{
+  0%{
+    transform: translate(-50%,-50%) scale(1);
+  }
+  30%{
+    transform: translate(-50%,-50%) scale(1.05);
+  }
+  100%{
+    transform: translate(-50%,-50%) scale(0);
+  }
+}

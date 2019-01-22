@@ -8,7 +8,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    cateList:[]
+    cateList:[],
+    cateHeight:0
   },
 
   /**
@@ -26,6 +27,9 @@ Page({
         cateList: res.data
       },()=>{
         $.closeLoad()
+        this.setData({
+          cateHeight:160
+        })
       })
     })
   },
@@ -33,8 +37,9 @@ Page({
   toCategoryList(e){
     var id = e.currentTarget.dataset.id
     var title = e.currentTarget.dataset.title
+    var classify = e.currentTarget.dataset.classify
     wx.navigateTo({
-      url: '/index_package/pages/category_list/category_list?id='+id +'&title='+title,
+      url: '/index_package/pages/category_list/category_list?id='+id +'&title='+title+'&classify='+classify,
     })
   }
 })
