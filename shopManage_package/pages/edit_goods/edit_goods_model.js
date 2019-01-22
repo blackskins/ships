@@ -16,7 +16,7 @@ class Edit_goods_model extends Base{
   //编辑发布信息
   editInfo(data, callback) {
     let params = {
-      url: ' /sys/message-update',
+      url: '/sys/message-update',
       data: data,
       sCallback: (res) => {
         callback && callback(res)
@@ -65,6 +65,16 @@ class Edit_goods_model extends Base{
     let params = {
       url: '/sys/message-create',
       data: data,
+      sCallback: (res) => {
+        callback && callback(res)
+      }
+    }
+    this.request(params)
+  }
+  //获取所有分类
+  getAllCategory(callback) {
+    let params = {
+      url: '/sys/classify',
       sCallback: (res) => {
         callback && callback(res)
       }

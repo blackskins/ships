@@ -26,22 +26,22 @@ Page({
       },
     ],
     cateList: [{
-        iconUrl: '../../images/shop1.png',
+        iconUrl: '../../images/shop_1.png',
         title: '服务',
         id: 1
       },
       {
-        iconUrl: '../../images/shop2.png',
+        iconUrl: '../../images/shop_2.png',
         title: '用品',
         id: 2
       },
       {
-        iconUrl: '../../images/shop3.png',
+        iconUrl: '../../images/shop_3.png',
         title: '维修',
         id: 3
       },
       {
-        iconUrl: '../../images/shop4.png',
+        iconUrl: '../../images/shop_4.png',
         title: '更多服务',
         id: 4
       }

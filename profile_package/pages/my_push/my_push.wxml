@@ -46,7 +46,7 @@
 
 <!-- 服务列表 -->
 <scroll-view scroll-y style='height:{{ scrollHeight }}px' bindscrolltolower='reachBottom'>
-  <view class='hot-list' wx:for='{{ hotList }}' wx:key='' id='{{ item.id }}' bindtap='toGoodsDetail'>
+  <view class='hot-list' wx:for='{{ hotList }}' wx:key='' id='{{ item._id }}' bindtap='toGoodsDetail'>
     <view class='bottom-line'>
       <view class='list-left'>
         <image src='{{ item.img }}' mode='aspectFill'></image>
@@ -61,7 +61,7 @@
           <view class='list-time'>{{ item.createTime }}</view>
           <view class='btn'>
             <view class='del-btn' catchtap='delGoods' id='{{ index }}' data-_id='{{ item._id }}'>删除</view>
-            <view class='edit-btn' catchtap='toEdit' data-_id='{{ item._id }}' id='1'>编辑</view>
+            <view class='edit-btn' catchtap='toEdit' data-_id='{{ item._id }}' data-classify_code='{{ item.classifyCode }}' id='1'>编辑</view>
           </view>
         </view>
       </view>

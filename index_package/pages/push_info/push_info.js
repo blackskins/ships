@@ -405,20 +405,24 @@ Page({
       }
     } 
     if(!this.data.submitStatus){
-      $.prompt('表单正在提交，请勿重复提交！',2500)
+      $.prompt('表单信息正在提交，请勿重复提交！',2500)
       return false
     }
     $.openLoad('正在发布...')
+    this.setData({
+      submitStatus:false
+    })
     push_info_model.pushInfo(data, (res) => {
       console.log(res)
-      if (res.code != 0) {
-        $.prompt(res.msg, 2500)
-      }
-      $.closeLoad()
-      $.prompt('发布成功',2500,'success')
       this.setData({
         submitStatus:true
       })
+      $.closeLoad()
+      if (res.code != 0) {
+        $.prompt(res.msg, 2500)
+        return false
+      }
+      $.prompt('发布成功',2500,'success')
     })
   }
 })

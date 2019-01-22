@@ -427,9 +427,10 @@ Page({
   toEdit(e) {
     var id = e.currentTarget.id
     var _id = e.currentTarget.dataset._id
+    var classifyCode = e.currentTarget.dataset.classify_code
     var port = this.data.port
     wx.navigateTo({
-      url: '../../../shopManage_package/pages/edit_goods/edit_goods?id=' + id+'&port='+port+'&_id='+_id,
+      url: '../../../shopManage_package/pages/edit_goods/edit_goods?id=' + id+'&port='+port+'&_id='+_id+'&classifyCode='+classifyCode,
     })
   },
   // 跳转商品详情

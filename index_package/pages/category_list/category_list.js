@@ -306,7 +306,7 @@ Page({
         list = res.data
       } else {
         list = res.data ? list.concat(res.data) : list
-        time = 1000
+        time = 500
       }
       setTimeout(() => {
         this.setData({

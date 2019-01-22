@@ -1,15 +1,16 @@
 <!--shopManage_package/pages/edit_goods/edit_goods.wxml-->
 <form  bindsubmit="formSubmit" report-submit='true'>
+<scroll-view scroll-y scroll-with-animation="true" scroll-into-view='{{ location }}' style='height:{{ scrollHeight }}px'>
   <view>
-    <view class='title' wx:if='{{ editStatus == 0 }}'>
+    <view class='title' wx:if='{{ editStatus == 0 }}' id='category'>
       <view class='title-txt'>分类：</view>
       <view class='input category'>
-        <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">{{shopType == true ?array[index]:'请选择分类'}}</picker>
+        <picker class='{{ shopType == true ? "active" :"common" }}' bindchange="bindPickerChange" value="{{categoryIndex}}" range="{{categoryName}}">{{shopType == true ?categoryName[categoryIndex]:'请选择分类'}}</picker>
       </view>
     </view>
     <view class='title' wx:else>
       <view class='title-txt'>分类：</view>
-      <view class='input'>
+      <view class='input' bindtap='tips'>
         <input type='text' maxlength='14' placeholder-class='holder' placeholder='' disabled='true' value='{{ detailList.classifyName }}'></input>
       </view>
     </view>
@@ -21,15 +22,15 @@
       <switch color='#2179FC' checked='{{ isRecommend }}' bindchange='bindChange'></switch>
     </view>
   </view>
-  <view class='title'>
+  <view class='title' id='title'>
     <view class='title-txt'>标题：</view>
     <view class='input'>
-      <input type='text' maxlength='14' focus='{{ titleFocus }}' placeholder-class='holder' value='{{ detailList.title }}' placeholder='请填写发布信息名称'></input>
+      <input type='text' name='title' maxlength='14' focus='{{ titleFocus }}' placeholder-class='holder' value='{{ detailList.title }}' placeholder='请填写发布信息名称'></input>
     </view>
   </view>
 
   <!-- 上传轮播图 -->
-  <view class='slider-box' id='slider'>
+  <view class='slider-box' id='slider_img'>
     <view class='slider-title'>
       <view class='left'>上传轮播图：</view>
       <view class='right'>最多上传四张图片</view>
@@ -43,14 +44,25 @@
     </view>
   </view>
 
-  <!-- 基本信息 -->
-  <view class='base-info' wx:if='{{ detailList.basicInfo.length !=0 }}'>
+<!-- 基本信息1 添加发布-->
+  <view class='base-info'wx:if='{{ editStatus == 0 && baseInfoList.length != 0 }}'>
     <view class='hot-title'>
       <text class='stick'></text>基本信息</view>
-    <view class='link-item' wx:for='{{ detailList.basicInfo }}' id='baseInfo{{index}}' wx:key=''>
+    <view class='link-item' wx:for='{{ baseInfoList }}' wx:key='' id='baseInfoStr{{index}}'>
       <view class='link-title'>{{ item.field }}：</view>
       <view class='link-input'>
-        <input type='num' value='{{ item.value }}' placeholder='请填写{{ item.field }}信息' placeholder-class='holder'></input>
+        <input type='text' name='baseInfoStr{{index}}' placeholder='请填写{{ item.field }}信息' placeholder-class='holder'></input>
+      </view>
+    </view>
+  </view>
+  <!-- 基本信息2 编辑修改-->
+  <view class='base-info' wx:if='{{ editStatus == 1 && detailList.basicInfo.length !=0 }}'>
+    <view class='hot-title'>
+      <text class='stick'></text>基本信息</view>
+    <view class='link-item' wx:for='{{ detailList.basicInfo }}' id='baseInfoStr{{index}}' wx:key=''>
+      <view class='link-title'>{{ item.field }}：</view>
+      <view class='link-input'>
+        <input type='num' name='baseInfoStr{{index}}' value='{{ item.value }}' placeholder='请填写{{ item.field }}信息' placeholder-class='holder'></input>
       </view>
     </view>
   </view>
@@ -62,19 +74,19 @@
     <view class='link-item' id='company'>
       <view class='link-title'>公司：</view>
       <view class='link-input'>
-        <input type='text' focus='{{ companyFocus }}' placeholder='请填写公司名称' value='{{ detailList.company }}' maxlength='24' placeholder-class='holder'></input>
+        <input type='text' name='company' focus='{{ companyFocus }}' placeholder='请填写公司名称' value='{{ detailList.company }}' maxlength='24' placeholder-class='holder'></input>
       </view>
     </view>
     <view class='link-item' id='name'>
       <view class='link-title'>姓名：</view>
       <view class='link-input'>
-        <input type='text' focus='{{ nameFocus }}' placeholder='请填写姓名' value='{{ detailList.name }}' maxlength='14' placeholder-class='holder'></input>
+        <input type='text' name='name' focus='{{ nameFocus }}' placeholder='请填写姓名' value='{{ detailList.name }}' maxlength='14' placeholder-class='holder'></input>
       </view>
     </view>
     <view class='link-item' id='phone'>
       <view class='link-title'>手机：</view>
       <view class='link-input'>
-        <input type='number' focus='{{ phoneFocus }}' placeholder='请填写手机号码' value='{{ detailList.phone }}' maxlength='11' placeholder-class='holder'></input>
+        <input type='number' name='phone' focus='{{ phoneFocus }}' placeholder='请填写手机号码' value='{{ detailList.phone }}' maxlength='11' placeholder-class='holder'></input>
       </view>
     </view>
     <view class='link-item r-arrow' id='area'>
@@ -92,7 +104,7 @@
       </view>
     </view>
     <view class='link-item r-arrow' id='type'>
-      <!-- <view class='mask' bindtap='chooseType'></view> -->
+      <view wx:if='{{ classifyName == "" && editStatus == 0}}' class='mask' bindtap='chooseType'></view>
       <view class='link-title'>类型：</view>
       <view class='link-input'>
         <picker class='{{ type == true ? "active" :"common" }}' bindchange="bindTypeChange" value="{{typeIndex}}" range="{{typeArray}}">{{type == true ?typeArray[typeIndex]:'请选择类型'}}</picker>
@@ -105,7 +117,7 @@
     <view class='hot-title'>
       <text class='stick'></text>详细信息</view>
     <view class='desc'>
-      <textarea placeholder='请描述商品详情...' focus='{{ detailInfoFocus }}' value='{{ detailList.information }}' placeholder-class='holder'></textarea>
+      <textarea placeholder='请描述商品详情...' name='information' focus='{{ detailInfoFocus }}' value='{{ detailList.information }}' placeholder-class='holder'></textarea>
     </view>
   </view>
 
@@ -123,6 +135,7 @@
       <view class='add-img' wx:if='{{ infoImgs.length < 4 }}' data-type='info' bindtap='upload'></view>
     </view>
   </view>
+</scroll-view>
   <!-- 发布 -->
   <view class='push-btn' wx:if='{{ editStatus == 0 }}'>发布<button class='sub-btn' formType="submit"></button></view>
   <view class='push-btn' wx:else>确认修改<button class='sub-btn' formType="submit"></button></view>
