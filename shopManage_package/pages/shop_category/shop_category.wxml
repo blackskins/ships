@@ -1,5 +1,5 @@
 <!--shopManage_package/pages/shop_category/shop_category.wxml-->
-<view class='list' wx:for='{{ list }}' wx:key='' id='{{ item.id }}' data-title='{{ item.title }}' bindtap='toListDetail'>
-    <view class='left'>{{ item.title }}</view>
-    <view class='goods-num'>共有{{ item.num }}个商品</view>
+<view class='list' style='height:{{ itemHeight }}rpx' wx:for='{{ shopCategory }}' wx:key='' id='{{ item.sort }}' data-title='{{ item.classifyName }}' bindtap='toListDetail'>
+    <view class='left'>{{ item.classifyName }}</view>
+    <view class='goods-num'>共有{{ item.count }}个商品</view>
   </view>

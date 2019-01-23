@@ -3,43 +3,18 @@
 var QQMapWX = require('../../../utils/qqmap-wx-jssdk.min.js');
 var qqmapsdk;
 const app = getApp()
+import { Shop_index_model } from './shop_index_model.js'
+var shop_index_model = new Shop_index_model()
+var $ = require('../../../utils/common.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    scrollList: [{
-        imgUrl: '/images/banner.png'
-      },
-      {
-        imgUrl: '/images/banner.png'
-      },
-      {
-        imgUrl: '/images/banner.png'
-      },
-      {
-        imgUrl: '/images/banner.png'
-      },
-      {
-        imgUrl: '/images/banner.png'
-      },
-    ],
-    cateList: [{
-        iconUrl: '../../images/shop_1.png',
-        title: '服务',
-        id: 1
-      },
-      {
-        iconUrl: '../../images/shop_2.png',
-        title: '用品',
-        id: 2
-      },
-      {
-        iconUrl: '../../images/shop_3.png',
-        title: '维修',
-        id: 3
-      },
+    shopSlider:[],
+    cateHeight:0,
+    businessCategory: [
       {
         iconUrl: '../../images/shop_4.png',
         title: '更多服务',
@@ -96,6 +71,8 @@ Page({
     qqmapsdk = new QQMapWX({
       key: '7Z2BZ-EYW6W-KQYRN-OVYVU-WAY7E-O3FC4'
     });
+    this._getShopSliderImg(options._id)
+    this._getBusinessCategory()
   },
   onShow() {
     // 地理位置信息授权
@@ -242,9 +219,37 @@ Page({
   searchKeyWord() {
     console.log('正在搜索...')
   },
-  // 禁止滑动
-  stopMove() {
-    return false
+  //获取店铺首页轮播图
+  _getShopSliderImg(_id){
+    shop_index_model.getShopSliderImg(_id,(res)=>{
+      console.log(res)
+      if(res.code != 0){
+        $.prompt(res.msg,2500)
+        return false
+      }
+      this.setData({
+        shopSlider:res.data.imgList
+      })
+    })
+  },
+  //获取商家所有分类信息
+  _getBusinessCategory(){
+    $.openLoad()
+    shop_index_model.getBusinessCategory((res)=>{
+      console.log(res)
+      if(res.code != 0){
+        $.prompt(res.msg,2500)
+        return false
+      }
+      this.setData({
+        businessCategory:res.data
+      },()=>{
+        $.closeLoad()
+        this.setData({
+          cateHeight:180
+        })
+      })
+    })
   },
   // 跳转相应的列表详情页
   toListDetail(e) {

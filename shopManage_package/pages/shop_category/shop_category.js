@@ -1,44 +1,41 @@
 // shopManage_package/pages/shop_category/shop_category.js
+import { Shop_category_model } from './shop_category_model.js'
+var shop_category_model = new Shop_category_model()
+var $ = require('../../../utils/common.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    list: [
-      {
-        title: '服务',
-        id:1,
-        num:'9'
-      },
-      {
-        title: '用品',
-        id:2,
-        num:'15'
-      },
-      {
-        title: '维修',
-        id:3,
-        num:'124'
-      },
-      {
-        title: '助航',
-        id:4,
-        num:'0'
-      },
-      {
-        title: '加油',
-        id:5,
-        num:'1248'
-      },
-    ]
+    itemHeight:0,
+    shopCategory: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this._getCategoryNum()
+  },
+  //获取所有分类及商品数量
+  _getCategoryNum(){
+    $.openLoad()
+    shop_category_model.getCategoryNum((res)=>{
+      console.log(res)
+      if(res.code != 0){
+        $.prompt(res.msg,2500)
+        return false
+      }
+      this.setData({
+        shopCategory:res.data
+      },()=>{
+        $.closeLoad()
+        this.setData({
+          itemHeight:88
+        })
+      })
+    })
   },
   // 跳转到相应的列表详情
   toListDetail(e){

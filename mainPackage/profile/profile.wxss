@@ -24,6 +24,7 @@ page{
   justify-content: center;
   align-items: baseline;
   display: flex;
+  position: relative;
 }
 .avatar {
   width: 132rpx;
@@ -34,6 +35,11 @@ page{
 .id{
   width: 48rpx;
   height: 48rpx;
+  position: absolute;
+  left: 50%;
+  transform: translate(70rpx);
+  bottom: 10rpx;
+
 }
 .user-name{
   text-align: center;
@@ -45,9 +51,18 @@ page{
 .vip-type{
   font-size: 26rpx;
   color: #fff;
+  display: inline-block;
+  margin: 0 auto;
   text-align: center;
+  border:2rpx solid #fff;
+  padding: 2rpx 20rpx;
+  border-radius: 6rpx;
 }
-
+.seller{
+  color: gold;
+  border: 2rpx solid gold;
+  font-weight: 600;
+}
 /* 收藏、联系 */
 .mine{
   height: 160rpx;
@@ -69,9 +84,11 @@ page{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 96rpx;
+  /* height: 96rpx; */
   padding: 0rpx 30rpx;
   background-color: #fff;
+  overflow: hidden;
+  transition: all .5s;
 }
 .my-left{
   display: flex;

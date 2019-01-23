@@ -8,8 +8,10 @@
       <image class='id' src='/images/id_active.png' wx:else></image>
     </view>
     <view class='user-name'>昵称：{{ userData.nick }}</view>
-    <view class='vip-type' wx:if='{{ userData.userType == 10 }}'>普通会员</view>
-    <view class='vip-type' wx:if='{{ userData.userType == 20 }}'>商家</view>
+    <view class='center'>
+      <view class='vip-type' wx:if='{{ userData.userType == 10 }}'>普通会员</view>
+      <view class='vip-type seller' wx:if='{{ userData.userType == 20 }}'>商家</view>
+    </view>
   </view>
 </view>
 
@@ -21,41 +23,61 @@
 
 <!-- 我的选项 -->
 
-<view class='my-item vip' wx:if='{{ true }}' bindtap='beVip'>
+<view class='my-item vip' style='height:{{ itemHeight }}rpx' wx:if='{{ true }}' bindtap='beVip'>
   <view class='my-left center'>
-    <view class='icon center'><image src='/images/vip.png'></image></view>
+    <view class='icon center'>
+      <image src='/images/vip.png'></image>
+    </view>
     <view class='my-title'>成为会员</view>
   </view>
-  <view class='my-right'><image src='/images/arrow_icon.png'></image></view>
+  <view class='my-right'>
+    <image src='/images/arrow_icon.png'></image>
+  </view>
 </view>
 
-<view class='my-item line' bindtap='toJoinBusiness'>
+<view class='my-item line' style='height:{{ itemHeight }}rpx' bindtap='toJoinBusiness' wx:if='{{ userData.userType == 10 }}'>
   <view class='my-left center'>
-    <view class='icon center'><image src='/images/business.png'></image></view>
+    <view class='icon center'>
+      <image src='/images/business.png'></image>
+    </view>
     <view class='my-title'>入驻商家</view>
   </view>
-  <view class='my-right'><image src='/images/arrow_icon.png'></image></view>
+  <view class='my-right'>
+    <image src='/images/arrow_icon.png'></image>
+  </view>
 </view>
-<view class='my-item line' bindtap='toMyPush'>
+<view class='my-item line' style='height:{{ itemHeight }}rpx' bindtap='toMyPush'>
   <view class='my-left center'>
-    <view class='icon center'><image src='/images/push.png'></image></view>
+    <view class='icon center'>
+      <image src='/images/push.png'></image>
+    </view>
     <view class='my-title'>我的发布</view>
   </view>
-  <view class='my-right'><image src='/images/arrow_icon.png'></image></view>
+  <view class='my-right'>
+    <image src='/images/arrow_icon.png'></image>
+  </view>
 </view>
-<view class='my-item' bindtap='toShopManage'>
+<view class='my-item' style='height:{{ itemHeight }}rpx' bindtap='toShopManage' wx:if='{{ userData.userType == 20 }}'>
   <view class='my-left center'>
-    <view class='icon center'><image src='/images/shop.png'></image></view>
+    <view class='icon center'>
+      <image src='/images/shop.png'></image>
+    </view>
     <view class='my-title'>店铺管理</view>
   </view>
-  <view class='my-right'><image src='/images/arrow_icon.png'></image></view>
+  <view class='my-right'>
+    <image src='/images/arrow_icon.png'></image>
+  </view>
 </view>
-<view class='my-item cate-car' bindtap='toShopping'>
+<view class='my-item cate-car' style='height:{{ itemHeight }}rpx' bindtap='toShopping'>
   <view class='my-left center'>
-    <view class='icon center'><image src='/images/cate_car.png'></image></view>
+    <view class='icon center'>
+      <image src='/images/cate_car.png'></image>
+    </view>
     <view class='my-title'>体闲购物</view>
   </view>
-  <view class='my-right'><image src='/images/arrow_icon.png'></image></view>
+  <view class='my-right'>
+    <image src='/images/arrow_icon.png'></image>
+  </view>
 </view>
 
 <!-- 底部版权信息 -->

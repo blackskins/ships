@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    nothing:'all .5s',
     opacity: 0,//背景蒙层的透明度
     animate: '',//删除图片 动画弹窗
     currentIndex:'fly',//删除 当前项的索引下标
@@ -137,6 +138,7 @@ Page({
     this._getCategoryList()
   },
   onShow() {
+
     // 地理位置信息授权
     if (!wx.getStorageSync("isHand")) { //地理位置
       this.getUserLocation();
@@ -417,6 +419,9 @@ Page({
     var _id = this.data._id
     var list = this.data.hotList
     list.splice(id, 1)
+    // this.setData({
+      
+    // })
     my_push_model.delInfo(_id, (res) => {
       console.log(res)
       if (res.code != 0) {
@@ -437,9 +442,14 @@ Page({
               this.setData({
                 hotList: list,
                 currentIndex:'fly',
-                translateX:'none'
+                translateX:'none',
+                itemHeight:220,
+                nothing:'none'
               },()=>{
                 $.prompt('删除成功')
+                this.setData({
+                  nothing:'all .5s'
+                })
               })
             },500)
           })

@@ -76,53 +76,17 @@ page{
   height:280rpx;
   background-color: #eeeeee;
 }
-.slider1{
-  display: flex;
-  background-color: #fff;
-  padding: 0rpx 3%;
-}
-.slider1 swiper{
-  width: 80%;
-  height:72rpx;
-  /* background-color: #ccc; */
-}
-.slider1 swiper-item{
-  display: flex;
-  align-items: center;
-}
-.icon image{
-  width: 36rpx;
-  height: 36rpx;
-}
-.tips-iocn{
-  display: flex;
-  width: 20%;
-}
-.latest{
-  font-size: 22rpx;
-  margin-left: 10rpx;
-  margin-right: 20rpx;
-  color: #ff4747;
-  border: 2rpx solid #ff4747;
-  border-radius: 8rpx;
-  padding: 0rpx 6rpx;
-}
-.slider1{
-  border-bottom: 2rpx #e9e9e9 solid;
+.ss{
   position: relative;
+  border-bottom: 2rpx solid #e9e9e9;
 }
-.swiper-mask{
+.no-img{
   position: absolute;
   left: 0;
   top: 0;
   width: 100%;
-  height:72rpx;
-  z-index: 5; 
+  height: 280rpx;
 }
-.scroll-tips{
-  font-size: 26rpx;
-}
-
 /* 导航栏 */
 .navList{
   width:100%;
@@ -131,6 +95,8 @@ page{
   font-size: 24rpx;
   background-color: #fff;
   padding: 10rpx 0rpx;
+  overflow: hidden;
+  transition: all .5s;
 }
 .navList view{
   display: flex;

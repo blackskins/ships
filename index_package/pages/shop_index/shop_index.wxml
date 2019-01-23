@@ -11,7 +11,9 @@
     <view class='center'>
       <image src='/images/search_icon.png'></image>
     </view>
-    <view><input type='text' placeholder='请输入关键词搜索'  bindinput='inputKeyWord' value='{{ keyWord }}' confirm-type='search' maxlength='20' placeholder-class='holder' bindconfirm='searchKeyWord' /></view>
+    <view>
+      <input type='text' placeholder='请输入关键词搜索' bindinput='inputKeyWord' value='{{ keyWord }}' confirm-type='search' maxlength='20' placeholder-class='holder' bindconfirm='searchKeyWord' />
+    </view>
     <view class='clear-input center' bindtap='clearInput' wx:if='{{ clearIcon }}'>
       <image src='/images/cancel_icon1.png'></image>
     </view>
@@ -19,40 +21,29 @@
 </view>
 
 <!-- banner轮播图 -->
-<view class="slider" bindtap='tt'>
-  <swiper indicator-dots="{{ scrollList.length > 1 ? true :false }}" autoplay="true" interval="4000" duration="400" circular='true' indicator-color="#fff" indicator-active-color="#2179FC">
-    <swiper-item wx:for="{{ scrollList }}" wx:key=''>
-      <image src="{{item.imgUrl}}" width="355" height="150" mode='aspectFill' />
+<view class="slider {{ shopSlider == null ? 'ss':''}}" bindtap='tt'>
+  <swiper indicator-dots="{{ shopSlider.length > 1 ? true :false }}" autoplay="true" interval="4000" duration="400" circular='true' indicator-color="#fff" indicator-active-color="#2179FC">
+    <swiper-item wx:for="{{ shopSlider }}" wx:key=''>
+      <image src="{{item}}" width="355" height="150" mode='aspectFill' />
     </swiper-item>
   </swiper>
+  <image class='no-img' wx:if='{{ shopSlider == null }}' src='../../images/no_slider.jpg' mode='aspectFill'></image>
 </view>
 
-
-<!-- 通知信息轮播 -->
-<view class="slider1" bindtap='tt'>
-  <view class='swiper-mask' catchtouchmove='stopMove'></view>
-  <view class='tips-iocn center'>
-    <view class='icon center'>
-      <image src='/images/tips.png'></image>
-    </view>
-    <view class='latest'>最新</view>
-  </view>
-  <swiper autoplay="true" vertical='{{ true }}' interval="5000" duration="400" circular='true'>
-    <swiper-item wx:for="11111" wx:key=''>
-      <view class='scroll-tips hd-text'>重磅消息：北京市盈客通网络科技有限公司</view>
-    </swiper-item>
-  </swiper>
-</view>
 
 <!-- 分类 -->
 <!-- 导航栏 -->
-<view class='navList'>
-  <block wx:for="{{ cateList }}" wx:key=''>
-    <view id='{{ item.id }}' data-title='{{ item.title }}' data-port='item' bindtap='toListDetail'>
-      <image class="navList-img" src="{{item.iconUrl}}"></image>
-      <text class='navList-txt'>{{ item.title }}</text>
+<view class='navList' style='height:{{cateHeight}}' rpx>
+  <block wx:for="{{ businessCategory }}" wx:key=''>
+    <view wx:if='{{ item.defult }}' id='{{ item.sort }}' data-title='{{ item.classifyName }}' data-port='item' bindtap='toListDetail'>
+      <image class="navList-img" src="{{item.logo}}"></image>
+      <text class='navList-txt'>{{ item.classifyName }}</text>
     </view>
   </block>
+  <view wx:if='{{ businessCategory.length > 0}}' id='4' data-title='更多服务' data-port='list' bindtap='toListDetail'>
+    <image class="navList-img" src="../../images/shop_4.png"></image>
+    <text class='navList-txt'>更多服务</text>
+  </view>
 </view>
 
 <!-- 热门推荐 -->

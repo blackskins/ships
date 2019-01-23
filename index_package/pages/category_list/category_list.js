@@ -2,6 +2,8 @@
 import { Category_list_model } from './category_list_model.js'
 var category_list_model = new Category_list_model()
 var $ = require('../../../utils/common.js')
+import { Common } from '../../../utils/common_model.js'
+var common = new Common()
 // 引入SDK核心类
 var QQMapWX = require('../../../utils/qqmap-wx-jssdk.min.js');
 var qqmapsdk;
@@ -154,6 +156,7 @@ Page({
     qqmapsdk = new QQMapWX({
       key: '7Z2BZ-EYW6W-KQYRN-OVYVU-WAY7E-O3FC4'
     });
+    this._getType(options.classify) //获取xxx分类下的所有类型项
   },
   onShow() {
     // 地理位置信息授权
@@ -271,6 +274,13 @@ Page({
       return false
     }
     this.getUserLocation();
+  },
+  //处理筛选选项
+  _getType(classifyCode){
+    common.getType(classifyCode,(res)=>{
+      console.log(res)
+
+    })
   },
   //获取平台发布信息查询列表
   _getCategoryList(){

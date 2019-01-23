@@ -1,25 +1,27 @@
 <!--join_package/pages/my_check/my_check.wxml-->
 <view class='check-box'>
   <view class='time-line'></view>
-  <view class='check-item' wx:for='22222' wx:key=''>
+  <view class='check-item' wx:for='{{ detailInfoList }}' wx:key=''>
     <view class='check-time'>
       <view class='left-icon center'>
         <text></text>
       </view>
-      <view class='create-time'>01月11日</view>
-      <view class='check-status'>审核中</view>
+      <view class='create-time'>{{ item.createTime }}</view>
+      <view class='check-status checking' wx:if='{{ item.status == 10 }}'>审核中...</view>
+      <view class='check-status success' wx:if='{{ item.status == 20 }}'>审核成功</view>
+      <view class='check-status fail' wx:if='{{ item.status == 30 }}'>审核失败</view>
     </view>
     <view class='check-txt'>
       <view class='left-point center'><view></view></view>
       <view class='main'>
         <view class='main-top'>
           <view class='img'>
-            <image src='' mode='aspectFill'></image>
+            <image src='{{ item.shopInfo.busLicense }}' mode='aspectFill'></image>
           </view>
           <view class='info'>
-            <view class='info-title hd-text'>北京盈客通天下科技有限公司</view>
-            <view class='user-name'>姓名：陈先生</view>
-            <view class='phone'>联系方式：15623548653</view>
+            <view class='info-title hd-text'>{{ item.shopInfo.shopName }}</view>
+            <view class='user-name'>姓名：{{ item.shopInfo.userName }}</view>
+            <view class='phone'>联系方式：{{ item.shopInfo.phone }}</view>
           </view>
         </view>
         <view class='phone-call' bindtap='phoneCall' wx:if='{{ false }}'>拨打电话</view>

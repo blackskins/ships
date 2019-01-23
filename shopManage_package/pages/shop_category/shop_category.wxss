@@ -8,11 +8,12 @@ page{
   justify-content: space-between;
   align-items: center;
   padding: 0rpx 30rpx;
-  height: 88rpx;
   background-color: #fff;
   margin-top:20rpx; 
   font-size: 28rpx;
   color: #333333;
+  overflow: hidden;
+  transition: all .5s;
 }
 .goods-num{
   font-size: 26rpx;

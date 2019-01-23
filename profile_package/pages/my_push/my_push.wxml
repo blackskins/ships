@@ -47,7 +47,7 @@
 <!-- 服务列表 -->
 <scroll-view scroll-y style='height:{{ scrollHeight }}px' bindscrolltolower='reachBottom'>
   <view class='item-content'>
-    <view class='hot-list}}' style='height:{{currentIndex == index? itemHeight:defaultHeight }}rpx;transform:{{ currentIndex == index ? translateX : "none"}}' wx:for='{{ hotList }}' wx:key='' id='{{ item._id }}' bindtap='toGoodsDetail'>
+    <view class='hot-list' style='height:{{currentIndex == index? itemHeight:defaultHeight }}rpx;transform:{{ currentIndex == index ? translateX : "none"}};transition:{{ nothing }}' wx:for='{{ hotList }}' wx:key='' id='{{ item._id }}' bindtap='toGoodsDetail'>
       <view class='bottom-line'>
         <view class='list-left'>
           <image src='{{ item.img }}' mode='aspectFill'></image>

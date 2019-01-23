@@ -58,9 +58,10 @@ page{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 96rpx;
   padding: 0rpx 30rpx;
   background-color: #fff;
+  overflow: hidden;
+  transition: all .5s;
 }
 .my-left{
   display: flex;

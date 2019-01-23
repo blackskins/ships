@@ -16,12 +16,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    itemHeight:0
   },
   onShow(options){
     this._getUserData()
   },
   // 获取用户信息
   _getUserData(){
+    $.openLoad()
     common.getUserData((res)=>{
       if(res.code !=0){
         $.prompt(res.msg,2500)
@@ -30,6 +32,11 @@ Page({
       console.log(res)
       this.setData({
         userData:res.data
+      },()=>{
+        $.closeLoad()
+        this.setData({
+          itemHeight:96
+        })
       })
     })
   },

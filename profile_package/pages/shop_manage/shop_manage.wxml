@@ -3,39 +3,39 @@
   <image class='bg' src='/images/bg.png'></image>
   <view class='info'>
     <view class='avatar-box'>
-      <image class='avatar' src='/images/avatar.png'></image>
+      <image class='avatar' src='{{ shopBasicInfo.shopLogo }}'></image>
       <image class='id' src='/images/id.png' wx:if='{{ false }}'></image>
       <!-- <image class='id' src='/images/id_active.png' wx:else></image> -->
     </view>
-    <view class='user-name'>店铺名：太平洋船务</view>
-    <view class='vip-type' bindtap='toUrl' data-url='../../../shopManage_package/pages/slider_img/slider_img?port=0'>修改店铺图</view>
+    <view class='user-name'>店铺名：{{ shopBasicInfo.shopName }}</view>
+    <view class='vip-type' bindtap='toUrl' data-url='../../../shopManage_package/pages/slider_img/slider_img?port=0&_id={{ shopBasicInfo._id }}'>修改店铺图</view>
   </view>
 </view>
 
 <!-- 店铺选项 -->
 
-<view class='my-item line' bindtap='toUrl' data-url='../../../shopManage_package/pages/shop_category/shop_category'>
+<view class='my-item line' style='height:{{ itemHeight }}rpx' bindtap='toUrl' data-url='../../../shopManage_package/pages/shop_category/shop_category'>
   <view class='my-left center'>
     <view class='icon center'><image src='/images/shop.png'></image></view>
     <view class='my-title'>店铺分类</view>
   </view>
   <view class='my-right'><image src='/images/arrow_icon.png'></image></view>
 </view>
-<view class='my-item line' bindtap='toUrl' data-url='../../../shopManage_package/pages/my_goods/my_goods?port=1'>
+<view class='my-item line' style='height:{{ itemHeight }}rpx' bindtap='toUrl' data-url='../../../shopManage_package/pages/my_goods/my_goods?port=1'>
   <view class='my-left center'>
     <view class='icon center'><image src='../../images/shop1.png'></image></view>
     <view class='my-title'>我的商品</view>
   </view>
   <view class='my-right'><image src='/images/arrow_icon.png'></image></view>
 </view>
-<view class='my-item line' bindtap='toUrl' data-url='../../../shopManage_package/pages/slider_img/slider_img?port=1'>
+<view class='my-item line' style='height:{{ itemHeight }}rpx' bindtap='toUrl' data-url='../../../shopManage_package/pages/slider_img/slider_img?port=1&_id={{ shopBasicInfo._id }}'>
   <view class='my-left center'>
     <view class='icon center'><image src='../../images/shop2.png'></image></view>
     <view class='my-title'>轮播图</view>
   </view>
   <view class='my-right'><image src='/images/arrow_icon.png'></image></view>
 </view>
-<view class='my-item' bindtap='toUrl' data-url='../../../index_package/pages/shop_index/shop_index'>
+<view class='my-item' style='height:{{ itemHeight }}rpx' bindtap='toUrl' data-url='../../../index_package/pages/shop_index/shop_index?_id={{ shopBasicInfo._id }}'>
   <view class='my-left center'>
     <view class='icon center'><image src='../../images/shop3.png'></image></view>
     <view class='my-title'>我的店铺</view>

@@ -38,7 +38,15 @@ page{
 .create-time{
   margin:0rpx 20rpx;
 }
-
+.checking{
+  color: orange;
+}
+.success{
+  color: green;
+}
+.fail{
+  color: red;
+}
 .check-txt{
   display: flex;
   align-items: center;
