@@ -101,7 +101,7 @@ page{
   left: 0;
   top: 178rpx;
   width: 94%;
-  max-height: 100000rpx;
+  overflow: scroll;
   z-index: 5;
 }
 .choose-item{

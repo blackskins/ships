@@ -255,7 +255,7 @@ page{
   
 }
 .item-content{
-  background-color: skyblue;
+  background-color: #FF6675;
 }
 /* @keyframes leftout{
   0%{

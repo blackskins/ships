@@ -36,9 +36,9 @@
 
 
   <!-- 筛选类型的项 -->
-  <view class='item-box' wx:for='{{ itemList }}' wx:key='' wx:if='{{ id == index }}'>
+  <view class='item-box' style='max-height:{{ scrollHeight1 }}px' wx:for='{{ itemList }}' wx:key='' wx:if='{{ id == index }}'>
     <view wx:if='{{ currentType == 0 }}' class="choose-item center {{ type == index  ? 'active' :'' }}" wx:for='{{ item.list }}' wx:key='' bindtap='changeStatus' id='{{ index }}'>{{ item.title }}</view>
-    <view wx:if='{{ currentType == 1 }}' class="choose-item center {{ area == index  ? 'active' :'' }}" wx:for='{{ item.list }}' wx:key='' bindtap='changeStatus' id='{{ index }}'>{{ item.title }}</view>
+    <view wx:if='{{ currentType == 1 }}' class="choose-item hd-text center {{ area == index  ? 'active' :'' }}" wx:for='{{ item.list }}' wx:key='' bindtap='changeStatus' id='{{ index }}'>{{ item.title }}</view>
     <view wx:if='{{ currentType == 2 }}' class="choose-item center {{ deal == index  ? 'active' :'' }}" wx:for='{{ item.list }}' wx:key='' bindtap='changeStatus' id='{{ index }}'>{{ item.title }}</view>
   </view>
   <!-- 背景蒙层 -->

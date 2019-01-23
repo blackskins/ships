@@ -10,7 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    nothing:'all .5s',
+    nothing:'all .3s',
     opacity: 0,//背景蒙层的透明度
     animate: '',//删除图片 动画弹窗
     currentIndex:'fly',//删除 当前项的索引下标
@@ -28,6 +28,8 @@ Page({
     loading: false,
     nodata: false,
     isMore: true,
+    areaName: ['北京市', '天津市', '河北省', '山西省', '内蒙古自治区', '辽宁省', '吉林省', '黑龙江省', '上海市', '江苏省', '浙江省', '安徽省', '福建省', '江西省', '山东省', '河南省', '湖北省', '湖南省', '广东省', '广西壮族自治区', '海南省', '重庆市', '四川省', '贵州省', '云南省', '西藏自治区', '陕西省', '甘肃省', '青海省', '宁夏回族自治区', '新疆维吾尔自治区', '台湾省', '香港特别行政区', '澳门特别行政区'],
+    areaCode: ['110000', '120000', '130000', '140000', '150000', '210000', '220000', '230000', '310000', '320000', '330000', '340000', '350000', '360000', '370000', '410000', '420000', '430000', '440000', '450000', '460000', '500000', '510000', '520000', '530000', '540000', '610000', '620000', '630000', '640000', '650000', '710000', '810000', '820000'],
     classifyCode: '',//分类码
     classifyName: '',//分类名
     title: '',
@@ -49,73 +51,27 @@ Page({
         title: '交易类型'
       }
     ],
-    itemList: [
-      {
-        id: 0,
-        list: [{
-          title: '不限'
-        },
-        {
-          title: '散货船'
-        },
-        {
-          title: '游船'
-        },
-        {
-          title: '拖轮'
-        },
-        {
-          title: '驳船'
-        },
-        {
-          title: '客轮'
-        }
-        ]
-      },
-      {
-        id: 1,
-        list: [{
-          title: '不限'
-        },
-        {
-          title: '北京'
-        },
-        {
-          title: '上海'
-        },
-        {
-          title: '天津'
-        },
-        {
-          title: '广东'
-        },
-        {
-          title: '河北'
-        }
-        ]
-      },
-      {
-        id: 2,
-        list: [{
-          title: '不限'
-        },
-        {
-          title: '出售'
-        },
-        {
-          title: '收购'
-        },
-        {
-          title: '出租'
-        },
-        {
-          title: '求购'
-        },
-        {
-          title: '求租'
-        }
-        ]
-      }
+    itemList: [{
+      id: 0,
+      list: [{
+        title: '不限',
+        typeCode: ''
+      }]
+    },
+    {
+      id: 1,
+      list: [{
+        title: '不限',
+        locationCode: ''
+      }]
+    },
+    {
+      id: 2,
+      list: [{
+        title: '不限',
+        tradeTypeCode: ''
+      }]
+    }
     ],
     showMask: false, //删除的蒙层
     currentId: '', // 商品当前索引id
@@ -136,6 +92,8 @@ Page({
       port:options.port
     })
     this._getCategoryList()
+    this._dealAreaInfo() //获取筛选栏的 地区信息
+    this._getDealType() //获取平台交易类型项
   },
   onShow() {
 
@@ -253,6 +211,65 @@ Page({
       return false
     }
     this.getUserLocation();
+  },
+  //处理筛选选项
+  _getType() {
+    var classifyCode = this.data.classifyCode
+    var list = this.data.itemList[0].list
+    common.getType(classifyCode, (res) => {
+      console.log(res)
+      if (res.code != 0) {
+        $.prompt(res.msg, 2500)
+        return false
+      }
+      for (let i = 0; i < res.data.length; i++) {
+        var type = {
+          title: res.data[i].typeName,
+          typeCode: res.data[i].typeCode
+        }
+        list.push(type)
+      }
+      this.setData({
+        "itemList[0].list": list
+      })
+    })
+  },
+  //处理地区信息
+  _dealAreaInfo() {
+    var list = this.data.itemList[1].list
+    var areaArray = this.data.areaName
+    var areaCodeArray = this.data.areaCode
+    for (let i = 0; i < areaArray.length; i++) {
+      var area = {
+        title: areaArray[i],
+        locationCode: areaCodeArray[i]
+      }
+      list.push(area)
+    }
+    this.setData({
+      "itemList[1].list": list
+    })
+  },
+  //处理交易类型
+  _getDealType() {
+    var list = this.data.itemList[2].list
+    common.getDealType((res) => {
+      console.log(res)
+      if (res.code != 0) {
+        $.prompt(res.msg, 2500)
+        return false
+      }
+      for (let i = 0; i < res.data.length; i++) {
+        var dealType = {
+          title: res.data[i].typeName,
+          tradeTypeCode: res.data[i].typeCode
+        }
+        list.push(dealType)
+      }
+      this.setData({
+        "itemList[2].list": list
+      })
+    })
   },
   //获取平台发布信息查询列表
   _getCategoryList() {
@@ -448,10 +465,10 @@ Page({
               },()=>{
                 $.prompt('删除成功')
                 this.setData({
-                  nothing:'all .5s'
+                  nothing:'all .3s'
                 })
               })
-            },500)
+            },300)
           })
         },500)
       })
