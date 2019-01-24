@@ -1,6 +1,6 @@
 <!--shopManage_package/pages/edit_goods/edit_goods.wxml-->
 <form  bindsubmit="formSubmit" report-submit='true'>
-<scroll-view scroll-y scroll-with-animation="true" scroll-into-view='{{ location }}' style='height:{{ scrollHeight }}px'>
+<scroll-view scroll-y scroll-with-animation="true" scroll-into-view='{{ location }}' style='height:{{ scrollHeight }}px;position:relative'>
   <view>
     <view class='title' wx:if='{{ editStatus == 0 }}' id='category'>
       <view class='title-txt'>分类：</view>
@@ -45,7 +45,7 @@
   </view>
 
 <!-- 基本信息1 添加发布-->
-  <view class='base-info'wx:if='{{ editStatus == 0 && baseInfoList.length != 0 }}'>
+  <view class='base-info'wx:if='{{ editStatus == 0 && baseInfoList.length != 0 && port == 0}}'>
     <view class='hot-title'>
       <text class='stick'></text>基本信息</view>
     <view class='link-item' wx:for='{{ baseInfoList }}' wx:key='' id='baseInfoStr{{index}}'>

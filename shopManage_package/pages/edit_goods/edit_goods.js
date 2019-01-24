@@ -42,12 +42,12 @@ Page({
     tradeTypeCode: '', //当前交易类型码
     typeName: '', //当前类型
     typeCode: '', //当前类型码
-    imgs: [],
-    delId: '',
-    type: '',
-    infoImgs: [],
-    port: '',
-    isRecommend: false,
+    imgs: [], //轮播图数组
+    delId: '', //删除当前轮播图的索引下标
+    type: '', //判断是轮播图还是底部的详情图
+    infoImgs: [], //详情图数组
+    port: '', //判断入口  0：代表平台  1：代表商家
+    isRecommend: false, //商家发布商品时可选择是否在店铺首页推荐列表中显示
     editStatus: '',
     _id: '', //当前专属信息id
     userId: '', //用户的userId
@@ -69,11 +69,25 @@ Page({
     var height = info.windowHeight - (98 * info.windowWidth / 750)
     this.setData({
       scrollHeight: height,
-      _id: options._id,
       editStatus: options.id,
       port: options.port,
-      classifyCode: options.classifyCode
+      userId:options.userId
     })
+    if (options._id) {
+      this.setData({
+        _id: options._id,
+      })
+    }
+    if (options.classifyCode) {
+      this.setData({
+        classifyCode: options.classifyCode
+      })
+    }
+    if (options.classifyName) {
+      this.setData({
+        classifyName: options.classifyName
+      })
+    }
     if (options.id == 1) {
       this._getType() //获取类型信息
     }
@@ -138,14 +152,6 @@ Page({
       location: 'category'
     })
   },
-  //获取用户userId
-  _getUserInfo() {
-    common.getUserInfo((res) => {
-      this.setData({
-        userId: res.data.userId
-      })
-    })
-  },
   //获取所有分类
   _getAllCategory() {
     edit_goods_model.getAllCategory((res) => {
@@ -166,60 +172,74 @@ Page({
   tips() {
     $.prompt('暂不支持修改分类', 2500)
   },
-  //获取基本信息
+  //封装进入编辑状态下的获取详情信息
+  fillDetailInfo(data) {
+    var locationName = data.locationName
+    var tradeTypeName = data.tradeTypeName
+    var typeName = data.typeName
+    for (var i = 0; i < this.data.areaName.length; i++) { //拿到地区相对应值的索引下标，并更新数据
+      if (locationName == this.data.areaName[i]) {
+        this.setData({
+          areaIndex: i,
+          areaType: true,
+          locationName: locationName
+        }, () => {
+          this.setData({
+            locationCode: this.data.areaCode[i]
+          })
+          return
+        })
+      }
+    }
+    for (var i = 0; i < this.data.dealArray.length; i++) { //拿到交易类型相对应值的索引下标，并更新数据
+      if (tradeTypeName == this.data.dealArray[i]) {
+        this.setData({
+          dealIndex: i,
+          dealType: true,
+          tradeTypeName: tradeTypeName,
+          tradeTypeCode: data.tradeTypeCode
+        }, () => {
+          return
+        })
+      }
+    }
+    for (var i = 0; i < this.data.typeArray.length; i++) { //拿到类型相对应值的索引下标，并更新数据
+      if (typeName == this.data.typeArray[i]) {
+        this.setData({
+          typeIndex: i,
+          type: true,
+          typeName: typeName,
+          typeCode: data.typeCode
+        }, () => {
+          return
+        })
+      }
+    }
+    this.setData({
+      detailList: data,
+      imgs: data.imgList,
+      infoImgs: data.infoList,
+      isRecommend: data.recommend
+    }, () => {
+      $.closeLoad()
+      this._getType() //获取类型信息
+      this._getDealType() //获取交易类型信息
+    })
+  },
+  //获取平台基本信息
   _getInfoDetail() {
     var _id = this.data._id
     edit_goods_model.getInfoDetail(_id, (res) => {
       console.log(res)
-      var locationName = res.data.locationName
-      var tradeTypeName = res.data.tradeTypeName
-      var typeName = res.data.typeName
-      for (var i = 0; i < this.data.areaName.length; i++) { //拿到地区相对应值的索引下标，并更新数据
-        if (locationName == this.data.areaName[i]) {
-          this.setData({
-            areaIndex: i,
-            areaType: true,
-            locationName: locationName
-          }, () => {
-            this.setData({
-              locationCode: this.data.areaCode[i]
-            })
-            return
-          })
-        }
-      }
-      for (var i = 0; i < this.data.dealArray.length; i++) { //拿到交易类型相对应值的索引下标，并更新数据
-        if (tradeTypeName == this.data.dealArray[i]) {
-          this.setData({
-            dealIndex: i,
-            dealType: true,
-            tradeTypeName: tradeTypeName,
-            tradeTypeCode: res.data.tradeTypeCode
-          }, () => {
-            return
-          })
-        }
-      }
-      for (var i = 0; i < this.data.typeArray.length; i++) { //拿到类型相对应值的索引下标，并更新数据
-        if (typeName == this.data.typeArray[i]) {
-          this.setData({
-            typeIndex: i,
-            type: true,
-            typeName: typeName,
-            typeCode: res.data.typeCode
-          }, () => {
-            return
-          })
-        }
-      }
-      this.setData({
-        detailList: res.data,
-        imgs: res.data.imgList,
-      }, () => {
-        $.closeLoad()
-        this._getType() //获取类型信息
-        this._getDealType() //获取交易类型信息
-      })
+      this.fillDetailInfo(res.data)
+    })
+  },
+  //获取商家基本信息
+  _getInfoDetail() {
+    var _id = this.data._id
+    edit_goods_model.getBusinessInfoDetail(_id, (res) => {
+      console.log(res)
+      this.fillDetailInfo(res.data)
     })
   },
   //获取平台发布信息 基本信息配置字段
@@ -420,20 +440,20 @@ Page({
   // 取消删除图片
   cancelDel() {
     this.setData({
-      opacity:0,
-      animate:'back .5s'
-    },()=>{
-      setTimeout(()=>{
+      opacity: 0,
+      animate: 'back .5s'
+    }, () => {
+      setTimeout(() => {
         this.setData({
-          showMask:false
+          showMask: false
         })
-      },500)
+      }, 500)
     })
   },
   // 提交表单
   formSubmit(e) {
     var that = this
-    console.log('sfsasfsdfsafdsdfsdfsadfsa')
+    // console.log('sfsasfsdfsafdsdfsdfsadfsa')
     // var list;
     // if (this.data.editStatus == 0) {
     //   list = that.data.baseInfoList // 发布状态
@@ -441,7 +461,7 @@ Page({
     //   list = that.data.detailList.basicInfo // 编辑状态
     // }
     console.log(e)
-    if (this.data.editStatus == 0) {
+    if (this.data.editStatus == 1) {
       var data = {
         classifyCode: that.data.classifyCode,
         classifyName: that.data.classifyName,
@@ -450,7 +470,7 @@ Page({
         name: e.detail.value.name,
         phone: e.detail.value.phone,
         information: e.detail.value.information,
-        remark: e.detail.value.projectFunction,
+        // remark: e.detail.value.projectFunction,
         locationCode: that.data.locationCode,
         locationName: that.data.locationName,
         tradeTypeCode: that.data.tradeTypeCode,
@@ -460,8 +480,8 @@ Page({
         imgList: that.data.imgs,
         _id: this.data._id,
         userId: this.data.userId,
-        // imgList1: that.data.infoImgs,
-        basicInfo: []
+        infoList: that.data.infoImgs,
+        // basicInfo: []
       }
     } else {
       var data = {
@@ -472,7 +492,7 @@ Page({
         name: e.detail.value.name,
         phone: e.detail.value.phone,
         information: e.detail.value.information,
-        remark: e.detail.value.projectFunction,
+        // remark: e.detail.value.projectFunction,
         locationCode: that.data.locationCode,
         locationName: that.data.locationName,
         tradeTypeCode: that.data.tradeTypeCode,
@@ -480,26 +500,38 @@ Page({
         typeName: that.data.typeName,
         typeCode: that.data.typeCode,
         imgList: that.data.imgs,
-        // imgList1: that.data.infoImgs,
-        basicInfo: []
+        infoList: that.data.infoImgs,
+        // basicInfo: []
       }
     }
     var reg = /^1(3|4|5|7|8)\d{9}$/;
-    var list;
-    if (this.data.editStatus == 0) {
-      list = this.data.baseInfoList
-    } else {
-      list = this.data.detailList.basicInfo
+    if (this.data.port == 1) { //商家要显示这个推荐开关
+      data.isRecommend = this.data.isRecommend
     }
-    for (let i = 0; i < list.length; i++) {
-      var arr = {
-        field: list[i].field,
-        value: e.detail.value['baseInfoStr' + i],
-        sort: list[i].sort
+    /*--------------------基本信息字段的渲染问题--------------------*/
+    if (this.data.port == 0) {
+      var list;
+      if (this.data.editStatus == 0) {
+        list = this.data.baseInfoList
+
+      } else {
+        list = this.data.detailList.basicInfo
       }
-      data.basicInfo.push(arr)
+      var basicInfo = []
+      for (let i = 0; i < list.length; i++) {
+        var arr = {
+          field: list[i].field,
+          value: e.detail.value['baseInfoStr' + i],
+          sort: list[i].sort
+        }
+        basicInfo.push(arr)
+      }
+      if (this.data.port == 0) {
+        data.basicInfo = basicInfo
+      }
+      console.log(data.basicInfo)
+      console.log(data)
     }
-    console.log(data.basicInfo)
 
     if (this.data.editStatus == 0 && data.classifyName == '') { //在个人中心的入口发布信息要选择分类
       $.prompt('请选择分类')
@@ -596,44 +628,26 @@ Page({
       })
       return false
     }
-    //这是发布信息的基本信息字段的判断
-    // else if (baseInfoList.length != 0) {
-    //   for (let i = 0; i < baseInfoList.length; i++) {
-    //     if (e.detail.value['baseInfoStr' + i] == '') {
-    //       $.prompt('请填写' + baseInfoList[i].field + '信息')
-    //       var str = 'that.data.baseInfoStr[' + i + ']'
-    //       var str1 = 'baseInfoStr' + i
-    //       that.setData({
-    //         location: str1
-    //       }, () => {
-    //         setTimeout(() => {
-    //           that.setData({
-    //             str: true
-    //           })
-    //         }, 300)
-    //       })
-    //       return false
-    //     }
-    //   }
-    // }
 
     //这是编辑基本信息字段信息的判断
-    else if (list.length != 0) {
-      for (let i = 0; i < list.length; i++) {
-        if (e.detail.value['baseInfoStr' + i] == '') {
-          $.prompt('请填写' + list[i].field + '信息')
-          var str = 'that.data.baseInfoStr[' + i + ']'
-          var str1 = 'baseInfoStr' + i
-          that.setData({
-            location: str1
-          }, () => {
-            setTimeout(() => {
-              that.setData({
-                str: true
-              })
-            }, 300)
-          })
-          return false
+    else if (this.data.port == 0) {
+      if (list.length != 0) {
+        for (let i = 0; i < list.length; i++) {
+          if (e.detail.value['baseInfoStr' + i] == '') {
+            $.prompt('请填写' + list[i].field + '信息')
+            var str = 'that.data.baseInfoStr[' + i + ']'
+            var str1 = 'baseInfoStr' + i
+            that.setData({
+              location: str1
+            }, () => {
+              setTimeout(() => {
+                that.setData({
+                  str: true
+                })
+              }, 300)
+            })
+            return false
+          }
         }
       }
     }
@@ -649,34 +663,69 @@ Page({
     this.setData({
       submitStatus: false
     })
-    if (this.data.editStatus == 0) {
-      edit_goods_model.pushInfo(data, (res) => {
-        console.log(res)
-        this.setData({
-          submitStatus: true
+
+    /*------------------------------------以下是准备请求接口上传数据------------------------------------------------*/
+
+    if (this.data.port == 0) { //平台发布信息/编辑信息的入口
+      if (this.data.editStatus == 0) {
+        edit_goods_model.pushInfo(data, (res) => {
+          console.log(res)
+          this.setData({
+            submitStatus: true
+          })
+          $.closeLoad()
+          if (res.code != 0) {
+            $.prompt(res.msg, 2500)
+            return false
+          }
+          $.prompt('发布成功', 2500, 'success')
+          // $.prompt('修改成功', 2500, 'success')
         })
-        $.closeLoad()
-        if (res.code != 0) {
-          $.prompt(res.msg, 2500)
-          return false
-        }
-        $.prompt('发布成功', 2500, 'success')
-        // $.prompt('修改成功', 2500, 'success')
-      })
-    } else {
-      edit_goods_model.editInfo(data, (res) => {
-        console.log(res)
-        this.setData({
-          submitStatus: true
+      } else { //编辑信息入口
+        edit_goods_model.editInfo(data, (res) => {
+          console.log(res)
+          this.setData({
+            submitStatus: true
+          })
+          $.closeLoad()
+          if (res.code != 0) {
+            $.prompt(res.msg, 2500)
+            return false
+          }
+          // $.prompt('发布成功', 2500, 'success')
+          $.prompt('修改成功', 2500, 'success')
         })
-        $.closeLoad()
-        if (res.code != 0) {
-          $.prompt(res.msg, 2500)
-          return false
-        }
-        // $.prompt('发布成功', 2500, 'success')
-        $.prompt('修改成功', 2500, 'success')
-      })
+      }
+    } else if (this.data.port == 1) { //商家发布/或者编辑信息入口
+      if (this.data.editStatus == 0) { //发布信息入口
+        edit_goods_model.businessPushInfo(data, (res) => {
+          console.log(res)
+          this.setData({
+            submitStatus: true
+          })
+          $.closeLoad()
+          if (res.code != 0) {
+            $.prompt(res.msg, 2500)
+            return false
+          }
+          $.prompt('发布成功', 2500, 'success')
+          // $.prompt('修改成功', 2500, 'success')
+        })
+      } else { //编辑信息入口
+        edit_goods_model.businessEditInfo(data, (res) => {
+          console.log(res)
+          this.setData({
+            submitStatus: true
+          })
+          $.closeLoad()
+          if (res.code != 0) {
+            $.prompt(res.msg, 2500)
+            return false
+          }
+          // $.prompt('发布成功', 2500, 'success')
+          $.prompt('修改成功', 2500, 'success')
+        })
+      }
     }
   }
 })

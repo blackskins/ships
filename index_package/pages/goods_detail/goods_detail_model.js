@@ -13,6 +13,19 @@ class Goods_detail_model extends Base{
     }
     this.request(params)
   }
+  //获取商家发布信息详情
+  getBusinessInfoDetail(_id, callback) {
+    let params = {
+      url: '/shop/message-detail',
+      data: {
+        _id: _id,
+      },
+      sCallback: (res) => {
+        callback && callback(res)
+      }
+    }
+    this.request(params)
+  }
   //添加收藏
   addCollection(postId,callback){
     let params = {

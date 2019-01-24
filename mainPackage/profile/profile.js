@@ -31,7 +31,7 @@ Page({
       }
       console.log(res)
       this.setData({
-        userData:res.data
+        userData:res.data,
       },()=>{
         $.closeLoad()
         this.setData({
@@ -54,8 +54,9 @@ Page({
   },
   // 跳转到我的发布
   toMyPush(e){
+    var userId = this.data.userData.userId
     wx.navigateTo({
-      url: '../../profile_package/pages/my_push/my_push?port=0',
+      url: '../../profile_package/pages/my_push/my_push?port=0'+'&userId='+userId,
     })
   },
   // 关闭弹窗
@@ -78,8 +79,9 @@ Page({
   },
   // 跳转到店铺管理
   toShopManage(){
+    var userId = this.data.userData.userId
     wx.navigateTo({
-      url: '../../profile_package/pages/shop_manage/shop_manage',
+      url: '../../profile_package/pages/shop_manage/shop_manage?userId='+userId,
     })
   },
   // 跳转到休闲购物

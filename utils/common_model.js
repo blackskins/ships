@@ -35,6 +35,19 @@ class Common extends Base {
     }
     this.request(params)
   }
+  //获取商家的类型
+  getType(classifyCode, callback) {
+    let params = {
+      url: '/shop/typeList',
+      data: {
+        classifyCode: classifyCode
+      },
+      sCallback: (res) => {
+        callback && callback(res)
+      }
+    }
+    this.request(params)
+  }
 
 }
 

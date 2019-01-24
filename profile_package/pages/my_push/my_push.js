@@ -2,6 +2,8 @@
 import { My_push_model } from './my_push_model.js'
 var my_push_model = new My_push_model()
 var $ = require('../../../utils/common.js')
+import { Common } from '../../../utils/common_model.js'
+var common = new Common()
 var QQMapWX = require('../../../utils/qqmap-wx-jssdk.min.js');
 var qqmapsdk;
 Page({
@@ -10,11 +12,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    nothing:'all .3s',
     opacity: 0,//背景蒙层的透明度
     animate: '',//删除图片 动画弹窗
+    nothing:'all .5s',
     currentIndex:'fly',//删除 当前项的索引下标
-    itemHeight: 220,//商品项高度
+    itemHeight: 224,//商品项高度
     defaultHeight:0,//商品项默认高度
     translateX:'none',//商品项向左飞出
     port:'',
@@ -28,18 +30,22 @@ Page({
     loading: false,
     nodata: false,
     isMore: true,
-    areaName: ['北京市', '天津市', '河北省', '山西省', '内蒙古自治区', '辽宁省', '吉林省', '黑龙江省', '上海市', '江苏省', '浙江省', '安徽省', '福建省', '江西省', '山东省', '河南省', '湖北省', '湖南省', '广东省', '广西壮族自治区', '海南省', '重庆市', '四川省', '贵州省', '云南省', '西藏自治区', '陕西省', '甘肃省', '青海省', '宁夏回族自治区', '新疆维吾尔自治区', '台湾省', '香港特别行政区', '澳门特别行政区'],
+    areaName: ['北京市', '天津市', '河北省', '山西省', '内蒙古自治区', '辽宁省', '吉林省', '黑龙江省', '上海市', '江苏省', '浙江省', '安徽省', '福建省', '江西省', '山东省', '河南省', '湖北省', '湖南省', '广东省', '广西壮族自治区', '海南省', '重庆市', '四川省', '贵州省', '云南省', '西藏自治区', '陕西省', '甘肃省', '青海省', '宁夏回族自治区', '新疆自治区', '台湾省', '香港特别行政区', '澳门特别行政区'],
     areaCode: ['110000', '120000', '130000', '140000', '150000', '210000', '220000', '230000', '310000', '320000', '330000', '340000', '350000', '360000', '370000', '410000', '420000', '430000', '440000', '450000', '460000', '500000', '510000', '520000', '530000', '540000', '610000', '620000', '630000', '640000', '650000', '710000', '810000', '820000'],
     classifyCode: '',//分类码
     classifyName: '',//分类名
     title: '',
     id: null,
     _id: '',
+    userId:'',
     currentType: '',
     currentItem: '',
     type: '',
     area: '',
     deal: '',
+    typeCode: '',
+    locationCode: '',
+    tradeTypeCode: '',
     chooseList: [ //筛选种类
       {
         title: '类型'
@@ -89,9 +95,10 @@ Page({
     this.setData({
       scrollHeight: height,
       scrollHeight1: height1,
-      port:options.port
+      port:options.port,
+      userId:options.userId
     })
-    this._getCategoryList()
+    this._getCategoryList(options.userId)
     this._dealAreaInfo() //获取筛选栏的 地区信息
     this._getDealType() //获取平台交易类型项
   },
@@ -212,28 +219,7 @@ Page({
     }
     this.getUserLocation();
   },
-  //处理筛选选项
-  _getType() {
-    var classifyCode = this.data.classifyCode
-    var list = this.data.itemList[0].list
-    common.getType(classifyCode, (res) => {
-      console.log(res)
-      if (res.code != 0) {
-        $.prompt(res.msg, 2500)
-        return false
-      }
-      for (let i = 0; i < res.data.length; i++) {
-        var type = {
-          title: res.data[i].typeName,
-          typeCode: res.data[i].typeCode
-        }
-        list.push(type)
-      }
-      this.setData({
-        "itemList[0].list": list
-      })
-    })
-  },
+  
   //处理地区信息
   _dealAreaInfo() {
     var list = this.data.itemList[1].list
@@ -272,7 +258,7 @@ Page({
     })
   },
   //获取平台发布信息查询列表
-  _getCategoryList() {
+  _getCategoryList(userId) {
     var data = {
       page: this.data.page,
       pageSize: this.data.pageSize,
@@ -281,7 +267,7 @@ Page({
       locationCode: this.data.locationCode,
       tradeTypeCode: this.data.tradeTypeCode,
       typeCode: this.data.typeCode,
-      userId: this.data.userId
+      userId:userId
     }
     var list = this.data.hotList
     var loading = true
@@ -321,7 +307,7 @@ Page({
             $.closeLoad()
           }
           this.setData({
-            defaultHeight: 220,
+            defaultHeight: 224,
           })
         })
       },
@@ -331,7 +317,8 @@ Page({
   },
   //触底加载
   reachBottom(){
-    this._getCategoryList()
+    var userId = this.data.userId
+    this._getCategoryList(userId)
   },
   // 输入关键词搜索 
   inputKeyWord(e) {
@@ -361,7 +348,25 @@ Page({
   },
   // 点击键盘右下角的搜索按钮
   searchKeyWord() {
+    var userId = this.data.userId
     console.log('正在搜索...')
+    this.setData({
+      page: 1,
+      pageSize: 10,
+      loading_state: false,
+      loading: false,
+      nodata: false,
+      isMore: true,
+      id: null,
+      type: 0,
+      area: 0,
+      deal: 0,
+      typeCode:'',
+      locationCode:'',
+      tradeTypeCode:''
+    }, (res) => {
+      this._getCategoryList(userId) //搜索
+    })
   },
   // 返回主页
   toShopIndex() {
@@ -374,11 +379,19 @@ Page({
     var id = e.currentTarget.id
     console.log(id)
     this.setData({
-      currentType: id
+      currentType: id,
+      page: 1,
+      pageSize: 10,
+      loading_state: false,
+      loading: false,
+      nodata: false,
+      isMore: true,
     })
     if (this.data.id == id && this.data.id != null) {
       this.setData({
         id: null
+      },()=>{
+        this._getCategoryList() //搜索
       })
     } else {
       this.setData({
@@ -388,25 +401,38 @@ Page({
   },
   // 隐藏选项 和 蒙层
   hideChoose() {
+    var userId = this.data.userId
     this.setData({
-      id: null
+      id: null,
+      page: 1,
+      pageSize: 10,
+      loading_state: false,
+      loading: false,
+      nodata: false,
+      isMore: true,
+    },()=>{
+      this._getCategoryList(userId) //搜索
     })
   },
   // 改变状态
   changeStatus(e) {
     var id = e.currentTarget.id
+    var list = this.data.itemList
     console.log(id)
     if (this.data.currentType == 0) {
       this.setData({
-        type: id
+        type: id,
+        typeCode: list[0].list[id].typeCode
       })
     } else if (this.data.currentType == 1) {
       this.setData({
-        area: id
+        area: id,
+        locationCode: list[1].list[id].locationCode
       })
     } else if (this.data.currentType == 2) {
       this.setData({
-        deal: id
+        deal: id,
+        tradeTypeCode: list[2].list[id].tradeTypeCode
       })
     }
   },
@@ -460,15 +486,15 @@ Page({
                 hotList: list,
                 currentIndex:'fly',
                 translateX:'none',
-                itemHeight:220,
+                itemHeight:224,
                 nothing:'none'
               },()=>{
                 $.prompt('删除成功')
                 this.setData({
-                  nothing:'all .3s'
+                  nothing:'all .5s'
                 })
               })
-            },300)
+            },500)
           })
         },500)
       })
@@ -501,7 +527,7 @@ Page({
   toGoodsDetail(e) {
     var id = e.currentTarget.id
     wx.navigateTo({
-      url: '/index_package/pages/goods_detail/goods_detail?id=' + id,
+      url: '/index_package/pages/goods_detail/goods_detail?id=' + id+'&type=0',
     })
   },
 })

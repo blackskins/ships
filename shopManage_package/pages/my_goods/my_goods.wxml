@@ -12,7 +12,7 @@
       <image src='/images/search_icon.png'></image>
     </view>
     <view>
-      <input type='text' placeholder='请输入关键词搜索'  bindinput='inputKeyWord' value='{{ keyWord }}' confirm-type='search' maxlength='20' placeholder-class='holder' bindconfirm='searchKeyWord' />
+      <input type='text' placeholder='请输入关键词搜索' bindinput='inputKeyWord' value='{{ keyWord }}' confirm-type='search' maxlength='20' placeholder-class='holder' bindconfirm='searchKeyWord' />
     </view>
     <view class='clear-input center' bindtap='clearInput' wx:if='{{ clearIcon }}'>
       <image src='/images/cancel_icon1.png'></image>
@@ -35,7 +35,7 @@
 
 
 <!-- 筛选类型的项 -->
-<view class='item-box' wx:for='{{ itemList }}' wx:key='' wx:if='{{ id == index }}'>
+<view class='item-box scroll-fn' style='max-height:{{ scrollHeight }}px' wx:for='{{ itemList }}' wx:key='' wx:if='{{ id == index }}'>
   <view wx:if='{{ currentType == 0 }}' class="choose-item center {{ type == index  ? 'active' :'' }}" wx:for='{{ item.list }}' wx:key='' bindtap='changeStatus' id='{{ index }}'>{{ item.title }}</view>
   <view wx:if='{{ currentType == 1 }}' class="choose-item center {{ area == index  ? 'active' :'' }}" wx:for='{{ item.list }}' wx:key='' bindtap='changeStatus' id='{{ index }}'>{{ item.title }}</view>
   <view wx:if='{{ currentType == 2 }}' class="choose-item center {{ deal == index  ? 'active' :'' }}" wx:for='{{ item.list }}' wx:key='' bindtap='changeStatus' id='{{ index }}'>{{ item.title }}</view>
@@ -44,30 +44,48 @@
 <view class='type-mask' wx:if='{{ id != null  }}' style='height:{{ scrollHeight }}px' bindtap='hideChoose' catchtouchmove='stopMove'></view>
 
 <!-- 服务列表 -->
-<scroll-view class='scroll-fn' scroll-y style='height:{{ scrollHeight }}px;'>
-  <view class='hot-list' wx:for='{{ hotList }}' wx:key='' id='{{ item.id }}' bindtap='toGoodsDetail'>
-    <view class='bottom-line'>
-      <view class='list-left'>
-        <image src='{{ item.imgUrl }}' mode='aspectFill'></image>
-      </view>
-      <view class='list-right'>
-        <view class='list-title hd-text'>{{ item.title }}</view>
-        <view class='middle-box'>
-          <view class='type'>
-            <view class='ship-type'>类型：{{ item.ship_type }}</view>
-            <view class='deal-type'>交易类型：{{ item.deal_type }}</view>
-          </view>
-          <view class='show-btn {{ item.showStatus ?"show-active":"" }}' catchtap='isShow' data-show_status='{{ item.showStatus }}' id='{{ index }}'>{{ item.showStatus ? '已推荐':'推荐' }}</view>
+<scroll-view class='scroll-fn' scroll-y style='height:{{ scrollHeight }}px;' bindscrolltolower='reachBottom'>
+  <view class='item-content'>
+    <view class='hot-list' style='height:{{currentIndex == index? itemHeight:defaultHeight }}rpx;transform:{{ currentIndex == index ? translateX : "none"}};transition:{{ nothing }}' wx:for='{{ hotList }}' wx:key='' id='{{ item._id }}' bindtap='toGoodsDetail'>
+      <view class='bottom-line'>
+        <view class='list-left'>
+          <image src='{{ item.img }}' mode='aspectFill'></image>
         </view>
-        <view class='bot-box'>
-          <view class='list-time'>{{ item.create_time }}</view>
-          <view class='btn'>
-            <view class='del-btn' catchtap='delGoods' id='{{ index }}'>删除</view>
-            <view class='edit-btn' catchtap='toEdit' id='1'>编辑</view>
+        <view class='list-right'>
+          <view class='list-title hd-text'>{{ item.title }}</view>
+          <view class='middle-box'>
+            <view class='type'>
+              <view class='ship-type'>类型：{{ item.typeName}}</view>
+              <view class='deal-type'>交易类型：{{ item.tradeTypeName }}</view>
+            </view>
+            <view class='show-btn ' wx:if='{{ !item.isRecommend }}' catchtap='isShow' data-_id='{{ item._id }}' id='0'>推荐</view>
+            <view class='show-btn show-active' wx:else catchtap='isShow' data-_id='{{ item._id }}' id='1'>取消推荐</view>
+          </view>
+          <view class='bot-box'>
+            <view class='list-time'>{{ item.createTime }}</view>
+            <view class='btn'>
+              <view class='del-btn' catchtap='delGoods' data-_id='{{ item._id }}' id='{{ index }}'>删除</view>
+              <view class='edit-btn' catchtap='toEdit' data-_id='{{ item._id }}' data-classify_name='{{ item.classifyName }}' data-classify_code='{{ item.classifyCode }}' id='1'>编辑</view>
+            </view>
           </view>
         </view>
       </view>
     </view>
+  </view>
+  <view class='bottom_jiazai' wx:if="{{loading && page>1}}">
+    <image src='../../../images/loadmore.gif'></image>
+    <text>玩命加载中...</text>
+  </view>
+  <view class='bottom_jiazai' wx:if="{{nodata && hotList.length>0}}">
+    <view></view>
+    <text class='no'>已加载全部内容</text>
+  </view>
+  <!-- 没有数据的状态 -->
+  <view class='none-box' wx:if='{{hotList.length==0 && page >1}}'>
+    <view class='none-img'>
+      <image src='/images/nothing.png'></image>
+    </view>
+    <view class='none-txt'>空空如也，切换关键字或者筛选类别试试～</view>
   </view>
 </scroll-view>
 
@@ -75,12 +93,12 @@
 <view class='push-btn' bindtap='toEdit' id='0'>发布信息</view>
 
 <!-- 删除弹窗 -->
-<view class='del-mask' style='height:{{ scrollHeight1 }}px' catchtouchmove='stopMove' wx:if='{{ showMask }}'>
-  <view class='del-pop'>
+<view class='del-mask' style='height:{{ scrollHeight1 }}px;opacity:{{ opacity }}' catchtouchmove='stopMove' wx:if='{{ showMask }}'>
+  <view class='del-pop' style='animation:{{ animate }}'>
     <view class='del-tips'>是否删除删除</view>
     <view class='btn-box'>
       <view class='yes' bindtap='confirm'>确认删除</view>
-      <view class='no' bindtap='cancelDel'>返回</view>
+      <view class='no1' bindtap='cancelDel'>返回</view>
     </view>
   </view>
 </view>

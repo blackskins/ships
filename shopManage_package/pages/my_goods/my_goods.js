@@ -1,4 +1,8 @@
 // shopManage_package/pages/my_goods/my_goods.js
+import{ My_goods_model } from './my_goods_model.js'
+var my_goods_model = new My_goods_model()
+import { Common } from '../../../utils/common_model.js'
+var common = new Common()
 var $ = require('../../../utils/common.js')
 var QQMapWX = require('../../../utils/qqmap-wx-jssdk.min.js');
 var qqmapsdk;
@@ -8,16 +12,40 @@ Page({
    * 页面的初始数据
    */
   data: {
+    opacity:0,
+    animate:'none',
+    nothing: 'all .5s',
+    currentIndex: 'fly',//删除 当前项的索引下标
+    itemHeight: 220,//商品项高度
+    defaultHeight: 0,//商品项默认高度
+    translateX: 'none',//商品项向左飞出
     port:'',
     keyWord:'',
     clearIcon:false,
     scrollHeight: '',
+    hotList: [],//平台发布信息列表
+    classifyCode: '',//分类码
+    classifyName: '',//分类名
+    title: '',
+    userId:'',
+    _id: '',
     id: null,
     currentType: '',
     currentItem: '',
     type: '',
     area: '',
     deal: '',
+    page: 1,
+    pageSize: 10,
+    loading_state: false,
+    loading: false,
+    nodata: false,
+    isMore: true,
+    typeCode: '',
+    locationCode: '',
+    tradeTypeCode: '',
+    areaName: ['北京市', '天津市', '河北省', '山西省', '内蒙古自治区', '辽宁省', '吉林省', '黑龙江省', '上海市', '江苏省', '浙江省', '安徽省', '福建省', '江西省', '山东省', '河南省', '湖北省', '湖南省', '广东省', '广西壮族自治区', '海南省', '重庆市', '四川省', '贵州省', '云南省', '西藏自治区', '陕西省', '甘肃省', '青海省', '宁夏回族自治区', '新疆自治区', '台湾省', '香港特别行政区', '澳门特别行政区'],
+    areaCode: ['110000', '120000', '130000', '140000', '150000', '210000', '220000', '230000', '310000', '320000', '330000', '340000', '350000', '360000', '370000', '410000', '420000', '430000', '440000', '450000', '460000', '500000', '510000', '520000', '530000', '540000', '610000', '620000', '630000', '640000', '650000', '710000', '810000', '820000'],
     chooseList: [ //筛选种类
       {
         title: '类型'
@@ -33,138 +61,32 @@ Page({
       {
         id: 0,
         list: [{
-          title: '不限'
-        },
-        {
-          title: '散货船'
-        },
-        {
-          title: '游船'
-        },
-        {
-          title: '拖轮'
-        },
-        {
-          title: '驳船'
-        },
-        {
-          title: '客轮'
+          title: '不限',
+          typeCode:''
         }
         ]
       },
       {
         id: 1,
         list: [{
-          title: '不限'
-        },
-        {
-          title: '北京'
-        },
-        {
-          title: '上海'
-        },
-        {
-          title: '天津'
-        },
-        {
-          title: '广东'
-        },
-        {
-          title: '河北'
+          title: '不限',
+          locationCode:''
         }
         ]
       },
       {
         id: 2,
         list: [{
-          title: '不限'
-        },
-        {
-          title: '出售'
-        },
-        {
-          title: '收购'
-        },
-        {
-          title: '出租'
-        },
-        {
-          title: '求购'
-        },
-        {
-          title: '求租'
+          title: '不限',
+          tradeTypeCode:''
         }
         ]
       }
     ],
-    hotList: [{
-      imgUrl: '/images/goods_img1.png',
-      title: '北京盈客通天下科技有限公司',
-      ship_type: '轮船',
-      deal_type: '出租',
-      create_time: '2019.01.11 16:43',
-      showStatus:false
-    },
-    {
-      imgUrl: '/images/goods_img2.png',
-      title: '北京盈客通天下科技有限公司',
-      ship_type: '轮船',
-      deal_type: '出租',
-      create_time: '2019.01.11 16:43',
-      showStatus:false
-    },
-    {
-      imgUrl: '/images/goods_img3.png',
-      title: '北京盈客通天下科技有限公司',
-      ship_type: '轮船',
-      deal_type: '出租',
-      create_time: '2019.01.11 16:43',
-      showStatus:false
-    },
-    {
-      imgUrl: '/images/goods_img4.png',
-      title: '北京盈客通天下科技有限公司',
-      ship_type: '轮船',
-      deal_type: '出租',
-      create_time: '2019.01.11 16:43',
-      showStatus:false
-    },
-    {
-      imgUrl: '/images/goods_img1.png',
-      title: '北京盈客通天下科技有限公司',
-      ship_type: '轮船',
-      deal_type: '出租',
-      create_time: '2019.01.11 16:43',
-      showStatus:false
-    },
-    {
-      imgUrl: '/images/goods_img2.png',
-      title: '北京盈客通天下科技有限公司',
-      ship_type: '轮船',
-      deal_type: '出租',
-      create_time: '2019.01.11 16:43',
-      showStatus:false
-    },
-    {
-      imgUrl: '/images/goods_img3.png',
-      title: '北京盈客通天下科技有限公司',
-      ship_type: '轮船',
-      deal_type: '出租',
-      create_time: '2019.01.11 16:43',
-      showStatus:false
-    },
-    {
-      imgUrl: '/images/goods_img4.png',
-      title: '北京盈客通天下科技有限公司',
-      ship_type: '轮船',
-      deal_type: '出租',
-      create_time: '2019.01.11 16:43',
-      showStatus:false
-    }
-    ],
+    hotList: [],
     showMask: false, //删除的蒙层
     currentId:'', // 商品当前索引id
-    isShow:false,//是否推荐商品
+    isRecommend:false,//是否推荐商品
   },
   /**
    * 生命周期函数--监听页面加载
@@ -179,10 +101,16 @@ Page({
     this.setData({
       scrollHeight: height,
       scrollHeight1: height1,
-      port:options.port
+      port:options.port,
+      userId:options.userId
     })
+    this._getCategoryList(options.userId)
+    this._dealAreaInfo() //获取筛选栏的 地区信息
+    this._getDealType() //获取交易类型项
   },
   onShow() {
+    var userId = this.data.userId
+    this._getCategoryList(userId)
     // 地理位置信息授权
     if (!wx.getStorageSync("isHand")) { //地理位置
       this.getUserLocation();
@@ -298,6 +226,43 @@ Page({
     }
     this.getUserLocation();
   },
+  //处理地区信息
+  _dealAreaInfo() {
+    var list = this.data.itemList[1].list
+    var areaArray = this.data.areaName
+    var areaCodeArray = this.data.areaCode
+    for (let i = 0; i < areaArray.length; i++) {
+      var area = {
+        title: areaArray[i],
+        locationCode: areaCodeArray[i]
+      }
+      list.push(area)
+    }
+    this.setData({
+      "itemList[1].list": list
+    })
+  },
+  //处理交易类型
+  _getDealType() {
+    var list = this.data.itemList[2].list
+    common.getDealType((res) => {
+      console.log(res)
+      if (res.code != 0) {
+        $.prompt(res.msg, 2500)
+        return false
+      }
+      for (let i = 0; i < res.data.length; i++) {
+        var dealType = {
+          title: res.data[i].typeName,
+          tradeTypeCode: res.data[i].typeCode
+        }
+        list.push(dealType)
+      }
+      this.setData({
+        "itemList[2].list": list
+      })
+    })
+  },
   // 输入关键词搜索 
   inputKeyWord(e) {
     var keyWord = e.detail.value
@@ -327,6 +292,24 @@ Page({
   // 点击键盘右下角的搜索按钮
   searchKeyWord() {
     console.log('正在搜索...')
+    var userId = this.data.userId
+    this.setData({
+      page: 1,
+      pageSize: 10,
+      loading_state: false,
+      loading: false,
+      nodata: false,
+      isMore: true,
+      id: null,
+      type: 0,
+      area: 0,
+      deal: 0,
+      typeCode: '',
+      locationCode: '',
+      tradeTypeCode: ''
+    }, (res) => {
+      this._getCategoryList(userId) //搜索
+    })
   },
   // 返回主页
   toShopIndex() {
@@ -337,13 +320,22 @@ Page({
   // 选择类型
   chooseType(e) {
     var id = e.currentTarget.id
+    var userId = this.data.userId
     console.log(id)
     this.setData({
-      currentType: id
+      currentType: id,
+      page: 1,
+      pageSize: 10,
+      loading_state: false,
+      loading: false,
+      nodata: false,
+      isMore: true,
     })
     if (this.data.id == id && this.data.id != null) {
       this.setData({
         id: null
+      }, () => {
+        this._getCategoryList(userId) //搜索
       })
     } else {
       this.setData({
@@ -353,25 +345,38 @@ Page({
   },
   // 隐藏选项 和 蒙层
   hideChoose() {
+    var userId = this.data.userId
     this.setData({
-      id: null
+      id: null,
+      page: 1,
+      pageSize: 10,
+      loading_state: false,
+      loading: false,
+      nodata: false,
+      isMore: true,
+    }, () => {
+      this._getCategoryList(userId) //搜索
     })
   },
   // 改变状态
   changeStatus(e) {
     var id = e.currentTarget.id
+    var list = this.data.itemList
     console.log(id)
     if (this.data.currentType == 0) {
       this.setData({
-        type: id
+        type: id,
+        typeCode: list[0].list[id].typeCode
       })
     } else if (this.data.currentType == 1) {
       this.setData({
-        area: id
+        area: id,
+        locationCode: list[1].list[id].locationCode
       })
     } else if (this.data.currentType == 2) {
       this.setData({
-        deal: id
+        deal: id,
+        tradeTypeCode: list[2].list[id].tradeTypeCode
       })
     }
   },
@@ -380,55 +385,122 @@ Page({
     return false
   },
   // 删除商品
-  delGoods(e){
+  delGoods(e) {
     var id = e.currentTarget.id
+    var _id = e.currentTarget.dataset._id
     console.log(id)
     this.setData({
       showMask: true,
-      currentId:id
+      opacity: 1,
+      animate: 'animate .3s',
+      currentId: id,
+      _id: _id
     })
   },
   // 确认删除
   confirm() {
     var id = this.data.currentId
+    this.setData({
+      currentIndex: id
+    })
+    var _id = this.data._id
     var list = this.data.hotList
     list.splice(id, 1)
-    this.setData({
-      showMask: false,
-      hotList:list
-    }, () => {
-      $.prompt('删除成功')
+    // this.setData({
+
+    // })
+    my_goods_model.delInfo(_id, (res) => {
+      console.log(res)
+      if (res.code != 0) {
+        $.prompt(res.msg, 2500)
+        return false
+      }
+      this.setData({
+        opacity: 0,
+        animate: 'back .5s'
+      }, () => {
+        setTimeout(() => {
+          this.setData({
+            showMask: false,
+            translateX: 'translateX(-120%)',
+            itemHeight: 0,
+          }, () => {
+            setTimeout(() => {
+              this.setData({
+                hotList: list,
+                currentIndex: 'fly',
+                translateX: 'none',
+                itemHeight: 220,
+                nothing: 'none'
+              }, () => {
+                $.prompt('删除成功')
+                this.setData({
+                  nothing: 'all .5s'
+                })
+              })
+            }, 500)
+          })
+        }, 500)
+      })
     })
   },
   // 取消删除商品
   cancelDel() {
     this.setData({
-      showMask: false
+      opacity:0,
+      animate:'back .5s'
+    },()=>{
+      setTimeout(()=>{
+        this.setData({
+          showMask: false
+        })
+      },500)
     })
   },
   // 发布或编辑商品
   toEdit(e){
     var id = e.currentTarget.id
     var port = this.data.port
+    var _id = e.currentTarget.dataset._id
+    var userId = this.data.userId
+    var classifyName = e.currentTarget.dataset.classify_name
+    var classifyCode = e.currentTarget.dataset.classify_code
     wx.navigateTo({
-      url: '../edit_goods/edit_goods?id='+id+'&port='+port,
+      url: '../edit_goods/edit_goods?id='+id+'&port='+port+'&_id='+_id+'&userId='+userId+'&classifyName='+classifyName+'&classifyCode='+classifyCode,
+    })
+  },
+  _pushListRecommend(data,tips){//推荐列表接口
+    my_goods_model.pushListRecommend(data,(res)=>{
+      console.log(res)
+      if(res.code != 0){
+        $.prompt(res.msg)
+        return false
+      }
+      $.prompt(tips)
     })
   },
   // 将商品设置为推荐商品
   isShow(e){
     var id = e.currentTarget.id
-    var showStatus = e.currentTarget.dataset.show_status
-    var list = this.data.hotList
+    var _id = e.currentTarget.dataset._id
     // console.log(id)
-    if(showStatus){
-      // console.log('sfasf')
-      return false
-    }else{
-      var str = "hotList["+id+"].showStatus"
+    if(id == 0){
       this.setData({
-        [str]:true
+        "hotList.isRecommend":false
       },()=>{
-        $.prompt('成功推荐到列表')
+        console.log(res)
+        var data = {
+          _id:_id,
+          status:false,
+        }
+        var tips = '取消推荐成功'
+        this._pushListRecommend(data,tips)
+      })
+    }else if(id == 1){
+      this.setData({
+        ""
+      },()=>{
+        $.prompt('成功推荐到首页列表')
       })
     }
   },
@@ -438,5 +510,68 @@ Page({
     wx.navigateTo({
       url: '/index_package/pages/goods_detail/goods_detail?id=' + id+'&type=1',
     })
+  },
+  //获取平台发布信息查询列表
+  _getCategoryList(userId) {
+    var data = {
+      page: this.data.page,
+      pageSize: this.data.pageSize,
+      classifyCode: this.data.classifyCode,
+      title: this.data.keyWord,
+      locationCode: this.data.locationCode,
+      tradeTypeCode: this.data.tradeTypeCode,
+      typeCode: this.data.typeCode,
+      userId: userId
+    }
+    var list = this.data.hotList
+    var loading = true
+    var isMore = true
+    var time = 0
+    var nodata = false
+    if (data.page == 1) {
+      $.openLoad();
+    }
+    my_goods_model.getCategoryList(data, (res) => {
+      console.log(res)
+      if (res.code != 0) {
+        $.prompt(res.msg, 2500)
+        return false
+      }
+      if (res.data.length < 10) {
+        isMore = false
+        nodata = true,
+          loading = false
+      }
+      if (data.page == 1) {
+        list = res.data
+      } else {
+        list = res.data ? list.concat(res.data) : list
+        time = 300
+      }
+      setTimeout(() => {
+        this.setData({
+          hotList: list,
+          page: parseInt(data.page) + 1,
+          isMore: isMore,
+          loading: loading,
+          loading_state: false,
+          nodata: nodata
+        }, () => {
+          if (data.page == 1) {
+            $.closeLoad()
+          }
+          this.setData({
+            defaultHeight: 220,
+          })
+        })
+      },
+        time
+      )
+    })
+  },
+  //触底加载
+  reachBottom() {
+    var userId = this.data.userId
+    this._getCategoryList(userId)
   },
 })

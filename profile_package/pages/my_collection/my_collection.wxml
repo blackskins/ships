@@ -17,7 +17,7 @@
 </view>
 
 <!-- 收藏列表 -->
-<scroll-view scroll-y style='height:{{ scrollHeight }}px' bindscrolltolower='reachBottom'>
+<scroll-view scroll-y style='height:{{ scrollHeight }}px;position:relative' bindscrolltolower='reachBottom'>
   <view class='hot-list' style='height:{{ itemHeight }}rpx' wx:for='{{ collectList }}' wx:key='' data-index='{{ index }}' id='{{ item.postId }}' catchtap='toGoodsDetail'>
     <view class='bottom-line'>
       <view class='list-left'>
@@ -45,6 +45,14 @@
   <view class='bottom_jiazai' wx:if="{{nodata && collectList.length>0}}">
     <view></view>
     <text class='no'>已加载全部内容</text>
+  </view>
+
+  <!-- 没有数据的状态 -->
+  <view class='none-box' wx:if='{{collectList.length==0 && page >1}}'>
+    <view class='none-img'>
+      <image src='/images/nothing.png'></image>
+    </view>
+    <view class='none-txt'>空空如也，可以前往商品详情添加哦～</view>
   </view>
 </scroll-view>
 

@@ -21,7 +21,7 @@
   </view>
   <view class='my-right'><image src='/images/arrow_icon.png'></image></view>
 </view>
-<view class='my-item line' style='height:{{ itemHeight }}rpx' bindtap='toUrl' data-url='../../../shopManage_package/pages/my_goods/my_goods?port=1'>
+<view class='my-item line' style='height:{{ itemHeight }}rpx' bindtap='toUrl' data-url='../../../shopManage_package/pages/my_goods/my_goods?port=1&userId={{ userId }}'>
   <view class='my-left center'>
     <view class='icon center'><image src='../../images/shop1.png'></image></view>
     <view class='my-title'>我的商品</view>

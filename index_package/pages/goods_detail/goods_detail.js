@@ -25,12 +25,30 @@ Page({
       type: options.type,
       id: options.id
     })
-    this._getInfoDetail() //获取信息详情
+    if(options.type == 0){
+      this._getInfoDetail(options.id) //获取信息详情
+    }else if(options.type == 1){
+      this._getBusinessInfoDetail(options.id)
+    }
   },
-  //获取信息详情
-  _getInfoDetail() {
-    var _id = this.data.id
+  //获取平台信息详情
+  _getInfoDetail(_id) {
     goods_detail_model.getInfoDetail(_id, (res) => {
+      console.log(res)
+      if (res.code != 0) {
+        $.prompt(res.msg, 2500)
+        return false
+      }
+      this.setData({
+        detailList: res.data
+      }, () => {
+        $.closeLoad()
+      })
+    })
+  },
+  //获取商家信息详情
+  _getBusinessInfoDetail(_id) {
+    goods_detail_model.getBusinessInfoDetail(_id, (res) => {
       console.log(res)
       if (res.code != 0) {
         $.prompt(res.msg, 2500)

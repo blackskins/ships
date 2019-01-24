@@ -36,9 +36,9 @@
 
 
 <!-- 筛选类型的项 -->
-<view class='item-box' wx:for='{{ itemList }}' wx:key='' wx:if='{{ id == index }}'>
+<view class='item-box scroll-fn' style='max-height:{{ scrollHeight }}px' wx:for='{{ itemList }}' wx:key='' wx:if='{{ id == index }}'>
   <view wx:if='{{ currentType == 0 }}' class="choose-item center {{ type == index  ? 'active' :'' }}" wx:for='{{ item.list }}' wx:key='' bindtap='changeStatus' id='{{ index }}'>{{ item.title }}</view>
-  <view wx:if='{{ currentType == 1 }}' class="choose-item center {{ area == index  ? 'active' :'' }}" wx:for='{{ item.list }}' wx:key='' bindtap='changeStatus' id='{{ index }}'>{{ item.title }}</view>
+  <view wx:if='{{ currentType == 1 }}' class="choose-item hd-text center {{ area == index  ? 'active' :'' }}" wx:for='{{ item.list }}' wx:key='' bindtap='changeStatus' id='{{ index }}'>{{ item.title }}</view>
   <view wx:if='{{ currentType == 2 }}' class="choose-item center {{ deal == index  ? 'active' :'' }}" wx:for='{{ item.list }}' wx:key='' bindtap='changeStatus' id='{{ index }}'>{{ item.title }}</view>
 </view>
 <!-- 背景蒙层 -->
@@ -77,6 +77,13 @@
   <view class='bottom_jiazai' wx:if="{{nodata && hotList.length>0}}">
     <view></view>
     <text class='no'>已加载全部内容</text>
+  </view>
+  <!-- 没有数据的状态 -->
+  <view class='none-box' wx:if='{{hotList.length==0 && page >1}}'>
+    <view class='none-img'>
+      <image src='/images/nothing.png'></image>
+    </view>
+    <view class='none-txt'>空空如也，切换关键字或者筛选类别试试～</view>
   </view>
 </scroll-view>
 

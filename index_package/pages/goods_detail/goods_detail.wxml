@@ -25,7 +25,7 @@
   <view class='goods-num' wx:for='{{ detailList.basicInfo }}' wx:key=''>{{ item.field }}： {{ item.value }}</view>
   <!-- <view class='goods-num'>供应： 0</view>
   <view class='goods-num'>发货： 0天内</view> -->
-  <view class='call' bindtap='phoneCall' data-num='{{ detailList.phone }}'>询价</view>
+  <view class='call' bindtap='phoneCall' data-num='{{ detailList.phone }}'>咨询</view>
 </view>
 
 <!-- 基本信息 -->
@@ -47,7 +47,7 @@
   <!-- 内容 -->
   <view class='info-txt'>{{ detailList.information }}</view>
   <!-- 图片 -->
-  <view class='info-img center'>
-    <image src='/../../../images/banner.png' mode='aspectFit'></image>
+  <view class='info-img center' wx:for='{{ detailList.infoList }}' wx:key=''>
+    <image src='{{ item}}' mode='aspectFit'></image>
   </view>
 </view>

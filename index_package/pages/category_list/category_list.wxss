@@ -127,6 +127,10 @@ page{
   z-index: 4;
 }
 
+.scroll-fn{
+  position: relative;
+}
+
 /* 推荐列表 */
 .hot-list{
   background-color: #fff;

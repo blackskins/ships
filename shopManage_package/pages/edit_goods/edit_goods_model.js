@@ -81,6 +81,41 @@ class Edit_goods_model extends Base{
     }
     this.request(params)
   }
+  //获取商家发布信息详情
+  getBusinessInfoDetail(_id, callback) {
+    let params = {
+      url: '/shop/message-detail',
+      data: {
+        _id: _id,
+      },
+      sCallback: (res) => {
+        callback && callback(res)
+      }
+    }
+    this.request(params)
+  }
+  // 商家发布信息
+  businessPushInfo(data,callback){
+    let params = {
+      url: '/shop/message-create',
+      data: data,
+      sCallback: (res) => {
+        callback && callback(res)
+      }
+    }
+    this.request(params)
+  }
+  // 商家编辑商品信息
+  businessEditInfo(data, callback) {
+    let params = {
+      url: '/shop/message-update',
+      data: data,
+      sCallback: (res) => {
+        callback && callback(res)
+      }
+    }
+    this.request(params)
+  }
 }
 export{
   Edit_goods_model

@@ -111,6 +111,7 @@ page{
   /* text-indent: 2em; */
 }
 .info-img image{
+  flex-wrap: wrap;
   width: 600rpx;
   height: 300rpx;
 }

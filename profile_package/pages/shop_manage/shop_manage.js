@@ -10,12 +10,16 @@ Page({
   data: {
     itemHeight:0,
     shopBasicInfo:'',
+    userId:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({
+      userId:options.userId
+    })
   },
   onShow(){
     this._getShopBasicInfo()//获取店铺基本信息

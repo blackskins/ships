@@ -71,6 +71,13 @@
     <view></view>
     <text class='no'>已加载全部内容</text>
   </view>
+  <!-- 没有数据的状态 -->
+  <view class='none-box' wx:if='{{hotList.length==0 && page >1}}'>
+    <view class='none-img'>
+      <image src='/images/nothing.png'></image>
+    </view>
+    <view class='none-txt'>空空如也，切换关键字或者筛选类别试试～</view>
+  </view>
 </scroll-view>
 
 <!-- 发布按钮 -->
