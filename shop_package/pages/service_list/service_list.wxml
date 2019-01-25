@@ -41,20 +41,37 @@
 <view class='type-mask' wx:if='{{ id != null  }}' style='height:{{ scrollHeight }}px' bindtap='hideChoose' catchtouchmove='stopMove'></view>
 
 <!-- 服务列表 -->
-<scroll-view class='scroll-fn' scroll-y style='height:{{ scrollHeight }}px'>
-  <view class='hot-list' wx:for='{{ hotList }}' wx:key='' id='{{ item.id }}' bindtap='toGoodsDetail'>
+<scroll-view bindscrolltolower='reachBottom' scroll-y class='scroll-fn' style='height:{{ scrollHeight }}px'>
+  <view class='hot-list' wx:for='{{ hotList }}' style='height:{{ itemHeight }}rpx' wx:key='' id='{{ item._id }}' bindtap='toGoodsDetail'>
     <view class='bottom-line'>
       <view class='list-left'>
-        <image src='{{ item.imgUrl }}' mode='aspectFill'></image>
+        <image src='{{ item.img }}' mode='aspectFill'></image>
       </view>
       <view class='list-right'>
         <view class='list-title hd-text'>{{ item.title }}</view>
         <view class='type'>
-          <view class='ship-type'>类型：{{ item.ship_type }}</view>
-          <view class='deal-type'>交易类型：{{ item.deal_type }}</view>
+          <view class='ship-type'>类型：{{ item.typeName }}</view>
+          <view class='deal-type'>交易类型：{{ item.tradeTypeName }}</view>
         </view>
-        <view class='list-time'>{{ item.create_time }}</view>
+        <view class='list-time'>{{ item.createTime }}</view>
       </view>
     </view>
+  </view>
+
+  <!--加载 -->
+  <view class='bottom_jiazai' wx:if="{{loading && page>1}}">
+    <image src='../../../images/loadmore.gif'></image>
+    <text>玩命加载中...</text>
+  </view>
+  <view class='bottom_jiazai' wx:if="{{nodata && hotList.length>0}}">
+    <view></view>
+    <text class='no'>已加载全部内容</text>
+  </view>
+  <!-- 没有数据的状态 -->
+  <view class='none-box' wx:if='{{hotList.length==0 && page >1}}'>
+    <view class='none-img'>
+      <image src='/images/nothing.png'></image>
+    </view>
+    <view class='none-txt'>空空如也，切换关键字或者筛选类别试试～</view>
   </view>
 </scroll-view>

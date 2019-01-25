@@ -1,0 +1,2 @@
+<!--index_package/pages/ad_page/ad_page.wxml-->
+<web-view src="{{ imgURL }}"></web-view>

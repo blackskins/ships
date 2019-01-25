@@ -80,7 +80,7 @@ Page({
           nodata: nodata
         }, () => {
           this.setData({
-            itemHeight: 220
+            itemHeight: 212
           })
           if (page == 1) {
             $.closeLoad()

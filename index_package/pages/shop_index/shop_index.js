@@ -14,13 +14,7 @@ Page({
   data: {
     shopSlider:[],
     cateHeight:0,
-    businessCategory: [
-      {
-        iconUrl: '../../images/shop_4.png',
-        title: '更多服务',
-        id: 4
-      }
-    ],
+    businessCategory: [],
     adList: [{
         imgUrl: '/images/ad1.png',
       },
@@ -28,6 +22,13 @@ Page({
         imgUrl: '/images/ad2.png',
       },
     ],
+    shopUserId:'',
+    page: 1,
+    pageSize: 10,
+    loading_state: false,
+    loading: false,
+    nodata: false,
+    isMore: true,
     hotList: [{
         imgUrl: '/images/goods_img1.png',
         title: '北京盈客通天下科技有限公司',
@@ -71,8 +72,12 @@ Page({
     qqmapsdk = new QQMapWX({
       key: '7Z2BZ-EYW6W-KQYRN-OVYVU-WAY7E-O3FC4'
     });
-    this._getShopSliderImg(options._id)
-    this._getBusinessCategory()
+    this.setData({
+      shopUserId:options.userId
+    })
+    this._getShopSliderImg(options._id) //获取店铺首页轮播
+    this._getBusinessCategory() // 获取店铺分类
+    this._getBusinessRecommend(options.userId) //获取店铺首页推荐列表
   },
   onShow() {
     // 地理位置信息授权
@@ -218,6 +223,11 @@ Page({
   // 点击键盘右下角的搜索按钮
   searchKeyWord() {
     console.log('正在搜索...')
+    var keyWord = this.data.keyWord
+    wx.navigateTo({
+      url: '../../../shop_package/pages/service_list/service_list?title=全部分类'+'&keyWord='+keyWord,
+    })
+    
   },
   //获取店铺首页轮播图
   _getShopSliderImg(_id){
@@ -255,6 +265,7 @@ Page({
   toListDetail(e) {
     var id = e.currentTarget.id
     var title = e.currentTarget.dataset.title
+    var classifyCode = e.currentTarget.dataset.classify
     var port = e.currentTarget.dataset.port
     if (id == 4) {
       wx.navigateTo({
@@ -262,9 +273,64 @@ Page({
       })
     } else {
       wx.navigateTo({
-        url: '../../../shop_package/pages/service_list/service_list?id=' + id + '&title=' + title+'&port='+port,
+        url: '../../../shop_package/pages/service_list/service_list?id=' + id + '&title=' + title+'&port='+port+'&classifyCode='+classifyCode,
       })
     }
+  },
+  //获取店铺首页推荐商品列表
+  _getBusinessRecommend(shopUserId) {
+    var page = this.data.page
+    var pageSize = this.data.pageSize
+    var list = this.data.hotList
+    var loading = true
+    var isMore = true
+    var time = 0
+    var nodata = false
+    if (page == 1) {
+      $.openLoad();
+    }
+    shop_index_model.getBusinessRecommend(page,pageSize,shopUserId, (res) => {
+      console.log(res)
+      if (res.code != 0) {
+        $.prompt(res.msg, 2500)
+        return false
+      }
+      if (res.data.length < 10) {
+        isMore = false
+        nodata = true,
+          loading = false
+      }
+      if (page == 1) {
+        list = res.data
+      } else {
+        list = res.data ? list.concat(res.data) : list
+        time = 500
+      }
+      setTimeout(() => {
+        this.setData({
+          hotList: list,
+          page: parseInt(page) + 1,
+          isMore: isMore,
+          loading: loading,
+          loading_state: false,
+          nodata: nodata
+        }, () => {
+          if (page == 1) {
+            $.closeLoad()
+          }
+        })
+      },
+        time
+      )
+    })
+  },
+  
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
+    var shopUserId = this.data.shopUserId
+    this._getCategoryList(shopUserId)
   },
   // 跳转商品详情
   toGoodsDetail(e) {
@@ -272,12 +338,6 @@ Page({
     wx.navigateTo({
       url: '/index_package/pages/goods_detail/goods_detail?id=' + id+'&type=1',
     })
-  },
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
   },
 
   /**

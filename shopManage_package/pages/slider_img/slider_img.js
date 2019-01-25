@@ -31,10 +31,27 @@ Page({
       imgType:options.port,
       _id:options._id
     })
+    this._getShopSlider(options._id) //首次进来获取轮播图填充到相应的位置
   },
   // 禁止弹窗蒙层下可滑动
   stopMove() {
     return false
+  },
+  //获取店铺轮播图
+  _getShopSlider(_id){
+    $.openLoad()
+    slider_img_model.getShopSliderImg(_id,(res)=>{
+      console.log(res)
+      if(res.code != 0){
+        $.prompt(res.msg,2500)
+        return false
+      }
+      this.setData({
+        imgs:res.data.imgList
+      },()=>{
+        $.closeLoad()
+      })
+    })
   },
   // 选择图片
   upload(e) {

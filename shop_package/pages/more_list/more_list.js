@@ -1,4 +1,7 @@
 // shop_package/pages/more_list/more_list.js
+import { More_list_model } from './more_list_model.js'
+var aa = new More_list_model()
+var $ = require('../../../utils/common.js')
 Page({
 
   /**
@@ -6,75 +9,30 @@ Page({
    */
   data: {
     scrollHeight:'',
-    list:[
-      {
-        title: '服务',
-        id:1
-      },
-      {
-        title: '用品',
-        id:2
-      },
-      {
-        title: '维修',
-        id:3
-      },
-      {
-        title: '助航',
-        id:4
-      },
-      {
-        title: '加油',
-        id:5
-      },
-    ]
+    list:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    const info = wx.getSystemInfoSync()
-    var height1 = info.windowHeight - (88 * info.windowWidth / 750)
-    this.setData({
-      scrollHeight: height1,
-    })
+    this._getBusinessCategory()
   },
-  // 返回主页
-  toShopIndex() {
-    wx.navigateBack({
-      delta: 1
-    })
-  },
-  // 输入关键词搜索 
-  inputKeyWord(e) {
-    var keyWord = e.detail.value
-    this.setData({
-      keyWord: keyWord
-    })
-    if (this.data.keyWord != '') {
+  //获取所有分类列表
+  _getBusinessCategory(){
+    aa.getBusinessCategory((res)=>{
+      $.openLoad()
+      console.log(res)
+      if(res.code != 0){
+        $.prompt(res.msg,2500)
+        return false
+      }
       this.setData({
-        clearIcon: true
-      })
-    } else {
-      this.setData({
-        clearIcon: false
-      })
-    }
-  },
-  // 清空输入框
-  clearInput() {
-    this.setData({
-      keyWord: ''
-    }, () => {
-      this.setData({
-        clearIcon: false
+        list:res.data
+      },()=>{
+        $.closeLoad()
       })
     })
-  },
-  // 点击键盘右下角的搜索按钮
-  searchKeyWord() {
-    console.log('正在搜索...')
   },
   // 跳转到列表详情页
   toListDetail(e){

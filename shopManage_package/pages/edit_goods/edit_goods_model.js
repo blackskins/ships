@@ -47,10 +47,23 @@ class Edit_goods_model extends Base{
     }
     this.request(params)
   }
-  // 获取类型
+  // 获取平台分类下的类型shop/typeList
   getType(classifyCode, callback) {
     let params = {
       url: '/sys/typeList',
+      data: {
+        classifyCode: classifyCode
+      },
+      sCallback: (res) => {
+        callback && callback(res)
+      }
+    }
+    this.request(params)
+  }
+  // 获取商家店铺下的类型
+  getShopType(classifyCode, callback) {
+    let params = {
+      url: '/shop/typeList',
       data: {
         classifyCode: classifyCode
       },
@@ -71,10 +84,20 @@ class Edit_goods_model extends Base{
     }
     this.request(params)
   }
-  //获取所有分类
+  //获取平台所有分类
   getAllCategory(callback) {
     let params = {
       url: '/sys/classify',
+      sCallback: (res) => {
+        callback && callback(res)
+      }
+    }
+    this.request(params)
+  }
+  //获取平台所有分类
+  getBusinessAllCategory(callback) {
+    let params = {
+      url: '/shop/classify',
       sCallback: (res) => {
         callback && callback(res)
       }

@@ -35,8 +35,8 @@
     <view class='latest'>最新</view>
   </view>
   <swiper autoplay="true" vertical='{{ true }}' interval="5000" duration="400" circular='true'>
-    <swiper-item wx:for="11111" wx:key=''>
-      <view class='scroll-tips hd-text'>重磅消息：北京市盈客通网络科技有限公司</view>
+    <swiper-item wx:for="{{ scrollTips }}" wx:key=''>
+      <view class='scroll-tips hd-text'>{{ item.content }}</view>
     </swiper-item>
   </swiper>
 </view>
@@ -59,12 +59,11 @@
 <!-- 广告banner -->
 <view class='ad-box '>
   <view class='ad-left'>
-    <image src='/images/ad.png'></image>
+      <image src='{{ adList[0].img }}' bindtap='toImgUrl' data-title='{{ adList[0].title }}' data-url='{{ adList[0].skipUrl }}'></image>
   </view>
   <view class='ad-right'>
-    <block wx:for='{{ adList }}' wx:key=''>
-      <image src='{{ item.imgUrl }}'></image>
-    </block>
+      <image src='{{ adList[1].img }}' bindtap='toImgUrl' data-title='{{ adList[0].title }}' data-url='{{ adList[1].skipUrl }}'></image>
+      <image src='{{ adList[2].img }}' bindtap='toImgUrl' data-title='{{ adList[0].title }}' data-url='{{ adList[2].skipUrl }}'></image>
   </view>
 </view>
 
@@ -72,32 +71,32 @@
 <view class='hot-title'>
   <text class='stick'></text>热门推荐</view>
 
-<view class='hot-list' wx:for='{{ hotList }}' wx:key='' id='{{ item.id }}' bindtap='toGoodsDetail'>
+<view class='hot-list' wx:for='{{ hotList }}' wx:key='' id='{{ item.postMessage._id }}' bindtap='toGoodsDetail'>
   <view class='bottom-line'>
     <view class='list-left'>
-      <image src='{{ item.imgUrl }}' mode='aspectFill'></image>
+      <image src='{{ item.postMessage.img }}' mode='aspectFill'></image>
     </view>
     <view class='list-right'>
-      <view class='list-title hd-text'>{{ item.title }}</view>
+      <view class='list-title hd-text'>{{ item.postMessage.title }}</view>
       <view class='type'>
-        <view class='ship-type'>类型：{{ item.ship_type }}</view>
-        <view class='deal-type'>交易类型：{{ item.deal_type }}</view>
+        <view class='ship-type'>类型：{{ item.postMessage.typeName }}</view>
+        <view class='deal-type'>交易类型：{{ item.postMessage.tradeTypeName }}</view>
       </view>
-      <view class='list-time'>{{ item.create_time }}</view>
+      <view class='list-time'>{{ item.postMessage.createTime }}</view>
     </view>
   </view>
 </view>
 
 <!--加载 -->
 <view class='bottom_jiazai' wx:if="{{loading && page>1}}">
-  <image src='../../../../assets/images/loadmore.gif'></image>
+  <image src='/images/loadmore.gif'></image>
   <text>玩命加载中...</text>
 </view>
 <view class='bottom_jiazai' wx:if="{{nodata && hotList.length>0}}">
   <view></view>
   <text class='no'>已加载全部内容</text>
 </view>
-<view class='read-more center' bindtap='loadMore' wx:else>查看更多</view>
+<!-- <view class='read-more center' bindtap='loadMore' wx:else>查看更多</view> -->
 
 <!-- ；联系我们 -->
 <view wx:if='{{ categoryId != 4 }}' bindtap='phoneCall' class='link-us'>联系我们</view>

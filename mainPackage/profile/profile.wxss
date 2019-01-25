@@ -115,7 +115,7 @@ page{
 /* 底部版权信息 */
 .copyright{
   font-size: 22rpx;
-  color: #333;
+  color: #999999;
   display: flex;
   justify-content: center;
   align-items: center;

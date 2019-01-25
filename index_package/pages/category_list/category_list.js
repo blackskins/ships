@@ -18,7 +18,7 @@ Page({
    */
   data: {
     itemHeight: 0, //列表项高度
-    categoryId: '',
+    categoryId: '',//这个是首页分类的第四个图标
     keyWord: '', //输入框的关键字
     clearIcon: false,
     scrollHeight: '',
@@ -35,12 +35,14 @@ Page({
     title: '',
     id: null, //筛选种类的下标
     currentItem: '',
+    currentType:'',
     type: 0, //选中类型 当前项的下标
     area: 0, //选中地区 当前项的下标
     deal: 0, //选中交易类型 当前项的下标
     typeCode: '',
     locationCode: '',
     tradeTypeCode: '',
+    shopName:'',//店铺名
     chooseList: [ //筛选种类
       {
         title: '类型'
@@ -112,7 +114,11 @@ Page({
       console.log('adffa')
       this.getLocation()
     }
-    this._getCategoryList() //获取平台发布信息
+    if( this.data.categoryId != 4 ){
+      this._getCategoryList() //获取平台发布信息
+    }else{
+      this._getShopList()//获取平台下所有店铺商家列表
+    }
   },
   // 获取用户所在位置信息
   getUserLocation: function() {
@@ -328,10 +334,61 @@ Page({
               $.closeLoad()
             }
             this.setData({
-              itemHeight: 220
+              itemHeight: 212
             })
           })
         },
+        time
+      )
+    })
+  },
+  //获取平台下所有店铺商家列表
+  _getShopList() {
+    var page= this.data.page
+    var pageSize= this.data.pageSize
+    var shopName= this.data.keyWord
+    var list = this.data.hotList
+    var loading = true
+    var isMore = true
+    var time = 0
+    var nodata = false
+    if (page == 1) {
+      $.openLoad();
+    }
+    category_list_model.getShopList(page,pageSize,shopName, (res) => {
+      console.log(res)
+      if (res.code != 0) {
+        $.prompt(res.msg, 2500)
+        return false
+      }
+      if (res.data.length < 10) {
+        isMore = false
+        nodata = true,
+          loading = false
+      }
+      if (page == 1) {
+        list = res.data
+      } else {
+        list = res.data ? list.concat(res.data) : list
+        time = 500
+      }
+      setTimeout(() => {
+        this.setData({
+          hotList: list,
+          page: parseInt(page) + 1,
+          isMore: isMore,
+          loading: loading,
+          loading_state: false,
+          nodata: nodata
+        }, () => {
+          if (page == 1) {
+            $.closeLoad()
+          }
+          this.setData({
+            itemHeight: 212
+          })
+        })
+      },
         time
       )
     })
@@ -371,17 +428,23 @@ Page({
       loading_state: false,
       loading: false,
       nodata: false,
-      isMore: true,
-      id:null,
-      type: 0, 
-      area: 0, 
-      deal: 0,
-      typeCode:'',
-      locationCode:'',
-      tradeTypeCode:''
-    }, (res) => {
-      this._getCategoryList() //搜索
+      isMore: true
     })
+    if(this.data.categoryId !=4){
+      this.setData({
+        id: null,
+        type: 0,
+        area: 0,
+        deal: 0,
+        typeCode: '',
+        locationCode: '',
+        tradeTypeCode: ''
+      }, (res) => {
+        this._getCategoryList() //平台商品信息搜索
+      })
+    }else{
+      this._getShopList() //店铺商家搜索
+    }
   },
   // 返回主页
   toShopIndex() {
@@ -459,13 +522,14 @@ Page({
   // 跳转列表详情
   toCategoryDetail(e) {
     var id = e.currentTarget.id
+    var _id = e.currentTarget.dataset._id
     if (this.data.categoryId == 4) {
       wx.navigateTo({
-        url: '/index_package/pages/shop_index/shop_index?id=' + id,
+        url: '/index_package/pages/shop_index/shop_index?userId=' + id+'&_id='+_id,
       })
     } else {
       wx.navigateTo({
-        url: '../goods_detail/goods_detail?id=' + id + '&type=0',
+        url: '../goods_detail/goods_detail?id='+ id + '&type=0',
       })
     }
   },

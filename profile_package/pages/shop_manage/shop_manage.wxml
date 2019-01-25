@@ -35,7 +35,7 @@
   </view>
   <view class='my-right'><image src='/images/arrow_icon.png'></image></view>
 </view>
-<view class='my-item' style='height:{{ itemHeight }}rpx' bindtap='toUrl' data-url='../../../index_package/pages/shop_index/shop_index?_id={{ shopBasicInfo._id }}'>
+<view class='my-item' style='height:{{ itemHeight }}rpx' bindtap='toUrl' data-url='../../../index_package/pages/shop_index/shop_index?_id={{ shopBasicInfo._id }}&userId={{ userId }}'>
   <view class='my-left center'>
     <view class='icon center'><image src='../../images/shop3.png'></image></view>
     <view class='my-title'>我的店铺</view>

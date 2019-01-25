@@ -33,12 +33,22 @@ class Index_model extends Base{
   //获取平台推荐信息列表
   getRecommendList(page,pageSize,callback){
     let params = {
-      url:'sys/recommendList',
+      url:'/sys/recommendList',
       data:{
         page:page,
         pageSize:pageSize
       },
       sCallback:(res)=>{
+        callback && callback(res)
+      }
+    }
+    this.request(params)
+  }
+  //获取首页广告信息
+  getBannerInfo(callback) {
+    let params = {
+      url: '/sys/advertisingList',
+      sCallback: (res) => {
         callback && callback(res)
       }
     }

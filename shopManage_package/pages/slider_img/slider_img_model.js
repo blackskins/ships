@@ -14,13 +14,26 @@ class Slider_img_model extends Base {
     }
     this.request(params)
   }
-  //上传店铺轮播图
+  //上传店铺轮播图/shop/slideshow
   updateSliderImg(_id, imgList, callback) {
     let params = {
       url: '/shop/slideshow-update',
       data: {
         _id: _id,
         imgList: imgList
+      },
+      sCallback: (res) => {
+        callback && callback(res)
+      }
+    }
+    this.request(params)
+  }
+  //获取店铺轮播图
+  getShopSliderImg(_id, callback) {
+    let params = {
+      url: '/shop/slideshow',
+      data: {
+        _id: _id
       },
       sCallback: (res) => {
         callback && callback(res)

@@ -11,6 +11,21 @@ class Category_list_model extends Base{
     }
     this.request(params)
   }
+  //获取平台下所有商家店铺信息列表
+  getShopList(page,pageSize,shopName, callback) {
+    let params = {
+      url: '/shop/shopList',
+      data: {
+        page:page,
+        pageSize:pageSize,
+        shopName:shopName
+      },
+      sCallback: (res) => {
+        callback && callback(res)
+      }
+    }
+    this.request(params)
+  }
 }
 export{
   Category_list_model

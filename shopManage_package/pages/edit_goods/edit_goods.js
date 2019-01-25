@@ -100,7 +100,11 @@ Page({
         title: '发布消息',
       })
       this._getBaseInfo() //获取平台基本信息字段
-      this._getAllCategory() //获取平台所有分类
+      if(options.port == 0){
+        this._getAllCategory() //获取平台所有分类
+      }else if( options.port == 1 ){
+        this._getBusinessAllCategory()//获取商家店铺所有分类
+      }
     } else if (options.id == 1) {
       $.openLoad('正在读取数据...')
       wx.setNavigationBarTitle({
@@ -152,9 +156,25 @@ Page({
       location: 'category'
     })
   },
-  //获取所有分类
+  //获取平台所有分类
   _getAllCategory() {
     edit_goods_model.getAllCategory((res) => {
+      console.log(res)
+      var categoryName = new Array();
+      for (let i = 0; i < res.data.length; i++) {
+        categoryName.push(res.data[i].classifyName)
+      }
+      this.setData({
+        categoryList: res.data,
+        categoryName: categoryName
+      }, () => {
+        $.closeLoad()
+      })
+    })
+  },
+  //获取商家店铺所有分类
+  _getBusinessAllCategory() {
+    edit_goods_model.getBusinessAllCategory((res) => {
       console.log(res)
       var categoryName = new Array();
       for (let i = 0; i < res.data.length; i++) {
@@ -277,21 +297,37 @@ Page({
       var classifyCode = this.data.classifyCode
     }
     console.log('nishi' + classifyCode)
-    edit_goods_model.getType(classifyCode, (res) => {
-      console.log(res)
-      var typeName = new Array()
-      // var typeCode = new Array()
-      var data = res.data
-      for (let i = 0; i < data.length; i++) {
-        typeName.push(data[i].typeName)
-      }
-      this.setData({
-        typeArray: typeName,
-        typeList: res.data
+    if(this.data.port == 0){//获取平台类型信息
+      edit_goods_model.getType(classifyCode, (res) => {
+        console.log(res)
+        var typeName = new Array()
+        // var typeCode = new Array()
+        var data = res.data
+        for (let i = 0; i < data.length; i++) {
+          typeName.push(data[i].typeName)
+        }
+        this.setData({
+          typeArray: typeName,
+          typeList: res.data
+        })
       })
-    })
+    }else{//获取商家店铺下某个分类的所有类型
+      edit_goods_model.getShopType(classifyCode, (res) => {
+        console.log(res)
+        var typeName = new Array()
+        // var typeCode = new Array()
+        var data = res.data
+        for (let i = 0; i < data.length; i++) {
+          typeName.push(data[i].typeName)
+        }
+        this.setData({
+          typeArray: typeName,
+          typeList: res.data
+        })
+      })
+    }
   },
-
+  
   //选择地区
   bindAreaChange: function(e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)

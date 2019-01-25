@@ -16,7 +16,7 @@ Page({
     animate:'none',
     nothing: 'all .5s',
     currentIndex: 'fly',//删除 当前项的索引下标
-    itemHeight: 220,//商品项高度
+    itemHeight: 218,//商品项高度
     defaultHeight: 0,//商品项默认高度
     translateX: 'none',//商品项向左飞出
     port:'',
@@ -109,6 +109,14 @@ Page({
     this._getDealType() //获取交易类型项
   },
   onShow() {
+    this.setData({
+      page: 1,
+      pageSize: 10,
+      loading_state: false,
+      loading: false,
+      nodata: false,
+      isMore: true
+    })
     var userId = this.data.userId
     this._getCategoryList(userId)
     // 地理位置信息授权
@@ -430,7 +438,7 @@ Page({
                 hotList: list,
                 currentIndex: 'fly',
                 translateX: 'none',
-                itemHeight: 220,
+                itemHeight: 218,
                 nothing: 'none'
               }, () => {
                 $.prompt('删除成功')
@@ -463,8 +471,13 @@ Page({
     var port = this.data.port
     var _id = e.currentTarget.dataset._id
     var userId = this.data.userId
-    var classifyName = e.currentTarget.dataset.classify_name
-    var classifyCode = e.currentTarget.dataset.classify_code
+    if(id == 1){
+      var classifyName = e.currentTarget.dataset.classify_name
+      var classifyCode = e.currentTarget.dataset.classify_code
+    }else{
+      var classifyName = ''
+      var classifyCode = ''
+    }
     wx.navigateTo({
       url: '../edit_goods/edit_goods?id='+id+'&port='+port+'&_id='+_id+'&userId='+userId+'&classifyName='+classifyName+'&classifyCode='+classifyCode,
     })
@@ -483,24 +496,30 @@ Page({
   isShow(e){
     var id = e.currentTarget.id
     var _id = e.currentTarget.dataset._id
+    var index = e.currentTarget.dataset.index
+    var str = "hotList[" + index + "].isRecommend"
     // console.log(id)
     if(id == 0){
       this.setData({
-        "hotList.isRecommend":false
+        [str]:true
       },()=>{
-        console.log(res)
         var data = {
           _id:_id,
-          status:false,
+          status:true,
         }
         var tips = '取消推荐成功'
         this._pushListRecommend(data,tips)
       })
     }else if(id == 1){
       this.setData({
-        ""
+        [str]:false
       },()=>{
-        $.prompt('成功推荐到首页列表')
+        var data = {
+          _id:_id,
+          status:false
+        }
+        var tips = '成功推荐到首页列表'
+        this._pushListRecommend(data,tips)
       })
     }
   },
@@ -561,7 +580,7 @@ Page({
             $.closeLoad()
           }
           this.setData({
-            defaultHeight: 220,
+            defaultHeight: 218,
           })
         })
       },

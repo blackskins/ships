@@ -58,8 +58,8 @@
               <view class='ship-type'>类型：{{ item.typeName}}</view>
               <view class='deal-type'>交易类型：{{ item.tradeTypeName }}</view>
             </view>
-            <view class='show-btn ' wx:if='{{ !item.isRecommend }}' catchtap='isShow' data-_id='{{ item._id }}' id='0'>推荐</view>
-            <view class='show-btn show-active' wx:else catchtap='isShow' data-_id='{{ item._id }}' id='1'>取消推荐</view>
+            <view class='show-btn ' wx:if='{{ !item.isRecommend }}' catchtap='isShow' data-index='{{index}}' data-_id='{{ item._id }}' id='0'>推荐</view>
+            <view class='show-btn show-active' wx:else catchtap='isShow' data-index='{{index}}' data-_id='{{ item._id }}' id='1'>取消推荐</view>
           </view>
           <view class='bot-box'>
             <view class='list-time'>{{ item.createTime }}</view>
@@ -72,6 +72,7 @@
       </view>
     </view>
   </view>
+  
   <view class='bottom_jiazai' wx:if="{{loading && page>1}}">
     <image src='../../../images/loadmore.gif'></image>
     <text>玩命加载中...</text>

@@ -45,8 +45,24 @@
   <view class='type-mask' wx:if='{{ id != null  }}' style='height:{{ scrollHeight1  }}px' bindtap='hideChoose' catchtouchmove='stopMove'></view>
 </view>
 <!-- 服务列表 -->
-<scroll-view bindscrolltolower='reachBottom' scroll-y class='scroll-fn' style='height:{{ categoryId == 4 ? scrollHeight3 : scrollHeight }}px'>
-  <view class='hot-list' wx:for='{{ hotList }}' style='height:{{ itemHeight }}rpx' wx:key='' bindtap='toCategoryDetail' id='{{ item._id }}'>
+<scroll-view bindscrolltolower='reachBottom' scroll-y class='scroll-fn' style='height:{{ categoryId == 4 || categoryId == 0 ? scrollHeight3 : scrollHeight }}px'>
+  <view class='hot-list' wx:for='{{ hotList }}' style='height:{{ itemHeight }}rpx' wx:key='' data-port='{{ categoryId != 4 ? "0":"1" }}' bindtap='toCategoryDetail' id='{{ categoryId != 4 ? item._id :item.shopUserId }}' data-_id='{{ categoryId == 4 ?  item._id :""}}'>
+    <view class='bottom-line'>
+      <view class='list-left'>
+        <image src='{{ categoryId != 4 ? item.img :item.shopLogo}}' mode='aspectFill'></image>
+      </view>
+      <view class='list-right'>
+        <view class='list-title hd-text'>{{ categoryId != 4 ? item.title :item.shopName }}</view>
+        <view class='type' wx:if='{{ categoryId != 4 }}'>
+          <view class='ship-type'>类型：{{ item.typeName }}</view>
+          <view class='deal-type'>交易类型：{{ item.tradeTypeName}}</view>
+        </view>
+        <view class='list-time {{ categoryId == 4 ? "ship-store":"" }}'>{{ item.createTime }}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- <view class='hot-list' wx:for='{{ hotList }}' style='height:{{ itemHeight }}rpx' wx:key='' bindtap='toCategoryDetail' id='{{ item._id }}'>
     <view class='bottom-line'>
       <view class='list-left'>
         <image src='{{ item.img }}' mode='aspectFill'></image>
@@ -60,7 +76,7 @@
         <view class='list-time {{ categoryId == 4 ? "ship-store":"" }}'>{{ item.createTime }}</view>
       </view>
     </view>
-  </view>
+  </view> -->
 
   <!--加载 -->
   <view class='bottom_jiazai' wx:if="{{loading && page>1}}">
@@ -81,7 +97,7 @@
 </scroll-view>
 
 <!-- 发布按钮 -->
-<view class='push' wx:if='{{ categoryId != 4 }}' bindtap='toPush'>发布信息</view>
+<view class='push' wx:if='{{ categoryId != 4 &&  categoryId != 0}}' bindtap='toPush'>发布信息</view>
 
 <!-- 联系我们浮窗 -->
 <view wx:if='{{ categoryId != 4 }}' bindtap='phoneCall' class='link-us'>联系我们</view>

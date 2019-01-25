@@ -83,7 +83,7 @@ Page({
             $.closeLoad()
           }
           this.setData({
-            itemHeight:220
+            itemHeight:212
           })
         })
       },

@@ -25,13 +25,10 @@ class My_goods_model extends Base {
     this.request(params)
   }
   //是否推荐产品到店铺首页
-  pushListRecommend(_id, status,callback) {
+  pushListRecommend(data,callback) {
     let params = {
       url: '/shop/setRecommend',
-      data: {
-        _id: _id,
-        status:status
-      },
+      data: data,
       sCallback: (res) => {
         callback && callback(res)
       }

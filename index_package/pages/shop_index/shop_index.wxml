@@ -35,7 +35,7 @@
 <!-- 导航栏 -->
 <view class='navList' style='height:{{cateHeight}}' rpx>
   <block wx:for="{{ businessCategory }}" wx:key=''>
-    <view wx:if='{{ item.defult }}' id='{{ item.sort }}' data-title='{{ item.classifyName }}' data-port='item' bindtap='toListDetail'>
+    <view wx:if='{{ item.defult }}' id='{{ item.sort }}' data-title='{{ item.classifyName }}' data-classify='{{ item.classifyCode }}' data-port='item' bindtap='toListDetail'>
       <image class="navList-img" src="{{item.logo}}"></image>
       <text class='navList-txt'>{{ item.classifyName }}</text>
     </view>
@@ -50,20 +50,30 @@
 <view class='hot-title'>
   <text class='stick'></text>热门推荐</view>
 
-<view class='hot-list' wx:for='{{ hotList }}' wx:key='' id='{{ item.id }}' bindtap='toGoodsDetail'>
+<view class='hot-list' wx:for='{{ hotList }}' wx:key='' id='{{ item._id }}' bindtap='toGoodsDetail'>
   <view class='bottom-line'>
     <view class='list-left'>
-      <image src='{{ item.imgUrl }}' mode='aspectFill'></image>
+      <image src='{{ item.img }}' mode='aspectFill'></image>
     </view>
     <view class='list-right'>
       <view class='list-title hd-text'>{{ item.title }}</view>
       <view class='type'>
-        <view class='ship-type'>类型：{{ item.ship_type }}</view>
-        <view class='deal-type'>交易类型：{{ item.deal_type }}</view>
+        <view class='ship-type'>类型：{{ item.typeName }}</view>
+        <view class='deal-type'>交易类型：{{ item.tradeTypeName }}</view>
       </view>
-      <view class='list-time'>{{ item.create_time }}</view>
+      <view class='list-time'>{{ item.createTime }}</view>
     </view>
   </view>
 </view>
 
-<view class='read-more center'>查看更多</view>
+<!-- <view class='read-more center' bindtap=''>查看更多</view> -->
+
+<!-- 加载更多 -->
+<view class='bottom_jiazai' wx:if="{{loading && page>1}}">
+    <image src='../../../images/loadmore.gif'></image>
+    <text>玩命加载中...</text>
+  </view>
+  <view class='bottom_jiazai' wx:if="{{nodata && hotList.length>0}}">
+    <view></view>
+    <text class='no'>已加载全部内容</text>
+  </view>

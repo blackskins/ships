@@ -12,31 +12,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    scrollList: [{
-        imgUrl: '/images/banner.png'
-      },
-      {
-        imgUrl: '/images/banner.png'
-      },
-      {
-        imgUrl: '/images/banner.png'
-      },
-      {
-        imgUrl: '/images/banner.png'
-      },
-      {
-        imgUrl: '/images/banner.png'
-      },
-    ],
-    cateList: [],
+    scrollList: [],//轮播图
+    scrollTips:[],//通知轮播
+    cateList: [],//广告图
     navHeight:0,//导航栏高度
-    adList: [{
-        imgUrl: '/images/ad1.png',
-      },
-      {
-        imgUrl: '/images/ad2.png',
-      },
-    ],
+    adList: [], //广告banner图
     hotList: [{
         imgUrl: '/images/goods_img1.png',
         title: '北京盈客通天下科技有限公司',
@@ -87,6 +67,8 @@ Page({
     this._getIndexSlide() //获取首页轮播图
     this._getIndexInfoSlide() //获取首页公告轮播
     this._getIndexCategory() //获取首页分类导航
+    this._getRecommendList() //平台首页推荐列表信息查询
+    this._getBannerInfo() //获取首页广告banner图
   },
   onShow() {
     // 地理位置信息授权
@@ -205,13 +187,27 @@ Page({
   // 获取首页轮播图
   _getIndexSlide(){
     index_model.getIndexSlide((res)=>{
+      if(res.code != 0){
+        $.prompt(res.msg,2500)
+        return false
+      }
       console.log(res)
+      this.setData({
+        scrollList:res.data
+      })
     })
   },
   // 获取首页公告轮播
   _getIndexInfoSlide() {
     index_model.getIndexInfoSlide((res) => {
       console.log(res)
+      if(res.code != 0){
+        $.prompt(res.msg,2500)
+        return false
+      }
+      this.setData({
+        scrollTips:res.data
+      })
     })
   },
   //获取首页分类导航
@@ -230,9 +226,9 @@ Page({
     })
   },
   //获取平台首页推荐列表
-  _getRecommendList(){
-    var that = this
+  _getRecommendList() {
     var page = this.data.page
+    var pageSize = this.data.pageSize
     var list = this.data.hotList
     var loading = true
     var isMore = true
@@ -241,18 +237,22 @@ Page({
     if (page == 1) {
       $.openLoad();
     }
-    index_model.getRecommendList(page,pageSize,(res)=>{
+    index_model.getRecommendList(page, pageSize, (res) => {
       console.log(res)
-      if (res.data.length < 10) {
+      if (res.code != 0) {
+        $.prompt(res.msg, 2500)
+        return false
+      }
+      if (res.data.list.length < 10) {
         isMore = false
         nodata = true,
           loading = false
       }
       if (page == 1) {
-        list = res.data
+        list = res.data.list
       } else {
-        list = res.data ? list.concat(res.data) : list
-        time = 1000
+        list = res.data.list ? list.concat(res.data.list) : list
+        time = 500
       }
       setTimeout(() => {
         this.setData({
@@ -272,6 +272,14 @@ Page({
       )
     })
   },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+    console.log('djlksalksdskd')
+    this._getRecommendList()
+  },
   // 禁止滑动
   stopMove() {
     return false
@@ -286,35 +294,50 @@ Page({
       wx.switchTab({
         url: '../category/category',
       })
-    }else {
+    }else if(id == 0){
       wx.navigateTo({
-        url: '../../index_package/pages/category_list/category_list?id=' + id + '&title=' + title+'&classify='+classify,
+        url: '../../index_package/pages/category_list/category_list?id=' + id + '&title=' + title+'&classify=',
+      })
+    }else{
+      wx.navigateTo({
+        url: '../../index_package/pages/category_list/category_list?id=' + id + '&title=' + title + '&classify=' + classify,
       })
     }
 
   },
+  //获取首页广告banner信息
+  _getBannerInfo(){
+    index_model.getBannerInfo((res)=>{
+      console.log(res)
+      if(res.code != 0){
+        $.prompt(res.msg,2500)
+        return false
+      }
+      this.setData({
+        adList:res.data
+      })
+    })
+  },
   // 跳转商品详情
   toGoodsDetail(e){
     var id = e.currentTarget.id
+    var title = e.currentTarget.title
     wx.navigateTo({
-      url: '/index_package/pages/goods_detail/goods_detail?id='+id+'&type=0',
+      url: '/index_package/pages/goods_detail/goods_detail?id='+id+'&type=0'+'&title='+title,
+    })
+  },
+  //跳转广告链接的地址
+  toImgUrl(e){
+    var imgUrl = e.currentTarget.dataset.url
+    wx.navigateTo({
+      url: '../../index_package/pages/ad_page/ad_page?imgUrl='+imgUrl,
     })
   },
   // 联系我们
   phoneCall() {
     wx.makePhoneCall({
-      phoneNumber: '13318569456',
+      phoneNumber: '158130155452',
     })
-  },
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-  //底部查看更多
-  loadMore(){
-    console.log('玩命加载中')
   },
   /**
    * 用户点击右上角分享

@@ -52,7 +52,8 @@
         "pages/push_info/push_info",
         "pages/shop_index/shop_index",
         "pages/category_list/category_list",
-        "pages/goods_detail/goods_detail"
+        "pages/goods_detail/goods_detail",
+        "pages/ad_page/ad_page"
       ]
     },
     {
