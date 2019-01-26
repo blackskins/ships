@@ -17,7 +17,7 @@ Page({
     nothing: 'all .5s',
     currentIndex: 'fly',//删除 当前项的索引下标
     itemHeight: 218,//商品项高度
-    defaultHeight: 0,//商品项默认高度
+    defaultHeight: 218,//商品项默认高度
     translateX: 'none',//商品项向左飞出
     port:'',
     keyWord:'',
@@ -579,9 +579,9 @@ Page({
           if (data.page == 1) {
             $.closeLoad()
           }
-          this.setData({
-            defaultHeight: 218,
-          })
+          // this.setData({
+          //   defaultHeight: 218,
+          // })
         })
       },
         time

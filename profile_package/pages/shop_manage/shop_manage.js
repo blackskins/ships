@@ -8,7 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    itemHeight:0,
+    // itemHeight:0,
     shopBasicInfo:'',
     userId:''
   },
@@ -37,9 +37,9 @@ Page({
         shopBasicInfo:res.data,
       },(res)=>{
         $.closeLoad()
-        this.setData({
-          itemHeight:96
-        })
+        // this.setData({
+        //   itemHeight:96
+        // })
       })
     })
   },

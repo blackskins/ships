@@ -2,7 +2,7 @@
 page{
   background-color: #F2F3F7;
 }
-.holder{
+/* .holder{
   font-size: 26rpx;
   color: #B2B2B2;
 }
@@ -54,20 +54,24 @@ page{
 .clear-input image{
   width: 40rpx;
   height: 40rpx;
-}
+} */
 
+.item-content{
+  background-color: #FF6675;
+}
 /* 收藏列表 */
 .hot-list{
   background-color: #fff;
-  overflow: hidden;
-  transition: all .5s;
+  height: 212rpx;
+  /* overflow: hidden;
+  transition: all .5s; */
 }
-.hot-list:first-child{
+/* .hot-list:first-child{
   margin-top: 20rpx; 
-}
-.hot-list:last-child{
+} */
+/* .hot-list:last-child{
   margin-bottom: 20rpx; 
-}
+} */
 .list-left image{
   width: 160rpx;
   height: 160rpx;
@@ -85,7 +89,7 @@ page{
 }
 .list-title{
   font-size: 28rpx;
-  font-weight: 600;
+  /* font-weight: 600; */
   max-width: 500rpx;
 }
 .type{
@@ -122,6 +126,7 @@ page{
   width: 100%;
   height: 100%;
   z-index: 12;
+  transition: all .5s;
 }
 .del-pop{
   width: 580rpx;

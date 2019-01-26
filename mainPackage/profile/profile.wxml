@@ -23,7 +23,7 @@
 
 <!-- 我的选项 -->
 
-<view class='my-item vip' style='height:{{ itemHeight }}rpx' wx:if='{{ true }}' bindtap='beVip'>
+<view class='my-item vip' wx:if='{{ true }}' bindtap='beVip'>
   <view class='my-left center'>
     <view class='icon center'>
       <image src='/images/vip.png'></image>
@@ -35,7 +35,7 @@
   </view>
 </view>
 
-<view class='my-item line' style='height:{{ itemHeight }}rpx' bindtap='toJoinBusiness' wx:if='{{ userData.userType == 10 }}'>
+<view class='my-item line' bindtap='toJoinBusiness' wx:if='{{ userData.userType == 10 }}'>
   <view class='my-left center'>
     <view class='icon center'>
       <image src='/images/business.png'></image>
@@ -46,7 +46,7 @@
     <image src='/images/arrow_icon.png'></image>
   </view>
 </view>
-<view class='my-item line' style='height:{{ itemHeight }}rpx' bindtap='toMyPush'>
+<view class='my-item line' bindtap='toMyPush'>
   <view class='my-left center'>
     <view class='icon center'>
       <image src='/images/push.png'></image>
@@ -57,7 +57,7 @@
     <image src='/images/arrow_icon.png'></image>
   </view>
 </view>
-<view class='my-item' style='height:{{ itemHeight }}rpx' bindtap='toShopManage' wx:if='{{ userData.userType == 20 }}'>
+<view class='my-item' bindtap='toShopManage' wx:if='{{ userData.userType == 20 }}'>
   <view class='my-left center'>
     <view class='icon center'>
       <image src='/images/shop.png'></image>
@@ -68,7 +68,7 @@
     <image src='/images/arrow_icon.png'></image>
   </view>
 </view>
-<view class='my-item cate-car' style='height:{{ itemHeight }}rpx' bindtap='toShopping'>
+<view class='my-item cate-car' bindtap='toShopping'>
   <view class='my-left center'>
     <view class='icon center'>
       <image src='/images/cate_car.png'></image>

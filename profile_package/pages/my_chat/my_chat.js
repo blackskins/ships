@@ -8,7 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    itemHeight: 0,//正常的列表项的高度
+    // itemHeight: 0,//正常的列表项的高度
     keyWord: '',
     inputFocus: false,
     inputMask: true,
@@ -34,7 +34,7 @@ Page({
   onLoad: function (options) {
     const info = wx.getSystemInfoSync()
     console.log(info)
-    var height1 = info.windowHeight - (88 * info.windowWidth / 750)
+    var height1 = info.windowHeight - (0 * info.windowWidth / 750)
     console.log(height1)
     this.setData({
       scrollHeight: height1,
@@ -82,9 +82,9 @@ Page({
           if (page == 1) {
             $.closeLoad()
           }
-          this.setData({
-            itemHeight:212
-          })
+          // this.setData({
+          //   itemHeight:212
+          // })
         })
       },
         time
@@ -92,48 +92,48 @@ Page({
     })
   },
   // 输入关键词搜索 
-  inputKeyWord(e) {
-    var keyWord = e.detail.value
-    this.setData({
-      keyWord: keyWord
-    })
-    if (this.data.keyWord != '') {
-      this.setData({
-        clearIcon: true
-      })
-    } else {
-      this.setData({
-        clearIcon: false
-      })
-    }
-  },
+  // inputKeyWord(e) {
+  //   var keyWord = e.detail.value
+  //   this.setData({
+  //     keyWord: keyWord
+  //   })
+  //   if (this.data.keyWord != '') {
+  //     this.setData({
+  //       clearIcon: true
+  //     })
+  //   } else {
+  //     this.setData({
+  //       clearIcon: false
+  //     })
+  //   }
+  // },
   // 清空输入框
-  clearInput() {
-    this.setData({
-      keyWord: ''
-    }, () => {
-      this.setData({
-        clearIcon: false
-      })
-    })
-  },
+  // clearInput() {
+  //   this.setData({
+  //     keyWord: ''
+  //   }, () => {
+  //     this.setData({
+  //       clearIcon: false
+  //     })
+  //   })
+  // },
   // 聚焦
-  bindSearch() {
-    if (this.data.left == '0%') {
-      return false
-    }
-    this.setData({
-      left: '0%',
-      translate: 'translate(0%,-50%)',
-      inputWidth: '550rpx'
-    })
-    setTimeout(() => {
-      this.setData({
-        inputFocus: true,
-        inputMask: false
-      })
-    }, 300)
-  },
+  // bindSearch() {
+  //   if (this.data.left == '0%') {
+  //     return false
+  //   }
+  //   this.setData({
+  //     left: '0%',
+  //     translate: 'translate(0%,-50%)',
+  //     inputWidth: '550rpx'
+  //   })
+  //   setTimeout(() => {
+  //     this.setData({
+  //       inputFocus: true,
+  //       inputMask: false
+  //     })
+  //   }, 300)
+  // },
   // 失去焦点
   // getBack() {
   //   if (this.data.keyWord == '' || this.data.keyWord == null) {
@@ -145,14 +145,14 @@ Page({
   //   }
   // }
   // 点击键盘右下角的搜索按钮
-  searchKeyWord() {
-    console.log('正在搜索...')
-  },
+  // searchKeyWord() {
+  //   console.log('正在搜索...')
+  // },
   // 跳转商品详情
   toGoodsDetail(e) {
     var id = e.currentTarget.id
     wx.navigateTo({
-      url: '/index_package/pages/goods_detail/goods_detail?id=' + id,
+      url: '/index_package/pages/goods_detail/goods_detail?id=' + id+'&type=0',
     })
   },
   // 页面触底加载更多

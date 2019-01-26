@@ -263,13 +263,12 @@ Page({
   },
   // 跳转相应的列表详情页
   toListDetail(e) {
-    var id = e.currentTarget.id
     var title = e.currentTarget.dataset.title
     var classifyCode = e.currentTarget.dataset.classify
     var port = e.currentTarget.dataset.port
-    if (id == 4) {
+    if (port == 'list') {
       wx.navigateTo({
-        url: '../../../shop_package/pages/more_list/more_list'
+        url: '../../../shopManage_package/pages/shop_category/shop_category'
       })
     } else {
       wx.navigateTo({
@@ -330,7 +329,7 @@ Page({
    */
   onReachBottom: function() {
     var shopUserId = this.data.shopUserId
-    this._getCategoryList(shopUserId)
+    this._getBusinessRecommend(shopUserId)
   },
   // 跳转商品详情
   toGoodsDetail(e) {

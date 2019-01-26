@@ -35,12 +35,12 @@
 <!-- 导航栏 -->
 <view class='navList' style='height:{{cateHeight}}' rpx>
   <block wx:for="{{ businessCategory }}" wx:key=''>
-    <view wx:if='{{ item.defult }}' id='{{ item.sort }}' data-title='{{ item.classifyName }}' data-classify='{{ item.classifyCode }}' data-port='item' bindtap='toListDetail'>
+    <view wx:if='{{ item.defult }}' data-title='{{ item.classifyName }}' data-classify='{{ item.classifyCode }}' data-port='item' bindtap='toListDetail'>
       <image class="navList-img" src="{{item.logo}}"></image>
       <text class='navList-txt'>{{ item.classifyName }}</text>
     </view>
   </block>
-  <view wx:if='{{ businessCategory.length > 0}}' id='4' data-title='更多服务' data-port='list' bindtap='toListDetail'>
+  <view wx:if='{{ businessCategory.length > 0}}' data-title='更多服务' data-port='list' bindtap='toListDetail'>
     <image class="navList-img" src="../../images/shop_4.png"></image>
     <text class='navList-txt'>更多服务</text>
   </view>

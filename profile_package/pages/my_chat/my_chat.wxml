@@ -1,5 +1,5 @@
 <!--profile_package/pages/my_chat/my_chat.wxml-->
-<view class='search-box center'>
+<!-- <view class='search-box center'>
   <view class='bg'>
     <view class='input-mask' catchtap='bindSearch' wx:if='{{ inputMask }}'></view>
     <view class='key-box' style='transform:{{ translate }};left:{{ left }}'>
@@ -14,7 +14,7 @@
       <image src='../../images/cancel_icon1.png'></image>
     </view>
   </view>
-</view>
+</view> -->
 
 <!-- 收藏列表 -->
 <scroll-view scroll-y style='height:{{ scrollHeight }}px;position:relative' bindscrolltolower='reachBottom'>
@@ -42,7 +42,6 @@
     <text>玩命加载中...</text>
   </view>
   <view class='bottom_jiazai' wx:if="{{nodata && chatList.length>0}}">
-    <view></view>
     <text class='no'>已加载全部内容</text>
   </view>
 

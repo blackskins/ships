@@ -8,7 +8,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-    itemHeight:0,//正常的列表项的高度
+    // itemHeight:0,//正常的列表项的高度
+    opacity:0,
+    animate:'none',
+    nothing: 'all .5s',
+    currentIndex: 'fly',//删除 当前项的索引下标
+    itemHeight: 212,//商品项高度
+    defaultHeight: 212,//商品项默认高度
+    translateX: 'none',//商品项向左飞出
     keyWord: '',
     inputFocus: false,
     inputMask: true,
@@ -35,7 +42,7 @@ Page({
   onLoad: function(options) {
     $.openLoad()
     const info = wx.getSystemInfoSync()
-    var height1 = info.windowHeight - (88 * info.windowWidth / 750)
+    var height1 = info.windowHeight - (0 * info.windowWidth / 750)
     this.setData({
       scrollHeight: height1,
     })
@@ -79,9 +86,9 @@ Page({
           loading_state: false,
           nodata: nodata
         }, () => {
-          this.setData({
-            itemHeight: 212
-          })
+          // this.setData({
+          //   itemHeight: 212
+          // })
           if (page == 1) {
             $.closeLoad()
           }
@@ -92,46 +99,43 @@ Page({
     })
   },
   // 输入关键词搜索 
-  inputKeyWord(e) {
-    var keyWord = e.detail.value
-    this.setData({
-      keyWord: keyWord
-    })
-    if (this.data.keyWord != '') {
-      this.setData({
-        clearIcon: true
-      })
-    } else {
-      this.setData({
-        clearIcon: false
-      })
-    }
-  },
+  // inputKeyWord(e) {
+  //   var keyWord = e.detail.value
+  //   this.setData({
+  //     keyWord: keyWord
+  //   })
+  //   if (this.data.keyWord != '') {
+  //     this.setData({
+  //       clearIcon: true
+  //     })
+  //   } else {
+  //     this.setData({
+  //       clearIcon: false
+  //     })
+  //   }
+  // },
   // 清空输入框
-  clearInput() {
-    this.setData({
-      keyWord: ''
-    }, () => {
-      this.setData({
-        clearIcon: false
-      })
-    })
-  },
+  // clearInput() {
+  //   this.setData({
+  //     keyWord: ''
+  //   }, () => {
+  //     this.setData({
+  //       clearIcon: false
+  //     })
+  //   })
+  // },
   // 聚焦
   bindSearch() {
-    // if (this.data.left == '0%') {
-    //   return false
-    // }
-    this.setData({
-      left: '0%',
-      translate: 'translate(0%,-50%)',
-      inputWidth: '550rpx'
-    }, () => {
-      this.setData({
-        inputFocus: true,
-        inputMask: false
-      })
-    })
+    // this.setData({
+    //   left: '0%',
+    //   translate: 'translate(0%,-50%)',
+    //   inputWidth: '550rpx'
+    // }, () => {
+    //   this.setData({
+    //     inputFocus: true,
+    //     inputMask: false
+    //   })
+    // })
     // setTimeout(() => {
     //   this.setData({
     //     inputFocus: true,
@@ -150,22 +154,22 @@ Page({
   //   }
   // }
   // 点击键盘右下角的搜索按钮
-  searchKeyWord() {
-    console.log('正在搜索...')
-    this.setData({
-      page: 1,
-      pageSize: 10,
-      loading_state: false,
-      loading: false,
-      nodata: false,
-      isMore: true,
-      locationCode: '',
-      tradeTypeCode: '',
-      typeCode: '',
-    }, (res) => {
-      this._getCollectionList() //搜索
-    })
-  },
+  // searchKeyWord() {
+  //   console.log('正在搜索...')
+  //   this.setData({
+  //     page: 1,
+  //     pageSize: 10,
+  //     loading_state: false,
+  //     loading: false,
+  //     nodata: false,
+  //     isMore: true,
+  //     locationCode: '',
+  //     tradeTypeCode: '',
+  //     typeCode: '',
+  //   }, (res) => {
+  //     this._getCollectionList() //搜索
+  //   })
+  // },
   //取消收藏接口
   _cancelCollection(_id){
     my_collection_model.cancelCollection(_id,(res)=>{
@@ -184,6 +188,8 @@ Page({
     console.log(postId)
     this.setData({
       showMask: true,
+      opacity:1,
+      animate:'animate .3s',
       currentId:index,
       postId: postId
     })
@@ -196,34 +202,65 @@ Page({
   confirm() {
     var list = this.data.collectList
     var index = this.data.currentId
+    this.setData({
+      currentIndex: index
+    })
     var _id = this.data.postId
     list.splice(index, 1)
     // this._cancelCollection(id) //取消收藏
     this.setData({
-      showMask: false,
-      collectList: list
-    }, () => {
-      my_collection_model.cancelCollection(_id,(res)=>{
-        console.log(res)
-        if(res.code != 0){
-          $.prompt(res.msg,2500)
-          return false
-        }
-        $.prompt('取消成功')
-      })
+      opacity:0,
+      animate:'back .5s'
+    },()=>{
+      setTimeout(()=>{
+        this.setData({
+          showMask: false,
+          translateX: 'translateX(-120%)',
+          itemHeight: 0,
+        },()=>{
+          setTimeout(()=>{
+            my_collection_model.cancelCollection(_id,(res)=>{
+              console.log(res)
+              if(res.code != 0){
+                $.prompt(res.msg,2500)
+                return false
+              }
+              this.setData({
+                collectList: list,
+                currentIndex: 'fly',
+                translateX: 'none',
+                itemHeight: 212,
+                nothing: 'none'
+              },()=>{
+                $.prompt('取消成功')
+                this.setData({
+                  nothing: 'all .5s'
+                })
+              })
+            })
+          },500)
+        })
+      },500)
     })
   },
   // 取消
   cancelDel() {
     this.setData({
-      showMask: false
+      opacity:0,
+      animate:'back .5s'
+    },()=>{
+      setTimeout(()=>{
+        this.setData({
+          showMask: false
+        })
+      },500)
     })
   },
   // 跳转商品详情
   toGoodsDetail(e) {
     var id = e.currentTarget.id
     wx.navigateTo({
-      url: '/index_package/pages/goods_detail/goods_detail?id=' + id,
+      url: '/index_package/pages/goods_detail/goods_detail?id=' + id+'&type=0',
     })
   },
   // 页面触底加载更多

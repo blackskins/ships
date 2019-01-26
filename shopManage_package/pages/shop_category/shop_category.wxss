@@ -12,8 +12,9 @@ page{
   margin-top:20rpx; 
   font-size: 28rpx;
   color: #333333;
-  overflow: hidden;
-  transition: all .5s;
+  height: 88rpx;
+  /* overflow: hidden;
+  transition: all .5s; */
 }
 .goods-num{
   font-size: 26rpx;

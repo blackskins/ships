@@ -37,6 +37,12 @@ Page({
       console.log(res)
       if (res.code != 0) {
         $.prompt(res.msg, 2500)
+        setTimeout(() => {
+          wx.navigateBack({
+            delta: 1
+          })
+
+        }, 2500)
         return false
       }
       this.setData({
@@ -52,6 +58,11 @@ Page({
       console.log(res)
       if (res.code != 0) {
         $.prompt(res.msg, 2500)
+        setTimeout(()=>{
+          wx.navigateBack({
+            delta:1
+          })
+        },2500)
         return false
       }
       this.setData({

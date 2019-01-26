@@ -8,7 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    itemHeight:0,
+    // itemHeight:0,
     shopCategory: []
   },
 
@@ -31,19 +31,19 @@ Page({
         shopCategory:res.data
       },()=>{
         $.closeLoad()
-        this.setData({
-          itemHeight:88
-        })
+        // this.setData({
+        //   itemHeight:88
+        // })
       })
     })
   },
   // 跳转到相应的列表详情
   toListDetail(e){
-    var id = e.currentTarget.id
     var title = e.currentTarget.dataset.title
+    var classifyCode = e.currentTarget.dataset.classify
     console.log(title)
     wx.navigateTo({
-      url: '../category_detail/category_detail?id='+id+'&title='+title,
+      url: '../../../shop_package/pages/service_list/service_list?title=' + title +'&classifyCode='+classifyCode+'&port=list',
     })
   }
 })

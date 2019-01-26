@@ -71,10 +71,9 @@ Page({
       }
     ],
     hotList: [],
-    listId: '', //进来时携带的类id
     keyWord: '',
     clearIcon: false,
-    port: ''
+    port: ''//判断返回主页的层数
   },
   /**
    * 生命周期函数--监听页面加载
@@ -85,11 +84,6 @@ Page({
     this.setData({
       scrollHeight: height1,
     })
-    if(options.id){
-      this.setData({
-        listId: options.id,
-      })
-    }
     if (options.port) {
       this.setData({
         port: options.port,

@@ -9,7 +9,7 @@ Page({
    */
   data: {
     cateList:[],
-    cateHeight:0
+    // cateHeight:0
   },
 
   /**
@@ -27,9 +27,9 @@ Page({
         cateList: res.data
       },()=>{
         $.closeLoad()
-        this.setData({
-          cateHeight:160
-        })
+        // this.setData({
+        //   cateHeight:160
+        // })
       })
     })
   },

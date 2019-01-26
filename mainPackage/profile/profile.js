@@ -8,7 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    itemHeight:0,
+    // itemHeight:0,
     vipMask: true,
     userData:''
   },
@@ -35,9 +35,9 @@ Page({
         userData:res.data,
       },()=>{
         $.closeLoad()
-        this.setData({
-          itemHeight:96
-        })
+        // this.setData({
+        //   itemHeight:96
+        // })
       })
     })
   },

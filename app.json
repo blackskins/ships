@@ -82,8 +82,7 @@
         "pages/my_goods/my_goods",
         "pages/slider_img/slider_img",
         "pages/my_shop/my_shop",
-        "pages/edit_goods/edit_goods",
-        "pages/category_detail/category_detail"
+        "pages/edit_goods/edit_goods"
       ]
     },
     {
